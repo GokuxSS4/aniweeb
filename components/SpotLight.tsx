@@ -1,42 +1,31 @@
 "use client";
 
 import Image from "next/image";
-
-import { Autoplay, Navigation, Pagination } from "swiper/modules";
-import { Swiper, SwiperSlide } from "swiper/react";
+import Slider from "react-slick";
 import { BsBadgeCc } from "react-icons/bs";
 import { MdMicNone } from "react-icons/md";
+import { useRef } from "react";
 import { FaRegPlayCircle } from "react-icons/fa";
 
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
+export function SpotLight({ spotLightAnimes }) {
+  const sliderRef = useRef(null);
 
-export function Slider({ spotLightAnimes }: { spotLightAnimes: any }) {
+  const settings = {
+    dots: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    pauseOnHover: false,
+  };
+
   return (
     <div className="absolute inset-0 w-full h-[600px] overflow-hidden">
-      <Swiper
-        spaceBetween={0}
-        centeredSlides={true}
-        loop={true} 
-        slidesPerView={1}
-        autoplay={{
-          delay: 5000,
-          disableOnInteraction: false,
-        }}
-        pagination={{
-          clickable: true,
-          bulletActiveClass: "swiper-pagination-bullet-active bg-purple-600",
-        }}
-        navigation={{
-          nextEl: ".swiper-button-next",
-          prevEl: ".swiper-button-prev",
-        }}
-        modules={[Autoplay, Navigation, Pagination]}
-        className="h-full w-full"
-      >
-        {spotLightAnimes.map((anime: any) => (
-          <SwiperSlide key={anime.rank} className="relative">
+      <Slider ref={sliderRef} {...settings}>
+        {spotLightAnimes.map((anime) => (
+          <div key={anime.rank} className="relative h-[600px]">
             <div className="relative w-full h-full">
               <Image
                 src={anime.poster}
@@ -49,7 +38,6 @@ export function Slider({ spotLightAnimes }: { spotLightAnimes: any }) {
                 quality={100}
                 priority
               />
-            
               <div className="absolute inset-0 bg-gradient-to-r from-black via-black/50 to-transparent" />
             </div>
 
@@ -96,11 +84,9 @@ export function Slider({ spotLightAnimes }: { spotLightAnimes: any }) {
                 </div>
               </div>
             </div>
-          </SwiperSlide>
+          </div>
         ))}
-      </Swiper>
-      <div className="swiper-button-next !text-white after:!text-2xl"></div>
-      <div className="swiper-button-prev !text-white after:!text-2xl"></div>
+      </Slider>
     </div>
   );
 }
