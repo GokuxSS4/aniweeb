@@ -61,7 +61,7 @@ export function Trending({ aniList }: { aniList: any }) {
           className="absolute right-0 top-0 bottom-0 z-10 flex flex-col h-11/12 w-4 p-2"
           style={{ right: "-10px" }}
         >
-          <div className="h-full rounded-full flex flex-col  items-center justify-around gap-2 -mt-1">
+          <div className="h-full rounded-full flex flex-col-reverse  items-center justify-around gap-2 -mt-1">
             <button
               onClick={previous}
               className="grow bg-white-10 hover:bg-purple-500 rounded-lg p-2 text-white flex items-center justify-center hover:bg-opacity-75 transition-all duration-200 focus:outline-none"
