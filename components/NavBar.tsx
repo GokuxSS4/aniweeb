@@ -2,9 +2,9 @@ import Link from "next/link";
 
 import { CiSearch } from "react-icons/ci";
 
-export default function NavBar() {
+export function NavBar() {
   return (
-    <nav className="w-11/12 mx-auto bg-transparent h-16 flex items-center justify-around relative z-50">
+    <nav className="w-11/12 mx-auto bg-transparent h-16 flex items-center justify-around absolute inset-0 z-50">
       <h1 className="">Aniweeb.tv</h1>
 
       <div className="flex items-center gap-5">

@@ -2,7 +2,6 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import Slider from "react-slick";
-import Image from "next/image";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 
 export function Trending({ aniList }: { aniList: any }) {
@@ -20,56 +19,49 @@ export function Trending({ aniList }: { aniList: any }) {
     }
   };
 
-  const [isLoading,setIsloading] = useState(true);
+  const [isLoading, setIsloading] = useState(true);
 
   const [currentSlide, setCurrentSlide] = useState(0);
   const [slidesToShow, setSlidesToShow] = useState(6);
 
   const updateSlidesToShow = () => {
     const width = window.innerWidth;
-  
-    if (width < 500) { // For mobile screens
+
+    if (width < 500) {
       setSlidesToShow(1);
-    } else if (width < 700) { // For tablets
+    } else if (width < 700) {
       setSlidesToShow(2);
-    } else if (width < 900) { // For larger tablets
+    } else if (width < 900) {
       setSlidesToShow(3);
-    } else if (width < 1100) { // For small desktops
+    } else if (width < 1100) {
       setSlidesToShow(4);
-    } else if (width < 1356) { // For larger desktops
+    } else if (width < 1356) {
       setSlidesToShow(5);
-    } else { // For very large screens
+    } else {
       setSlidesToShow(6);
     }
   };
 
-
   useEffect(() => {
-    // Set initial slidesToShow based on the window size
     updateSlidesToShow();
-    setIsloading(false)
+    setIsloading(false);
 
-
-    // Define the resize handler
     const handleResize = () => {
       updateSlidesToShow();
     };
 
-    // Add resize event listener
     window.addEventListener("resize", handleResize);
 
-    // Cleanup listener on component unmount
     return () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
 
-
   const settings = {
     dots: false,
     infinite: false,
     speed: 500,
-    slidesToShow: slidesToShow, // default for large screens
+    slidesToShow: slidesToShow,
     slidesToScroll: 1,
     arrows: false,
     swipeToSlide: true,
@@ -83,12 +75,15 @@ export function Trending({ aniList }: { aniList: any }) {
   const showNextArrow = currentSlide + settings.slidesToShow < numItems;
 
   return (
-    <div className="w-11/12 h-full p-6 mx-auto">
-      <p className="text-2xl text-purple-500 font-bold mb-4">Trending</p>
-      {
-        !isLoading && (
-          <div className="slider-container flex">
-          <div className="w-full">
+    <div className="w-10/12 h-full p-6 mx-auto">
+      <div className="inline-flex gap-2 items-stretch mb-4">
+        <div className="flex-grow w-2 bg-purple-500 rounded-full"></div>
+        <p className="text-2xl text-purple-500 font-bold">Trending</p>
+      </div>
+
+      {!isLoading && (
+        <div className="slider-container relative">
+          <div className="w-full px-8 relative">
             <Slider
               ref={(slider: any) => {
                 sliderRef.current = slider;
@@ -96,55 +91,57 @@ export function Trending({ aniList }: { aniList: any }) {
               {...settings}
             >
               {aniList.map((anime: any) => (
-                <div key={anime.id} className="transform transition-transform duration-500 hover:-translate-y-2 group">
+                <div
+                  key={anime.id}
+                  className="transform transition-transform duration-500 hover:-translate-y-2 group"
+                >
                   <div className="w-48 gap-2 p-2 flex flex-col flex-shrink-0">
-                    <Image
+                    <img
                       src={anime.poster}
                       alt={anime.name}
-                      width={185}
-                      height={265}
-                      priority={true}
-                      className="rounded-md"
+                      className="rounded-md h-60"
+                      loading="lazy"
                     />
+
                     <p className="line-clamp-2 text-white text-sm">
-                      <span className="font-bold text-purple-400 mr-2">#{anime.rank}</span>{anime.name}
+                      <span className="font-bold text-purple-400 mr-2">
+                        #{anime.rank}
+                      </span>
+                      {anime.name}
                     </p>
                   </div>
                 </div>
               ))}
             </Slider>
-          </div>
-  
-          <div className="rounded-full flex flex-col-reverse items-center justify-around gap-2">
+
             <button
               onClick={previous}
               disabled={!showPrevArrow}
-              className={`grow rounded-lg p-2 text-white flex items-center justify-center transition-all duration-200 focus:outline-none
-                  ${
-                    !showPrevArrow
-                      ? "bg-gray-400 cursor-not-allowed opacity-50"
-                      : "bg-white bg-opacity-10 hover:bg-purple-500 hover:bg-opacity-75"
-                  }`}
+              className={`absolute left-0 top-[45%] transform -translate-y-1/2 rounded-full p-3 text-white flex items-center justify-center transition-all duration-200 focus:outline-none
+              ${
+                !showPrevArrow
+                  ? "invisible"
+                  : "bg-opacity-75 hover:bg-opacity-100 shadow-lg"
+              }`}
             >
               <FaChevronLeft size={24} />
             </button>
+
             <button
               onClick={next}
               disabled={!showNextArrow}
-              className={`grow rounded-lg p-2 text-white flex items-center justify-center transition-all duration-200 focus:outline-none
-                  ${
-                    !showNextArrow
-                      ? "bg-gray-400 cursor-not-allowed opacity-50"
-                      : "bg-white bg-opacity-10 hover:bg-purple-500 hover:bg-opacity-75"
-                  }`}
+              className={`absolute right-0 top-[45%] transform -translate-y-1/2 rounded-full p-3 text-white flex items-center justify-center transition-all duration-200 focus:outline-none
+              ${
+                !showNextArrow
+                  ? "invisible"
+                  : "bg-opacity-75 hover:bg-opacity-100 shadow-lg"
+              }`}
             >
               <FaChevronRight size={24} />
             </button>
           </div>
         </div>
-        )
-      }
-   
+      )}
     </div>
   );
 }
