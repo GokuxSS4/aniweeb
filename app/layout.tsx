@@ -5,7 +5,7 @@ import "slick-carousel/slick/slick-theme.css";
 
 export const metadata: Metadata = {
   title:
-    "Aniweeb · Watch Free Anime Online · Stream Subbed & Dubbed Anime in HD",
+    "Aniweeb · Free  Anime Streaming",
   description: "Streaming anime platfrom for hardcore anime fans",
   icons: {
     icon: "icons/aniweeb_icon.svg",

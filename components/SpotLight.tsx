@@ -54,7 +54,8 @@ export function SpotLight({ spotLightAnimes }: { spotLightAnimes: any }) {
               <div
                 className="absolute inset-0 bg-gradient-to-r from-black via-black/50 to-transparent "
                 style={{
-                  background: 'linear-gradient(0deg, #201f31 0%, rgba(32,31,49,0) 50%, #201f31 100%), linear-gradient(to right, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.5) 50%, rgba(0, 0, 0, 0) 100%)',
+                  background:
+                    "linear-gradient(0deg, #201f31 0%, rgba(32,31,49,0) 50%, #201f31 100%), linear-gradient(to right, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.5) 50%, rgba(0, 0, 0, 0) 100%)",
                 }}
               />
             </div>

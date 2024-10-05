@@ -6,7 +6,7 @@ import { Trending } from "@/components/Trending";
 
 export default async function Home() {
   const homePageDetails = await getHomePage();
-  console.log(homePageDetails.trendingAnimes);
+  console.log(homePageDetails.spotlightAnimes);
   return (
     <div className="w-screen h-screen text-white">
       <div className="relative">
@@ -16,6 +16,9 @@ export default async function Home() {
       <div className="mt-[540px]"></div>
       <div className="w-full">
         <Trending aniList={homePageDetails.trendingAnimes} />
+        <div className="w-full h-11">
+
+        </div>
       </div>
     </div>
   );
