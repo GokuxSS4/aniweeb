@@ -75,73 +75,66 @@ export function Trending({ aniList }: { aniList: any }) {
   const showNextArrow = currentSlide + settings.slidesToShow < numItems;
 
   return (
-    <div className="w-10/12 h-full p-6 mx-auto">
+    <div className="w-full h-full p-3">
       <div className="inline-flex gap-2 items-stretch mb-4">
         <div className="flex-grow w-2 bg-purple-500 rounded-full"></div>
-        <p className="text-2xl text-purple-500 font-bold">Trending</p>
+        <p className="text-2xl font-bold">Trending Anime</p>
       </div>
+      <div className="slider-container relative">
+        <div className="w-full px-8 relative">
+          {!isLoading && (
+            <>
+              <Slider
+                ref={(slider: any) => {
+                  sliderRef.current = slider;
+                }}
+                {...settings}
+              >
+                {aniList.map((anime: any) => (
+                  <div
+                    key={anime.id}
+                    className="transform transition-transform duration-500 hover:-translate-y-2 group"
+                  >
+                    <div className="w-48 gap-2 p-2 flex flex-col flex-shrink-0">
+                      <img
+                        src={anime.poster}
+                        alt={anime.name}
+                        className="rounded-md h-60"
+                        loading="lazy"
+                      />
 
-      {!isLoading && (
-        <div className="slider-container relative">
-          <div className="w-full px-8 relative">
-            <Slider
-              ref={(slider: any) => {
-                sliderRef.current = slider;
-              }}
-              {...settings}
-            >
-              {aniList.map((anime: any) => (
-                <div
-                  key={anime.id}
-                  className="transform transition-transform duration-500 hover:-translate-y-2 group"
-                >
-                  <div className="w-48 gap-2 p-2 flex flex-col flex-shrink-0">
-                    <img
-                      src={anime.poster}
-                      alt={anime.name}
-                      className="rounded-md h-60"
-                      loading="lazy"
-                    />
-
-                    <p className="line-clamp-2 text-white text-sm">
-                      <span className="font-bold text-purple-400 mr-2">
-                        #{anime.rank}
-                      </span>
-                      {anime.name}
-                    </p>
+                      <p className="line-clamp-2 text-white text-sm">
+                        <span className="font-bold text-purple-400 mr-2">
+                          #{anime.rank}
+                        </span>
+                        {anime.name}
+                      </p>
+                    </div>
                   </div>
-                </div>
-              ))}
-            </Slider>
+                ))}
+              </Slider>
 
-            <button
-              onClick={previous}
-              disabled={!showPrevArrow}
-              className={`absolute left-0 top-[45%] transform -translate-y-1/2 rounded-full p-3 text-white flex items-center justify-center transition-all duration-200 focus:outline-none
-              ${
-                !showPrevArrow
-                  ? "invisible"
-                  : "bg-opacity-75 hover:bg-opacity-100 shadow-lg"
-              }`}
-            >
-              <FaChevronLeft size={24} />
-            </button>
+              <button
+                onClick={previous}
+                disabled={!showPrevArrow}
+                className={`absolute left-0 top-[45%] bg-opacity-75 transform -translate-y-1/2 rounded-full p-3 text-white flex items-center justify-center transition-all duration-200 
+              ${!showPrevArrow && "invisible"}`}
+              >
+                <FaChevronLeft size={24} />
+              </button>
 
-            <button
-              onClick={next}
-              disabled={!showNextArrow}
-              className={`absolute right-0 top-[45%] transform -translate-y-1/2 rounded-full p-3 text-white flex items-center justify-center transition-all duration-200 focus:outline-none
-              ${
-                !showNextArrow
-                  ? "invisible"
-                  : "bg-opacity-75 hover:bg-opacity-100 shadow-lg"
-              }`}
-            >
-              <FaChevronRight size={24} />
-            </button>
-          </div>
+              <button
+                onClick={next}
+                disabled={!showNextArrow}
+                className={`absolute right-0 top-[45%] bg-opacity-75 transform -translate-y-1/2 rounded-full p-3 text-white flex items-center justify-center transition-all duration-200
+              ${!showNextArrow && "invisible"}`}
+              >
+                <FaChevronRight size={24} />
+              </button>
+            </>
+          )}
         </div>
-      )}
+      </div>
     </div>
   );
 }

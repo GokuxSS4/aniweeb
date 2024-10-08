@@ -118,13 +118,13 @@ export function SpotLight({ spotLightAnimes }: { spotLightAnimes: any }) {
       <div className="absolute right-4 bottom-4 rounded-full flex  justify-end gap-4 p-3">
         <button
           onClick={previous}
-          className=" bg-white-10 hover:bg-purple-500 rounded-lg p-2 text-white flex items-center justify-center hover:bg-opacity-75 transition-all duration-200 focus:outline-none"
+          className=" bg-white-10 hover:bg-purple-500 rounded-lg p-2 text-white flex items-center justify-center hover:bg-opacity-75 transition-all duration-200"
         >
           <FaChevronLeft size={24} />
         </button>
         <button
           onClick={next}
-          className=" bg-white-10  hover:bg-purple-500 rounded-lg p-2 text-white flex items-center justify-center hover:bg-opacity-75 transition-all duration-200 focus:outline-none"
+          className=" bg-white-10  hover:bg-purple-500 rounded-lg p-2 text-white flex items-center justify-center hover:bg-opacity-75 transition-all duration-200"
         >
           <FaChevronRight size={24} />
         </button>
