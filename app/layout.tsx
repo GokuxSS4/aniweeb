@@ -19,7 +19,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="font-mono antialiased overflow-x-hidden overflow-y-scroll scroll-container bg-[#010100]">
+      <body className="font-sans antialiased overflow-x-hidden overflow-y-scroll scroll-container bg-[#010100]">
         {children}
       </body>
     </html>

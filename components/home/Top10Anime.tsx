@@ -1,39 +1,57 @@
-import { getAnimeAboutInfo } from "aniwatch";
+"use client";
+
+import { useEffect, useState } from "react";
 import { BsBadgeCc } from "react-icons/bs";
 import { MdMicNone } from "react-icons/md";
 
-function animeReleaseStatus(status: string) {
+function animeReleaseDetails(status: string) {
   if (status.toLowerCase().includes("currently")) {
-    return "releasing";
+    return {message:"releasing",tailwindClass:'text-green-300'} ;
   }
   if (status.toLowerCase().includes("finished")) {
-    return "finished";
+    return {message:"finished",tailwindClass:'text-gray-300'};
   }
   if (status.toLowerCase().includes("not yet")) {
-    return "upcoming";
+    return {message:"upcoming",tailwindClass:'text-yellow-300'};
   }
-  return "";
+  return {message:"",tailwindClass:''};
 }
 
-function AnimeInfo({ animeInfo }: { animeInfo: any }) {
+
+const aniColors = [
+  { bgColor: 'bg-red-700', textColor: 'text-red-700' },
+  { bgColor: 'bg-yellow-700', textColor: 'text-yellow-700' },
+  { bgColor: 'bg-green-700', textColor: 'text-green-700' },
+  { bgColor: 'bg-blue-700', textColor: 'text-gray-400' },
+  { bgColor: 'bg-orange-700', textColor: 'text-gray-400' },
+  { bgColor: 'bg-teal-700', textColor: 'text-gray-400' },
+  { bgColor: 'bg-pink-700', textColor: 'text-gray-400' },
+  { bgColor: 'bg-emerald-700', textColor: 'text-gray-400' },
+  { bgColor: 'bg-amber-700', textColor: 'text-gray-400' },
+  { bgColor: 'bg-lime-700', textColor: 'text-gray-400' }
+];
+
+
+function AnimeInfo({ animeInfo,rank}: { animeInfo: any,rank:number}) {
+  const animeReleaseData = animeReleaseDetails(animeInfo.moreInfo.status);
   return (
     <div className="w-full flex">
       {/* left container */}
-      <div className="w-1/12 flex justify-center items-center">
+      <div className={`w-1/12 flex justify-center items-center ${aniColors[rank].textColor}`}>
         # {animeInfo.topInfo.rank}
       </div>
 
       {/* right container */}
-      <div className="w-full flex p-2 justify-between h-28 bg-[#0f0f11] rounded-2xl gap-6">
+      <div className="w-full flex p-2 justify-between h-23 bg-[#0f0f11] rounded-2xl gap-6">
         {/* 1st half */}
-        <div className="w-[60%] flex gap-2">
-          <div className="h-full p-1">
+        <div className="w-[60%] flex gap-2 ">
+          <div className="h-full p-1 flex justify-center">
             {/* image */}
-            <div className="w-16 h-20">
+            <div className="w-16 h-20 overflow-hidden rounded-md">
               <img
                 src={animeInfo.topInfo.poster}
                 alt={animeInfo.topInfo.name}
-                className="rounded-md"
+               
               />
             </div>
           </div>
@@ -43,7 +61,7 @@ function AnimeInfo({ animeInfo }: { animeInfo: any }) {
               {animeInfo.moreInfo.genres.map((genre: any, index: number) => (
                 <p
                   key={index}
-                  className="bg-pink-600 text-sm px-2 rounded-full"
+                  className={`text-sm px-2 rounded-full ${aniColors[rank].bgColor}`}
                 >
                   {genre}
                 </p>
@@ -80,8 +98,8 @@ function AnimeInfo({ animeInfo }: { animeInfo: any }) {
           </div>
           <div className="flex flex-col grow items-start justify-center gap-2 w-1/2">
             <p>{animeInfo.moreInfo.premiered}</p>
-            <p className="uppercase">
-              {animeReleaseStatus(animeInfo.moreInfo.status)}
+            <p className={`uppercase ${animeReleaseData.tailwindClass}`}>
+              {animeReleaseData.message}
             </p>
           </div>
         </div>
@@ -90,23 +108,16 @@ function AnimeInfo({ animeInfo }: { animeInfo: any }) {
   );
 }
 
-export async function Top10Anime({
-  top10AniDetails,
-}: {
-  top10AniDetails: any;
-}) {
-  const top10Category = Object.keys(top10AniDetails);
+export function Top10Anime({ top10Details }: { top10Details: any }) {
+  const top10Category = Object.keys(top10Details);
+  const [selectedCategory, setSelectedCategory] = useState(top10Category[0]);
+  const [topAnimes,setTopAnimes] = useState(top10Details[selectedCategory]);
 
-  const top10Details = await Promise.all(
-    top10AniDetails.week.map(async (anime: any) => {
-      const { info, moreInfo } = (await getAnimeAboutInfo(anime.id)).anime;
-      return { stats: info.stats, moreInfo, topInfo: anime };
-    })
-  );
+  useEffect(()=>{
+    setTopAnimes(top10Details[selectedCategory]);
+  },[selectedCategory])
 
-  //   const animeInfo = top10Details[0];
 
-  //   console.log(animeInfo);
   return (
     <div className="w-full h-full p-3">
       <div className="w-full flex justify-between">
@@ -116,19 +127,29 @@ export async function Top10Anime({
         </div>
 
         <div className="flex gap-3 items-center">
-          {top10Category.map((anime, index) => (
-            <div className="capitalize bg-white-10 px-3 rounded-md" key={index}>
-              {anime}
-            </div>
-          ))}
+          {top10Category.map((anime, index) => {
+            return (
+              <button
+                className={`capitalize px-3 rounded-md ${selectedCategory==anime ? 'bg-purple-500' : 'bg-white-10'}`}
+                value={anime}
+                onClick={(e)=>setSelectedCategory(e.target?.value)}
+                key={index}
+              >
+                {anime}
+              </button>
+            );
+          })}
         </div>
       </div>
 
       <div className="w-full flex flex-col gap-4">
-        {top10Details.map((animeInfo) => (
-          <AnimeInfo animeInfo={animeInfo} />
+        {
+        topAnimes.map((animeInfo:any,index:number) => (
+          <AnimeInfo animeInfo={animeInfo} rank={index}/>
         ))}
       </div>
     </div>
   );
 }
+
+
