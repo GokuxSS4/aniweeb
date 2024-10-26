@@ -42,7 +42,7 @@ export function SpotLight({ spotLightAnimes }: { spotLightAnimes: any }) {
         <Slider ref={sliderRef} {...settings}>
           {spotLightAnimes.map((anime: any) => (
             <div key={anime.rank} className="relative h-[600px]">
-              <div className="relative w-full h-full">
+              <div className="relative w-full h-full brightness-50">
                 <Image
                   src={anime.poster}
                   alt={anime.name}
@@ -57,12 +57,7 @@ export function SpotLight({ spotLightAnimes }: { spotLightAnimes: any }) {
                 <div
                   className="absolute inset-0"
                   style={{
-                    background: `
-      linear-gradient(to right, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.6) 30%, rgba(0,0,0,0.4) 60%, rgba(0,0,0,0.2) 80%, rgba(0,0,0,0) 100%),
-      linear-gradient(to bottom, rgba(0,0,0,0) 40%, rgba(0,0,0,1) 100%),
-      linear-gradient(to bottom, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0) 30%),
-      linear-gradient(to left, rgba(0,0,0,0) 40%, rgba(0,0,0,0.5) 80%)
-    `,
+                    background: ` linear-gradient(to right, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.6) 30%, rgba(0,0,0,0.4) 60%, rgba(0,0,0,0.2) 80%, rgba(0,0,0,0) 100%),linear-gradient(to bottom, rgba(0,0,0,0) 40%, rgba(0,0,0,1) 100%)`,
                   }}
                 />
               </div>

@@ -16,7 +16,7 @@ export default async function Home() {
   // dragon-ball-daima-19328
   //  'black-clover-2404'
   // const animeInfo = await getAnimeAboutInfo('black-clover-2404');
-  // console.log(animeInfo.anime);
+  console.log(homePageData);
   return (
     <div className="text-white flex flex-col gap-5">
       <SpotLight
@@ -25,8 +25,9 @@ export default async function Home() {
       <div className="w-10/12 mx-auto">
         <Trending aniList={homePageData.homePageDetails.trendingAnimes} />
         <Top10Anime top10Details={homePageData.top10AnimeData} />
-        <EstimatedSchedule/>
         <LatestEpisodes aniList={homePageData.homePageDetails.latestEpisodeAnimes}/>
+        <EstimatedSchedule/>
+        <TopUpcoming aniList={homePageData.homePageDetails.topUpcomingAnimes}/>
       </div>
     </div>
   );

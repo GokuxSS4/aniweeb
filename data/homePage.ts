@@ -26,7 +26,6 @@ export async function getHomeData() {
     const cachedHomeData = await redis.get(HOME_DATA_KEY);
 
     if (cachedHomeData) {
-      console.log("this is cache data");
       return JSON.parse(cachedHomeData);
     }
 
@@ -37,7 +36,6 @@ export async function getHomeData() {
       top10AnimeData,
       error: null,
     };
-    console.log("this is fresh data");
     await redis.set(HOME_DATA_KEY, JSON.stringify(data), EXPIRY_MS, MAX_AGE);
     return data;
   } catch (error) {

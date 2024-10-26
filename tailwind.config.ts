@@ -10,6 +10,7 @@ const config: Config = {
     extend: {
       colors: {
         "white-10": "rgba(255, 255, 255, 0.1)",
+        "white-20": "rgba(238, 238, 238, 0.2)"
       },
     },
   },

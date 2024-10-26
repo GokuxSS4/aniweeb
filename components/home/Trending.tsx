@@ -3,6 +3,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import Slider from "react-slick";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
+import { Header } from "@/components/Header";
 
 export function Trending({ aniList }: { aniList: any }) {
   const sliderRef = useRef(null);
@@ -76,10 +77,7 @@ export function Trending({ aniList }: { aniList: any }) {
 
   return (
     <div className="w-full h-full p-3">
-      <div className="inline-flex gap-2 items-stretch mb-4">
-        <div className="flex-grow w-2 bg-purple-500 rounded-full"></div>
-        <p className="text-2xl font-bold">Trending Anime</p>
-      </div>
+      <Header title={"Trending"} />
       <div className="slider-container relative">
         <div className="w-full px-8 relative">
           {!isLoading && (
@@ -95,13 +93,15 @@ export function Trending({ aniList }: { aniList: any }) {
                     key={anime.id}
                     className="transform transition-transform duration-500 hover:-translate-y-2 group"
                   >
-                    <div className="w-48 gap-2 p-2 flex flex-col flex-shrink-0">
-                      <img
-                        src={anime.poster}
-                        alt={anime.name}
-                        className="rounded-md h-60"
-                        loading="lazy"
-                      />
+                    <div className="w-[calc(16.66% - 1rem)] gap-2 p-2 flex flex-col flex-shrink-0">
+                      <div className="w-full aspect-[2/3] overflow-hidden relative">
+                        <img
+                          src={anime.poster}
+                          alt={anime.name}
+                          className="rounded-md h-full w-full object-cover"
+                          loading="lazy"
+                        />
+                      </div>
 
                       <p className="line-clamp-2 text-white text-sm">
                         <span className="font-bold text-purple-400 mr-2">

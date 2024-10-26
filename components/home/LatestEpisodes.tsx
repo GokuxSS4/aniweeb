@@ -1,24 +1,31 @@
 import { BsBadgeCc } from "react-icons/bs";
 import { MdMicNone } from "react-icons/md";
+import { Header } from "@/components/Header";
 
-type TrendingAnime = HiAnime.hianime_TrendingAnime;
-
-function AniCard({ anime }: any) {
+export function AniCard({ anime }: any) {
   return (
-    <div className="flex flex-col w-[200px] h-[300px] gap-2">
-      <div className="w-full h-[90%] overflow-hidden relative">
+    <div className="flex flex-col w-[calc(16.66% - 1rem)] gap-2">
+      <div className="w-full aspect-[2/3] overflow-hidden relative">
         <img
           src={anime.poster}
           alt=""
           loading="lazy"
-          className="brightness-50"
+          className="h-full w-full object-cover
+          "
         />
-        <p className="absolute top-1 left-1 font-bold text-sm px-2 bg-white-10 rounded-lg">
-          {anime.type}
-        </p>
-        <div className="absolute flex gap-1 bottom-1 right-1 text-sm">
+
+        {
+          anime.rating && ( <div className="absolute top-2 right-2">
+            <div className="bg-orange-600 px-2 py-1 rounded-md text-white  text-xs">
+              <p>{anime.rating}</p>
+            </div>
+          </div>
+          )
+        }
+
+        <div className="absolute flex gap-1 bottom-2 right-1 text-xs">
           {anime.episodes.sub && (
-            <div className="flex justify-center items-center text-white text-sm bg-purple-500 px-1 rounded-md gap-1">
+            <div className="flex justify-center items-center text-white  bg-purple-500 px-1 rounded-md gap-1">
               <div>
                 <BsBadgeCc />
               </div>
@@ -35,26 +42,27 @@ function AniCard({ anime }: any) {
           )}
         </div>
       </div>
-      <div>
+      <div className="flex flex-col gap-1">
         <p className="line-clamp-1 ">{anime.name}</p>
+        <div className="flex text-sm gap-2 text-gray-400">
+          <p>{anime.type}</p>
+          <span>&#8226; </span>
+          <p>{anime.duration}</p>
+        </div>
       </div>
     </div>
   );
 }
 
 export function LatestEpisodes({ aniList }: { aniList: any }) {
-  console.log(aniList);
   return (
     <div className="w-full h-full p-3">
-      <div className="inline-flex gap-2 items-stretch mb-4">
-        <div className="flex-grow w-2 bg-purple-500 rounded-full"></div>
-        <p className="text-2xl font-bold">Latest Episode</p>
-      </div>
+      <Header title={"Latest Episode"} />
       <div className="grid grid-cols-6 gap-6">
         {aniList.map((anime: any, index: number) => {
           return <AniCard key={index} anime={anime} />;
         })}
-      </div>
+      </div>      
     </div>
   );
 }

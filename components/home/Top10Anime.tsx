@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { BsBadgeCc } from "react-icons/bs";
 import { MdMicNone } from "react-icons/md";
+import { Header } from "@/components/Header";
 
 function animeReleaseDetails(status: string) {
   if (status.toLowerCase().includes("currently")) {
@@ -121,11 +122,7 @@ export function Top10Anime({ top10Details }: { top10Details: any }) {
   return (
     <div className="w-full h-full p-3">
       <div className="w-full flex justify-between">
-        <div className="inline-flex gap-2 items-stretch mb-4">
-          <div className="flex-grow w-2 bg-purple-500 rounded-full"></div>
-          <p className="text-2xl  font-bold">Top Anime</p>
-        </div>
-
+        <Header title={"Top Anime"}/>
         <div className="flex gap-3 items-center">
           {top10Category.map((anime, index) => {
             return (
