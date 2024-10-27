@@ -5,6 +5,7 @@ import { getHomeData } from "@/data/homePage";
 import { EstimatedSchedule } from "@/components/home/EstimatedScheduel";
 import { TopUpcoming } from "@/components/home/TopUpcoming";
 import { LatestEpisodes } from "@/components/home/LatestEpisodes";
+import { Footer } from "@/components/Footer";
 
 export default async function Home() {
   const homePageData = await getHomeData();
@@ -28,6 +29,7 @@ export default async function Home() {
         <LatestEpisodes aniList={homePageData.homePageDetails.latestEpisodeAnimes}/>
         <EstimatedSchedule/>
         <TopUpcoming aniList={homePageData.homePageDetails.topUpcomingAnimes}/>
+        <Footer/>
       </div>
     </div>
   );

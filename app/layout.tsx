@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   title: "Aniweeb · Free  Anime Streaming",
   description: "Streaming anime platfrom for hardcore anime fans",
   icons: {
-    icon: "icons/aniweeb_icon.svg",
+    icon: "/icons/aniweeb_icon.svg",
   },
 };
 

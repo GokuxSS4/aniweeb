@@ -142,7 +142,7 @@ export function Top10Anime({ top10Details }: { top10Details: any }) {
       <div className="w-full flex flex-col gap-4">
         {
         topAnimes.map((animeInfo:any,index:number) => (
-          <AnimeInfo animeInfo={animeInfo} rank={index}/>
+          <AnimeInfo animeInfo={animeInfo} rank={index} key={index}/>
         ))}
       </div>
     </div>

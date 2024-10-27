@@ -2,7 +2,6 @@ import { Header } from "@/components/Header";
 import { AniCard } from "@/components/home/LatestEpisodes";
 
 export function TopUpcoming({aniList}:{aniList:any}){
-    console.log(aniList);
     return (
         <div className="w-full h-full p-3">
           <Header title={"Top Upcoming"} />
