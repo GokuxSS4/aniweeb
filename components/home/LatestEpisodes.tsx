@@ -4,7 +4,7 @@ import { MdMicNone } from "react-icons/md";
 
 import { Header } from "@/components/Header";
 
-export function AniCard({ anime }: {anime:HiAnime.Anime}) {
+export function AniCard({ anime }: { anime: HiAnime.Anime }) {
   return (
     <div className="flex flex-col w-[calc(16.66% - 1rem)] gap-2">
       <div className="w-full aspect-[2/3] overflow-hidden relative">
@@ -17,8 +17,8 @@ export function AniCard({ anime }: {anime:HiAnime.Anime}) {
         />
 
         {anime.rating && (
-          <div className="absolute top-2 right-2">
-            <div className="bg-orange-600 px-2 py-1 rounded-md text-white  text-xs">
+          <div className="absolute top-2 right-2 text-xs">
+            <div className="bg-orange-600 px-1.5 py-0.5 rounded text-white ">
               <p>{anime.rating}</p>
             </div>
           </div>
@@ -26,19 +26,15 @@ export function AniCard({ anime }: {anime:HiAnime.Anime}) {
 
         <div className="absolute flex gap-1 bottom-2 right-1 text-xs">
           {anime.episodes.sub && (
-            <div className="flex justify-center items-center text-white  bg-purple-500 px-1 rounded-md gap-1">
-              <div>
-                <BsBadgeCc />
-              </div>
-              <div>{anime.episodes.sub}</div>
+            <div className="flex items-center text-white text-xs bg-purple-500 px-1.5 py-0.5 rounded gap-0.5">
+              <BsBadgeCc className="w-3 h-3" />
+              <span>{anime.episodes.sub}</span>
             </div>
           )}
           {anime.episodes.dub && (
-            <div className="flex justify-center items-center text-white bg-blue-500 px-1 rounded-md gap-1">
-              <div>
-                <MdMicNone />
-              </div>
-              <div>{anime.episodes.dub}</div>
+            <div className="flex items-center text-white text-xs bg-blue-500 px-1.5 py-0.5 rounded gap-0.5">
+              <MdMicNone className="w-3 h-3" />
+              <span>{anime.episodes.dub}</span>
             </div>
           )}
         </div>
@@ -55,7 +51,11 @@ export function AniCard({ anime }: {anime:HiAnime.Anime}) {
   );
 }
 
-export function LatestEpisodes({ aniList }: { aniList: HiAnime.LatestEpisodeAnime[]}) {
+export function LatestEpisodes({
+  aniList,
+}: {
+  aniList: HiAnime.LatestEpisodeAnime[];
+}) {
   return (
     <div className="w-full h-full">
       <Header title={"Latest Episode"} />
