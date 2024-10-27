@@ -42,9 +42,8 @@ export function SpotLight({
   };
 
   return (
-    <div className="relative inset-0 h-[600px]">
-      <NavBar />
-      <div className="absolute w-full h-[600px] overflow-hidden ">
+    <div className="relative h-[600px]">
+      <div className="w-full h-[600px] overflow-hidden ">
         <Slider ref={sliderRef} {...settings}>
           {spotLightAnimes.map((anime: HiAnime.SpotlightAnime) => (
             <div key={anime.rank} className="relative h-[600px]">
@@ -68,8 +67,8 @@ export function SpotLight({
                 />
               </div>
 
-              <div className="absolute p-4 left-4 top-0 z-10 w-full h-full flex items-end">
-                <div className="container mx-auto p-4">
+              <div className="absolute p-4 left-4 top-0 z-10 w-[90%] mx-auto h-full flex items-end">
+                <div className="p-4">
                   <div className="max-w-xl">
                     <h2 className="text-xl font-semibold text-purple-400 mb-4">
                       #{anime.rank} Spotlight

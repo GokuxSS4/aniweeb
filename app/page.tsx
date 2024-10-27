@@ -11,7 +11,9 @@ export default async function Home() {
   const homePageData = await getHomeData();
 
   if (homePageData.error) {
-    throw new Error("The service is temporarily unavailable. Please try again later.");
+    throw new Error(
+      "The service is temporarily unavailable. Please try again later."
+    );
   }
   // console.log(homePageData);
   return (
@@ -22,10 +24,11 @@ export default async function Home() {
       <div className="w-10/12 mx-auto">
         <Trending aniList={homePageData.homePageDetails.trendingAnimes} />
         <Top10Anime top10Details={homePageData.top10AnimeData} />
-        <LatestEpisodes aniList={homePageData.homePageDetails.latestEpisodeAnimes}/>
-        <EstimatedSchedule/>
-        <TopUpcoming aniList={homePageData.homePageDetails.topUpcomingAnimes}/>
-        <Footer/>
+        <LatestEpisodes
+          aniList={homePageData.homePageDetails.latestEpisodeAnimes}
+        />
+        <EstimatedSchedule />
+        <TopUpcoming aniList={homePageData.homePageDetails.topUpcomingAnimes} />
       </div>
     </div>
   );

@@ -9,7 +9,7 @@ import { FaCopyright } from "react-icons/fa";
 export function Footer() {
   return (
     <footer className="w-full flex flex-col  text-white py-8">
-      <div className="w-full px-4">
+      <div className="w-[90%] mx-auto px-4">
         <div className="flex flex-col md:flex-row justify-between gap-8 mb-8">
           <div className="max-w-lg">
             <div className="w-32 mb-4">
@@ -22,7 +22,8 @@ export function Footer() {
               />
             </div>
             <p className="text-gray-400 text-sm">
-              Aniweeb does not retain any files on its server. Rather, it solely provides links to media content hosted by third-party services.
+              Aniweeb does not retain any files on its server. Rather, it solely
+              provides links to media content hosted by third-party services.
             </p>
           </div>
 

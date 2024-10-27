@@ -1,9 +1,13 @@
 import type { Metadata } from "next";
+import { Poppins } from "next/font/google";
+import { Roboto } from "next/font/google";
+
+import { NavBar } from "@/components/NavBar";
+import { Footer } from "@/components/Footer";
+
 import "./globals.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { Poppins } from "next/font/google";
-import { Roboto } from "next/font/google";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -35,7 +39,9 @@ export default function RootLayout({
       <body
         className={`${roboto.className} antialiased overflow-x-hidden overflow-y-scroll scroll-container bg-[#010100]`}
       >
+        <NavBar />
         {children}
+        <Footer />
       </body>
     </html>
   );
