@@ -1,6 +1,6 @@
 // import { getHomePage, getAnimeAboutInfo} from "aniwatch";
-import redis from "@/config/redis";
-import { getAnimeAboutInfo, getHomePage } from "aniwatch";
+import { aniScraper } from "@/config/aniScraper";
+import { redis } from "@/config/redis";
 
 const HOME_DATA_KEY = "home";
 const MAX_AGE = 60_000*60*3; // 1 hour
@@ -11,7 +11,7 @@ async function getTop10AnimeData(top10AniDetails: any) {
 
   for (const category in top10AniDetails) {
     const animePromises = top10AniDetails[category].map(async (anime: any) => {
-      const { info, moreInfo } = (await getAnimeAboutInfo(anime.id)).anime;
+      const { info, moreInfo } = (await aniScraper.getInfo(anime.id)).anime;
       return { stats: info.stats, moreInfo, topInfo: anime };
     });
 
@@ -29,7 +29,7 @@ export async function getHomeData() {
       return JSON.parse(cachedHomeData);
     }
 
-    const homePageDetails = await getHomePage();
+    const homePageDetails = await aniScraper.getHomePage();
     const top10AnimeData = await getTop10AnimeData(homePageDetails.top10Animes);
     const data = {
       homePageDetails,

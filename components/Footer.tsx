@@ -1,9 +1,10 @@
+import AniweebLogo from "@/assets/logos/aniweeb_logo.jpeg";
+import Image from "next/image";
+
 import { FaDiscord } from "react-icons/fa";
 import { FaReddit } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { FaCopyright } from "react-icons/fa";
-import AniweebLogo from "@/assets/logos/aniweeb_logo.jpeg";
-import Image from "next/image";
 
 export function Footer() {
   return (

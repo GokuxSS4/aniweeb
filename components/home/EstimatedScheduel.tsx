@@ -1,9 +1,13 @@
 "use client";
 
-import { getEstimatedScheduleByDate } from "@/actions";
+import { HiAnime } from "aniwatch";
 import { useEffect, useState } from "react";
 import { FaRegPlayCircle } from "react-icons/fa";
+
 import { Header } from "@/components/Header";
+import { getEstimatedScheduleByDate } from "@/actions";
+
+type EstimatedSchedule = HiAnime.ScrapedEstimatedSchedule['scheduledAnimes'][number];
 
 function getWeekByDate(date: Date) {
   const day = date.getDay();
@@ -37,7 +41,7 @@ function getFormattedDate(date: Date) {
 export function EstimatedSchedule() {
   const [weekList, setWeekList] = useState<Date[]>([]);
   const [selectedDate, setSelectedDate] = useState(new Date());
-  const [scheduleList, setScheduelList] = useState([]);
+  const [scheduleList, setScheduelList] = useState<EstimatedSchedule[]>([]);
 
   useEffect(() => {
     const week = getWeekByDate(new Date());
@@ -82,7 +86,7 @@ export function EstimatedSchedule() {
       </div>
 
       <div className="flex flex-col gap-4 ">
-        {scheduleList.map((schedule: any, index: number) => {
+        {scheduleList.map((schedule:EstimatedSchedule, index: number) => {
           return (
             <div
               key={schedule.id}

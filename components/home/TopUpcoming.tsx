@@ -1,12 +1,14 @@
+import { HiAnime } from "aniwatch";
+
 import { Header } from "@/components/Header";
 import { AniCard } from "@/components/home/LatestEpisodes";
 
-export function TopUpcoming({aniList}:{aniList:any}){
+export function TopUpcoming({aniList}:{aniList:HiAnime.TopUpcomingAnime[]}){
     return (
         <div className="w-full h-full p-3">
           <Header title={"Top Upcoming"} />
           <div className="grid grid-cols-6 gap-6">
-            {aniList.map((anime: any, index: number) => {
+            {aniList.map((anime: HiAnime.TopUpcomingAnime, index: number) => {
               return <AniCard key={index} anime={anime} />;
             })}
           </div>      

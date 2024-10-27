@@ -3,10 +3,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import Slider from "react-slick";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
+import { HiAnime } from "aniwatch";
+
 import { Header } from "@/components/Header";
 
-export function Trending({ aniList }: { aniList: any }) {
-  const sliderRef = useRef(null);
+export function Trending({ aniList }: { aniList: HiAnime.TrendingAnime[] }) {
+  const sliderRef = useRef<Slider>(null);
 
   const next = () => {
     if (sliderRef && sliderRef.current) {
@@ -83,12 +85,10 @@ export function Trending({ aniList }: { aniList: any }) {
           {!isLoading && (
             <>
               <Slider
-                ref={(slider: any) => {
-                  sliderRef.current = slider;
-                }}
+                ref={sliderRef}
                 {...settings}
               >
-                {aniList.map((anime: any) => (
+                {aniList.map((anime: HiAnime.TrendingAnime) => (
                   <div
                     key={anime.id}
                     className="transform transition-transform duration-500 hover:-translate-y-2 group"
@@ -96,8 +96,8 @@ export function Trending({ aniList }: { aniList: any }) {
                     <div className="w-[calc(16.66% - 1rem)] gap-2 p-2 flex flex-col flex-shrink-0">
                       <div className="w-full aspect-[2/3] overflow-hidden relative">
                         <img
-                          src={anime.poster}
-                          alt={anime.name}
+                          src={anime.poster || ""}
+                          alt={anime.name || "failed to retrive image"}
                           className="rounded-md h-full w-full object-cover"
                           loading="lazy"
                         />

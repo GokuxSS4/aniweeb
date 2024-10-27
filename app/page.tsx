@@ -11,13 +11,9 @@ export default async function Home() {
   const homePageData = await getHomeData();
 
   if (homePageData.error) {
-    throw new Error("Service is temporary down,please try later!");
+    throw new Error("The service is temporarily unavailable. Please try again later.");
   }
-
-  // dragon-ball-daima-19328
-  //  'black-clover-2404'
-  // const animeInfo = await getAnimeAboutInfo('black-clover-2404');
-  console.log(homePageData);
+  // console.log(homePageData);
   return (
     <div className="text-white flex flex-col gap-5">
       <SpotLight

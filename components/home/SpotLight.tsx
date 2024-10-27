@@ -7,10 +7,16 @@ import { MdMicNone } from "react-icons/md";
 import { useRef } from "react";
 import { FaRegPlayCircle } from "react-icons/fa";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
-import {NavBar} from "@/components/NavBar";
+import { HiAnime } from "aniwatch";
 
-export function SpotLight({ spotLightAnimes }: { spotLightAnimes: any }) {
-  const sliderRef = useRef(null);
+import { NavBar } from "@/components/NavBar";
+
+export function SpotLight({
+  spotLightAnimes,
+}: {
+  spotLightAnimes: HiAnime.SpotlightAnime[];
+}) {
+  const sliderRef = useRef<Slider>(null);
 
   const settings = {
     dots: false,
@@ -37,15 +43,15 @@ export function SpotLight({ spotLightAnimes }: { spotLightAnimes: any }) {
 
   return (
     <div className="relative inset-0 h-[600px]">
-      <NavBar/>
+      <NavBar />
       <div className="absolute w-full h-[600px] overflow-hidden ">
         <Slider ref={sliderRef} {...settings}>
-          {spotLightAnimes.map((anime: any) => (
+          {spotLightAnimes.map((anime: HiAnime.SpotlightAnime) => (
             <div key={anime.rank} className="relative h-[600px]">
               <div className="relative w-full h-full brightness-50">
                 <Image
-                  src={anime.poster}
-                  alt={anime.name}
+                  src={anime.poster || ""}
+                  alt={anime.name || "can't retrive image"}
                   fill
                   style={{
                     objectFit: "cover",
