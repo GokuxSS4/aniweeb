@@ -9,7 +9,51 @@ import { FaRegPlayCircle } from "react-icons/fa";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 import { HiAnime } from "aniwatch";
 
-import { NavBar } from "@/components/NavBar";
+function SpoitLightAnimeInfo({ anime }: { anime: HiAnime.SpotlightAnime }) {
+  return (
+    <div className="absolute left-4 top-0 z-10 w-[90%] mx-auto h-full flex items-end">
+      <div className="max-w-xl">
+        <h2 className="text-xl font-semibold text-purple-400 mb-4">
+          #{anime.rank} Spotlight
+        </h2>
+        <h1 className="text-4xl font-bold text-white mb-4 line-clamp-2">
+          {anime.name}
+        </h1>
+        <div className="flex space-x-4 mb-4">
+          {anime.type && (
+            <div className="text-white flex justify-center items-center gap-1">
+              <FaRegPlayCircle />
+              {anime.type}
+            </div>
+          )}
+          {anime.episodes.sub && (
+            <div className="flex justify-center items-center text-white bg-purple-500 px-2 rounded-full gap-1">
+              <div>
+                <BsBadgeCc />
+              </div>
+              <div>{anime.episodes.sub}</div>
+            </div>
+          )}
+          {anime.episodes.dub && (
+            <div className="flex justify-center items-center text-white bg-blue-500 px-2 rounded-full gap-1">
+              <div>
+                <MdMicNone />
+              </div>
+              <div>{anime.episodes.dub}</div>
+            </div>
+          )}
+        </div>
+        <p className="text-gray-300 text-base mb-6 line-clamp-3">
+          {anime.description}
+        </p>
+        <button className="bg-purple-600 hover:bg-purple-700 text-black font-bold py-2 px-4 rounded-full flex justify-center items-center gap-2">
+          <FaRegPlayCircle />
+          Watch Now
+        </button>
+      </div>
+    </div>
+  );
+}
 
 export function SpotLight({
   spotLightAnimes,
@@ -67,55 +111,15 @@ export function SpotLight({
                 />
               </div>
 
-              <div className="absolute p-4 left-4 top-0 z-10 w-[90%] mx-auto h-full flex items-end">
-                <div className="p-4">
-                  <div className="max-w-xl">
-                    <h2 className="text-xl font-semibold text-purple-400 mb-4">
-                      #{anime.rank} Spotlight
-                    </h2>
-                    <h1 className="text-4xl font-bold text-white mb-4 line-clamp-2">
-                      {anime.name}
-                    </h1>
-                    <div className="flex space-x-4 mb-4">
-                      {anime.type && (
-                        <div className="text-white flex justify-center items-center gap-1">
-                          <FaRegPlayCircle />
-                          {anime.type}
-                        </div>
-                      )}
-                      {anime.episodes.sub && (
-                        <div className="flex justify-center items-center text-white bg-purple-500 px-2 rounded-full gap-1">
-                          <div>
-                            <BsBadgeCc />
-                          </div>
-                          <div>{anime.episodes.sub}</div>
-                        </div>
-                      )}
-                      {anime.episodes.dub && (
-                        <div className="flex justify-center items-center text-white bg-blue-500 px-2 rounded-full gap-1">
-                          <div>
-                            <MdMicNone />
-                          </div>
-                          <div>{anime.episodes.dub}</div>
-                        </div>
-                      )}
-                    </div>
-                    <p className="text-gray-300 text-base mb-6 line-clamp-3">
-                      {anime.description}
-                    </p>
-                    <button className="bg-purple-600 hover:bg-purple-700 text-black font-bold py-2 px-4 rounded-full flex justify-center items-center gap-2">
-                      <FaRegPlayCircle />
-                      Watch Now
-                    </button>
-                  </div>
-                </div>
+              <div className="relative w-[90%] mx-auto">
+                <SpoitLightAnimeInfo anime={anime} />
               </div>
             </div>
           ))}
         </Slider>
       </div>
 
-      <div className="absolute right-4 bottom-4 rounded-full flex  justify-end gap-4 p-3">
+      <div className="absolute right-[5%] bottom-4 rounded-full flex  justify-end gap-4 p-3">
         <button
           onClick={previous}
           className=" bg-white-10 hover:bg-purple-500 rounded-lg p-2 text-white flex items-center justify-center hover:bg-opacity-75 transition-all duration-200"

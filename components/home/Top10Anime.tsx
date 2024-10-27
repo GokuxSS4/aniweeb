@@ -111,7 +111,7 @@ export function Top10Anime({ top10Details }: { top10Details: any }) {
   }, [selectedCategory]);
 
   return (
-    <div className="w-full h-full p-3">
+    <div className="w-full h-full">
       <div className="w-full flex justify-between">
         <Header title={"Top Anime"} />
         <div className="flex gap-3 items-center">

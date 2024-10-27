@@ -57,7 +57,7 @@ export function EstimatedSchedule() {
   }, [selectedDate]);
 
   return (
-    <div className="w-full h-full p-3">
+    <div className="w-full h-full">
       <Header title={"Estimated Schedule"} />
       <div className="flex gap-3 my-4 mb-6">
         {weekList.map((date: Date, index: number) => {

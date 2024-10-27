@@ -28,7 +28,7 @@ export function NavBar() {
           : "bg-transparent border-b border-transparent"
       }`}
     >
-      <div className="w-[90%] mx-auto flex items-center justify-between py-4 px-12">
+      <div className="w-[90%] mx-auto flex items-center justify-between py-4">
         <h1 className="text-white font-semibold text-xl">Aniweeb.tv</h1>
 
         <div className="relative">

@@ -57,7 +57,7 @@ export function AniCard({ anime }: {anime:HiAnime.Anime}) {
 
 export function LatestEpisodes({ aniList }: { aniList: HiAnime.LatestEpisodeAnime[]}) {
   return (
-    <div className="w-full h-full p-3">
+    <div className="w-full h-full">
       <Header title={"Latest Episode"} />
       <div className="grid grid-cols-6 gap-6">
         {aniList.map((anime: HiAnime.Anime, index: number) => {

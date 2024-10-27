@@ -21,7 +21,7 @@ export default async function Home() {
       <SpotLight
         spotLightAnimes={homePageData.homePageDetails.spotlightAnimes}
       />
-      <div className="w-10/12 mx-auto">
+      <div className="w-[90%] mx-auto">
         <Trending aniList={homePageData.homePageDetails.trendingAnimes} />
         <Top10Anime top10Details={homePageData.top10AnimeData} />
         <LatestEpisodes

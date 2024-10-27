@@ -78,7 +78,7 @@ export function Trending({ aniList }: { aniList: HiAnime.TrendingAnime[] }) {
   const showNextArrow = currentSlide + settings.slidesToShow < numItems;
 
   return (
-    <div className="w-full h-full p-3">
+    <div className="w-full h-full">
       <Header title={"Trending"} />
       <div className="slider-container relative">
         <div className="w-full px-8 relative">
