@@ -84,10 +84,7 @@ export function Trending({ aniList }: { aniList: HiAnime.TrendingAnime[] }) {
         <div className="w-full px-8 relative">
           {!isLoading && (
             <>
-              <Slider
-                ref={sliderRef}
-                {...settings}
-              >
+              <Slider ref={sliderRef} {...settings}>
                 {aniList.map((anime: HiAnime.TrendingAnime) => (
                   <div
                     key={anime.id}
@@ -101,12 +98,16 @@ export function Trending({ aniList }: { aniList: HiAnime.TrendingAnime[] }) {
                           className="rounded-md h-full w-full object-cover"
                           loading="lazy"
                         />
+                        <div className="absolute top-1 left-1">
+                          <div className="bg-black/60 backdrop-blur-sm px-2 py-1 rounded-md shadow-lg">
+                            <span className="text-white font-semibold text-sm">
+                              #{anime.rank}
+                            </span>
+                          </div>
+                        </div>
                       </div>
 
-                      <p className="line-clamp-2 text-white text-sm">
-                        <span className="font-bold text-purple-400 mr-2">
-                          #{anime.rank}
-                        </span>
+                      <p className="line-clamp-1 text-white text-sm">
                         {anime.name}
                       </p>
                     </div>

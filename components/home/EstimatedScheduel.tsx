@@ -2,7 +2,7 @@
 
 import { HiAnime } from "aniwatch";
 import { useEffect, useState } from "react";
-import { FaRegPlayCircle } from "react-icons/fa";
+import { IoIosPlay } from "react-icons/io";
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
 
 import { Header } from "@/components/common/Header";
@@ -58,8 +58,8 @@ function ScheduleItem({
         <p className="font-light">{schedule.time}</p>
         <p className="font-bold">{schedule.name}</p>
       </div>
-      <button className="flex px-4 justify-center items-center gap-2 bg-[#0f0f11] rounded-md text-sm">
-        <FaRegPlayCircle />
+      <button className="flex px-4 justify-center items-center gap-1 rounded-md text-sm">
+        <IoIosPlay />
         <p>Episode</p>
         <p>{schedule.episode}</p>
       </button>
