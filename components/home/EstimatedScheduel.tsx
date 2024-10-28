@@ -3,11 +3,13 @@
 import { HiAnime } from "aniwatch";
 import { useEffect, useState } from "react";
 import { FaRegPlayCircle } from "react-icons/fa";
+import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
 
 import { Header } from "@/components/common/Header";
 import { getEstimatedScheduleByDate } from "@/actions";
 
-type EstimatedSchedule = HiAnime.ScrapedEstimatedSchedule['scheduledAnimes'][number];
+type EstimatedSchedule =
+  HiAnime.ScrapedEstimatedSchedule["scheduledAnimes"][number];
 
 function getWeekByDate(date: Date) {
   const day = date.getDay();
@@ -38,10 +40,39 @@ function getFormattedDate(date: Date) {
   };
 }
 
+function ScheduleItem({
+  schedule,
+  index,
+  isExpanded
+}: {
+  schedule: EstimatedSchedule;
+  index: number;
+  isExpanded:boolean
+}) {
+  return (
+    <div
+      key={schedule.id}
+      className={`border-b border-white-10 py-3 justify-between brightness-75 hover:brightness-100 cursor-pointer ${index >= (5) && !isExpanded ? 'hidden' : 'flex'}`}
+    >
+      <div className="flex gap-4">
+        <p className="font-light">{schedule.time}</p>
+        <p className="font-bold">{schedule.name}</p>
+      </div>
+      <button className="flex px-4 justify-center items-center gap-2 bg-[#0f0f11] rounded-md text-sm">
+        <FaRegPlayCircle />
+        <p>Episode</p>
+        <p>{schedule.episode}</p>
+      </button>
+    </div>
+  );
+}
+
 export function EstimatedSchedule() {
   const [weekList, setWeekList] = useState<Date[]>([]);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [scheduleList, setScheduelList] = useState<EstimatedSchedule[]>([]);
+
+  const [isExpanded, setIsExpanded] = useState(false);
 
   useEffect(() => {
     const week = getWeekByDate(new Date());
@@ -86,24 +117,16 @@ export function EstimatedSchedule() {
       </div>
 
       <div className="flex flex-col gap-4 ">
-        {scheduleList.map((schedule:EstimatedSchedule, index: number) => {
-          return (
-            <div
-              key={schedule.id}
-              className="flex border-b border-white-10 py-3 justify-between brightness-75 hover:brightness-100 cursor-pointer"
-            >
-              <div className="flex gap-4">
-                <p className="font-light">{schedule.time}</p>
-                <p className="font-bold">{schedule.name}</p>
-              </div>
-              <button className="flex px-4 justify-center items-center gap-2 bg-[#0f0f11] rounded-md text-sm">
-                <FaRegPlayCircle />
-                <p>Episode</p>
-                <p>{schedule.episode}</p>
-              </button>
-            </div>
-          );
-        })}
+        {scheduleList.map((schedule: EstimatedSchedule, index: number) => <ScheduleItem schedule={schedule} index={index} isExpanded={isExpanded} /> )}
+      </div>
+      <div className={`w-full justify-end mt-6 ${scheduleList.length > 5 ? 'flex':'hidden'}`}>
+        <button
+          className="flex justify-center items-center gap-1 text-white brightness-75 hover:brightness-100"
+          onClick={() => setIsExpanded(!isExpanded)}
+        >
+          <span>{isExpanded ? "Show less" : "Show more"}</span>
+          {isExpanded ? <MdKeyboardArrowUp /> : <MdKeyboardArrowDown />}
+        </button>
       </div>
     </div>
   );

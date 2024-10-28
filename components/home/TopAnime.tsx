@@ -1,12 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import {useState } from "react";
 import { BsBadgeCc } from "react-icons/bs";
 import { MdMicNone } from "react-icons/md";
 import { HiAnime } from "aniwatch";
-import { FaRegPlayCircle } from "react-icons/fa";
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 import { Header } from "@/components/common/Header";
+import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
 
 type Top10AnimesType = HiAnime.ScrapedAnimeCategory["top10Animes"];
 type TopAnimeType = HiAnime.Top10Anime;
@@ -15,9 +14,11 @@ type Top10AnimesTypeKeys = keyof Top10AnimesType;
 function TopAnime({
   topAnime,
   title,
+  isExpanded
 }: {
   topAnime: TopAnimeType[];
   title: Top10AnimesTypeKeys;
+  isExpanded:boolean
 }) {
   return (
     <div className="flex flex-col w-full">
@@ -26,9 +27,9 @@ function TopAnime({
       </h2>
 
       <div className="flex flex-col w-full">
-        {topAnime.map((anime: TopAnimeType) => (
+        {topAnime.map((anime: TopAnimeType,index:number) => (
           <div
-            className="flex p-4 gap-4 border-b border-gray-500"
+            className={`p-4 gap-4 border-b border-gray-500 ${index >= (topAnime.length / 2) && !isExpanded ? 'hidden' : 'flex'}`}
             key={anime.id}
           >
             <div className="flex-shrink-0 w-[50px] aspect-[2/3]">
@@ -65,6 +66,7 @@ function TopAnime({
 }
 
 export function TopAnimes({ top10Animes }: { top10Animes: Top10AnimesType }) {
+  const [isExpanded, setIsExpanded] = useState(false);
   const topCategory = Object.keys(top10Animes) as Top10AnimesTypeKeys[];
 
   return (
@@ -76,8 +78,18 @@ export function TopAnimes({ top10Animes }: { top10Animes: Top10AnimesType }) {
             key={category}
             topAnime={top10Animes[category]}
             title={category}
+            isExpanded={isExpanded}
           />
         ))}
+      </div>
+      <div className="w-full flex justify-end mt-6">
+        <button
+          className="flex justify-center items-center gap-1 text-white brightness-75 hover:brightness-100"
+          onClick={() => setIsExpanded(!isExpanded)}
+        >
+          <span>{isExpanded ? "Show less" : "Show more"}</span>
+          {isExpanded ? <MdKeyboardArrowUp /> : <MdKeyboardArrowDown />}
+        </button>
       </div>
     </div>
   );
