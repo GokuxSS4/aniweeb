@@ -4,7 +4,7 @@ import { HiAnime } from "aniwatch";
 import { useEffect, useState } from "react";
 import { FaRegPlayCircle } from "react-icons/fa";
 
-import { Header } from "@/components/Header";
+import { Header } from "@/components/common/Header";
 import { getEstimatedScheduleByDate } from "@/actions";
 
 type EstimatedSchedule = HiAnime.ScrapedEstimatedSchedule['scheduledAnimes'][number];
@@ -67,7 +67,7 @@ export function EstimatedSchedule() {
             <button
               key={index}
               className={`flex grow flex-col px-4 py-2 bg-[#0f0f11] items-center justify-center rounded-md ${
-                isSelectedDate && "bg-purple-500 text-black"
+                isSelectedDate && "bg-primary text-black"
               }`}
               onClick={() => setSelectedDate(date)}
             >

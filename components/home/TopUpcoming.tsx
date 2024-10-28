@@ -1,6 +1,6 @@
 import { HiAnime } from "aniwatch";
 
-import { Header } from "@/components/Header";
+import { Header } from "@/components/common/Header";
 import { AniCard } from "@/components/home/LatestEpisodes";
 
 export function TopUpcoming({aniList}:{aniList:HiAnime.TopUpcomingAnime[]}){

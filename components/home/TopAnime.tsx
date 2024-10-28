@@ -6,7 +6,7 @@ import { MdMicNone } from "react-icons/md";
 import { HiAnime } from "aniwatch";
 import { FaRegPlayCircle } from "react-icons/fa";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
-import { Header } from "@/components/Header";
+import { Header } from "@/components/common/Header";
 
 type Top10AnimesType = HiAnime.ScrapedAnimeCategory["top10Animes"];
 type TopAnimeType = HiAnime.Top10Anime;
@@ -44,13 +44,13 @@ function TopAnime({
               <div className="line-clamp-2 break-words">{anime.name}</div>
               <div className="flex gap-2">
                 {anime.episodes.sub && (
-                  <div className="flex items-center text-white text-xs bg-purple-500 px-1.5 py-0.5 rounded gap-0.5">
+                  <div className="flex items-center text-white text-xs bg-primary px-1.5 py-0.5 rounded gap-0.5">
                     <BsBadgeCc className="w-3 h-3" />
                     <span>{anime.episodes.sub}</span>
                   </div>
                 )}
                 {anime.episodes.dub && (
-                  <div className="flex items-center text-white text-xs bg-blue-500 px-1.5 py-0.5 rounded gap-0.5">
+                  <div className="flex items-center text-white text-xs bg-secondary px-1.5 py-0.5 rounded gap-0.5">
                     <MdMicNone className="w-3 h-3" />
                     <span>{anime.episodes.dub}</span>
                   </div>

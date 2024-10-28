@@ -13,7 +13,7 @@ function SpoitLightAnimeInfo({ anime }: { anime: HiAnime.SpotlightAnime }) {
   return (
     <div className="absolute left-4 top-0 z-10 w-[90%] mx-auto h-full flex items-end">
       <div className="max-w-xl">
-        <h2 className="text-xl font-semibold text-purple-400 mb-4">
+        <h2 className="text-xl font-semibold text-primary mb-4">
           #{anime.rank} Spotlight
         </h2>
         <h1 className="text-4xl font-bold text-white mb-4 line-clamp-2">
@@ -27,7 +27,7 @@ function SpoitLightAnimeInfo({ anime }: { anime: HiAnime.SpotlightAnime }) {
             </div>
           )}
           {anime.episodes.sub && (
-            <div className="flex justify-center items-center text-white bg-purple-500 px-2 rounded-full gap-1">
+            <div className="flex justify-center items-center text-white bg-primary px-2 rounded-full gap-1">
               <div>
                 <BsBadgeCc />
               </div>
@@ -35,7 +35,7 @@ function SpoitLightAnimeInfo({ anime }: { anime: HiAnime.SpotlightAnime }) {
             </div>
           )}
           {anime.episodes.dub && (
-            <div className="flex justify-center items-center text-white bg-blue-500 px-2 rounded-full gap-1">
+            <div className="flex justify-center items-center text-white bg-secondary px-2 rounded-full gap-1">
               <div>
                 <MdMicNone />
               </div>
@@ -46,7 +46,7 @@ function SpoitLightAnimeInfo({ anime }: { anime: HiAnime.SpotlightAnime }) {
         <p className="text-gray-300 text-base mb-6 line-clamp-3">
           {anime.description}
         </p>
-        <button className="bg-purple-600 hover:bg-purple-700 text-black font-bold py-2 px-4 rounded-full flex justify-center items-center gap-2">
+        <button className="bg-primary hover:bg-purple-700 text-black font-bold py-2 px-4 rounded-full flex justify-center items-center gap-2">
           <FaRegPlayCircle />
           Watch Now
         </button>

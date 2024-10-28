@@ -5,7 +5,7 @@ import Slider from "react-slick";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 import { HiAnime } from "aniwatch";
 
-import { Header } from "@/components/Header";
+import { Header } from "@/components/common/Header";
 
 export function Trending({ aniList }: { aniList: HiAnime.TrendingAnime[] }) {
   const sliderRef = useRef<Slider>(null);

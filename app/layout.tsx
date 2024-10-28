@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import { Roboto } from "next/font/google";
 
-import { NavBar } from "@/components/NavBar";
-import { Footer } from "@/components/Footer";
+import { NavBar } from "@/components/common/NavBar";
+import { Footer } from "@/components/common/Footer";
 
 import "./globals.css";
 import "slick-carousel/slick/slick.css";

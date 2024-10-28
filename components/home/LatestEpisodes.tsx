@@ -2,7 +2,7 @@ import { HiAnime } from "aniwatch";
 import { BsBadgeCc } from "react-icons/bs";
 import { MdMicNone } from "react-icons/md";
 
-import { Header } from "@/components/Header";
+import { Header } from "@/components/common/Header";
 
 export function AniCard({ anime }: { anime: HiAnime.Anime }) {
   return (
@@ -26,13 +26,13 @@ export function AniCard({ anime }: { anime: HiAnime.Anime }) {
 
         <div className="absolute flex gap-1 bottom-2 right-1 text-xs">
           {anime.episodes.sub && (
-            <div className="flex items-center text-white text-xs bg-purple-500 px-1.5 py-0.5 rounded gap-0.5">
+            <div className="flex items-center text-white text-xs bg-primary px-1.5 py-0.5 rounded gap-0.5">
               <BsBadgeCc className="w-3 h-3" />
               <span>{anime.episodes.sub}</span>
             </div>
           )}
           {anime.episodes.dub && (
-            <div className="flex items-center text-white text-xs bg-blue-500 px-1.5 py-0.5 rounded gap-0.5">
+            <div className="flex items-center text-white text-xs bg-secondary px-1.5 py-0.5 rounded gap-0.5">
               <MdMicNone className="w-3 h-3" />
               <span>{anime.episodes.dub}</span>
             </div>
