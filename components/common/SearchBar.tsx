@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import { MdClear } from "react-icons/md";
 import { MdKeyboardArrowRight } from "react-icons/md";
+import { useDebounce } from "use-debounce";
 
 interface AnimeItemProps {
   anime: HiAnime.AnimeSearchSuggestion;
@@ -45,31 +46,22 @@ export function SearchBar() {
   const [suggestedAnimes, setSuggestedAnimes] = useState<
     HiAnime.AnimeSearchSuggestion[]
   >([]);
+  const [debounceSearchAnime] = useDebounce(searchAnime, 1000);
 
   const isShowResult = suggestedAnimes.length > 0;
 
   useEffect(() => {
     async function getAnimeSuggestion(searchAnime: string) {
       const trimmedAnimeName = searchAnime.trim();
-
-      try {
-        if (trimmedAnimeName.length !== 0) {
-          const result = await getSearchSuggestion(trimmedAnimeName);
-          setSuggestedAnimes(result);
-        } else {
-          setSuggestedAnimes([]);
-        }
-      } catch (error) {
-        console.error("Failed to fetch anime suggestions:", error);
+      setSuggestedAnimes([]);
+      if (trimmedAnimeName.length !== 0) {
+        const result = await getSearchSuggestion(trimmedAnimeName);
+        setSuggestedAnimes(result);
       }
     }
 
-    getAnimeSuggestion(searchAnime);
-  }, [searchAnime]);
-
-  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-    setSearchAnime(e.target.value);
-  }
+    getAnimeSuggestion(debounceSearchAnime);
+  }, [debounceSearchAnime]);
 
   function clearSearch() {
     setSearchAnime("");
@@ -81,7 +73,7 @@ export function SearchBar() {
       <input
         type="text"
         placeholder="Search anime..."
-        onChange={handleChange}
+        onChange={(e) => setSearchAnime(e.target.value)}
         value={searchAnime}
         className={`w-full bg-[#18191c] text-white placeholder-gray-400 pl-10 pr-10 py-2.5 outline-none ${
           isShowResult ? "rounded-t-md" : "rounded-md"
