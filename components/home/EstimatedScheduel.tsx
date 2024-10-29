@@ -90,7 +90,7 @@ export function EstimatedSchedule() {
   return (
     <div className="w-full h-full">
       <Header title={"Estimated Schedule"} />
-      <div className="flex gap-3 my-4 mb-6">
+      <div className="flex gap-3 my-4 mb-6 overflow-x-scroll md:overflow-hidden">
         {weekList.map((date: Date, index: number) => {
           const { day, month, dayOfWeek } = getFormattedDate(date);
           const isSelectedDate = day === getFormattedDate(selectedDate).day;

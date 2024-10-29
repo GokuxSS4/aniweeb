@@ -7,7 +7,7 @@ export function TopUpcoming({aniList}:{aniList:HiAnime.TopUpcomingAnime[]}){
     return (
         <div className="w-full h-full">
           <Header title={"Top Upcoming"} />
-          <div className="grid grid-cols-6 gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6">
             {aniList.map((anime: HiAnime.TopUpcomingAnime, index: number) => {
               return <AniCard key={index} anime={anime} />;
             })}

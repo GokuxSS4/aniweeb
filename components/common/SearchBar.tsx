@@ -14,8 +14,8 @@ interface AnimeItemProps {
 
 function AnimeItem({ anime }: AnimeItemProps) {
   return (
-    <div className="flex items-start gap-3 p-3 hover:bg-slate-800/50 transition-colors cursor-pointer border-b border-white-20">
-      <div className="flex-shrink-0 w-[50px] aspect-[2/3]">
+    <div className="flex items-start gap-3 p-3  hover:bg-slate-800/50 transition-colors cursor-pointer border-b border-white-20">
+      <div className="flex-shrink-0 w-[50px] aspect-[2/3] ">
         <img
           src={anime.poster || ""}
           alt={anime.name || "Anime poster"}
@@ -41,7 +41,7 @@ function AnimeItem({ anime }: AnimeItemProps) {
   );
 }
 
-export function SearchBar() {
+export function SearchBar({isCompitable}:{isCompitable:boolean}) {
   const [searchAnime, setSearchAnime] = useState("");
   const [suggestedAnimes, setSuggestedAnimes] = useState<
     HiAnime.AnimeSearchSuggestion[]
@@ -69,14 +69,14 @@ export function SearchBar() {
   }
 
   return (
-    <div className="relative w-full max-w-md">
+    <div className="relative w-full lg:max-w-md">
       <input
         type="text"
         placeholder="Search anime..."
         onChange={(e) => setSearchAnime(e.target.value)}
         value={searchAnime}
-        className={`w-full bg-[#18191c] text-white placeholder-gray-400 pl-10 pr-10 py-2.5 outline-none ${
-          isShowResult ? "rounded-t-md" : "rounded-md"
+        className={`w-full bg-white/90 text-black placeholder-gray-400 pl-10 pr-10 py-2.5 outline-none ${
+          isCompitable ? 'rounded-none': (isShowResult) ? "rounded-t-md" : "rounded-md"
         }`}
       />
       <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -85,14 +85,14 @@ export function SearchBar() {
       {searchAnime && (
         <button
           onClick={clearSearch}
-          className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-white"
+          className={`absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400`}
         >
           <MdClear className="h-5 w-5" />
         </button>
       )}
 
       {isShowResult && (
-        <div className="absolute w-full">
+        <div className="absolute w-full z-100">
           <div className="w-full bg-black border border-white-20">
             {suggestedAnimes.map((anime) => (
               <AnimeItem key={anime.id} anime={anime} />

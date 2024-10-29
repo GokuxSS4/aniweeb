@@ -7,6 +7,55 @@ import { HiAnime } from "aniwatch";
 
 import { Header } from "@/components/common/Header";
 
+function TrendingAnimeCard({ anime }: { anime: HiAnime.TrendingAnime }) {
+  return (
+    <div className="transform transition-transform duration-500 hover:-translate-y-2 group">
+      <div className="w-[calc(16.66% - 1rem)] gap-2 p-2 flex flex-col flex-shrink-0">
+        <div className="w-full aspect-[2/3] overflow-hidden relative">
+          <img
+            src={anime.poster || ""}
+            alt={anime.name || "failed to retrive image"}
+            className="rounded-md h-full w-full object-cover"
+            loading="lazy"
+          />
+          <div className="absolute top-1 left-1">
+            <div className="bg-black/60 backdrop-blur-sm px-2 py-1 rounded-md shadow-lg">
+              <span className="text-white font-semibold text-sm">
+                #{anime.rank}
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <p className="line-clamp-1 text-white text-sm">{anime.name}</p>
+      </div>
+    </div>
+  );
+}
+
+const TrendingCardSkeleton = () => {
+  return (
+    <div className="min-w-[16.66%] px-2">
+      <div className="transform transition-transform duration-500 hover:cursor-pointer">
+        <div className="w-full aspect-[2/3] overflow-hidden relative">
+          <div className="h-full w-full rounded-md bg-[#141414] animate-pulse" />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+function LoadingCards({ noOfCards }: { noOfCards: number }) {
+  console.log("Loading cards", noOfCards);
+  return (
+    <div className="flex h-full">
+      {Array.from({ length: noOfCards }).map((_, index) => (
+        <TrendingCardSkeleton key={index} />
+      ))}
+    </div>
+  );
+}
+
 export function Trending({ aniList }: { aniList: HiAnime.TrendingAnime[] }) {
   const sliderRef = useRef<Slider>(null);
 
@@ -46,14 +95,12 @@ export function Trending({ aniList }: { aniList: HiAnime.TrendingAnime[] }) {
   };
 
   useEffect(() => {
-    updateSlidesToShow();
-    setIsloading(false);
-
     const handleResize = () => {
       updateSlidesToShow();
     };
 
     window.addEventListener("resize", handleResize);
+    setIsloading(false);
 
     return () => {
       window.removeEventListener("resize", handleResize);
@@ -82,36 +129,13 @@ export function Trending({ aniList }: { aniList: HiAnime.TrendingAnime[] }) {
       <Header title={"Trending"} />
       <div className="slider-container relative">
         <div className="w-full px-8 relative">
-          {!isLoading && (
+          {isLoading ? (
+            <LoadingCards noOfCards={slidesToShow} />
+          ) : (
             <>
               <Slider ref={sliderRef} {...settings}>
                 {aniList.map((anime: HiAnime.TrendingAnime) => (
-                  <div
-                    key={anime.id}
-                    className="transform transition-transform duration-500 hover:-translate-y-2 group"
-                  >
-                    <div className="w-[calc(16.66% - 1rem)] gap-2 p-2 flex flex-col flex-shrink-0">
-                      <div className="w-full aspect-[2/3] overflow-hidden relative">
-                        <img
-                          src={anime.poster || ""}
-                          alt={anime.name || "failed to retrive image"}
-                          className="rounded-md h-full w-full object-cover"
-                          loading="lazy"
-                        />
-                        <div className="absolute top-1 left-1">
-                          <div className="bg-black/60 backdrop-blur-sm px-2 py-1 rounded-md shadow-lg">
-                            <span className="text-white font-semibold text-sm">
-                              #{anime.rank}
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-
-                      <p className="line-clamp-1 text-white text-sm">
-                        {anime.name}
-                      </p>
-                    </div>
-                  </div>
+                  <TrendingAnimeCard anime={anime} key={anime.id} />
                 ))}
               </Slider>
 
@@ -139,3 +163,4 @@ export function Trending({ aniList }: { aniList: HiAnime.TrendingAnime[] }) {
     </div>
   );
 }
+

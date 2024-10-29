@@ -7,7 +7,7 @@ import { Header } from "@/components/common/Header";
 export function AniCard({ anime }: { anime: HiAnime.Anime }) {
   return (
     <div className="flex flex-col w-[calc(16.66% - 1rem)] gap-2">
-      <div className="w-full aspect-[2/3] overflow-hidden relative">
+      <div className="w-full h-full overflow-hidden relative">
         <img
           src={anime?.poster || ""}
           alt=""
@@ -59,7 +59,7 @@ export function LatestEpisodes({
   return (
     <div className="w-full h-full">
       <Header title={"Latest Episode"} />
-      <div className="grid grid-cols-6 gap-6">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6  gap-6">
         {aniList.map((anime: HiAnime.Anime, index: number) => {
           return <AniCard key={index} anime={anime} />;
         })}
