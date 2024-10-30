@@ -1,3 +1,5 @@
+import { HiAnime } from "aniwatch";
+
 import { SpotLight } from "@/components/home/SpotLight";
 import { Trending } from "@/components/home/Trending";
 import { TopAnimes } from "@/components/home/TopAnime";
@@ -5,16 +7,19 @@ import { EstimatedSchedule } from "@/components/home/EstimatedScheduel";
 import { TopUpcoming } from "@/components/home/TopUpcoming";
 import { LatestEpisodes } from "@/components/home/LatestEpisodes";
 import { getHomeData } from "@/actions";
-import { HiAnime } from "aniwatch";
+import { getUniqueAnimes } from "@/utils/helper";
 
 export default async function Home() {
   const homePageData: HiAnime.ScrapedHomePage = await getHomeData();
 
+  const topAiringAnimes = getUniqueAnimes(homePageData.topAiringAnimes);
+
   const top10Animes = {
-    "top airing": homePageData.topAiringAnimes.slice(0, 10),
+    "top airing": topAiringAnimes.slice(0, 10),
     ...homePageData.top10Animes,
   };
 
+  console.log(homePageData.topAiringAnimes);
   return (
     <div className="text-white flex flex-col gap-5">
       <SpotLight spotLightAnimes={homePageData.spotlightAnimes} />
