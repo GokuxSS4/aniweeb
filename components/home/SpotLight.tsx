@@ -38,10 +38,10 @@ function SpoitLightAnimeInfo({ anime }: { anime: HiAnime.SpotlightAnime }) {
   return (
     <div className="absolute left-4 top-0 z-20 w-[90%] mx-auto h-full flex items-end">
       <div className="max-w-xl mb-4">
-        <h2 className="text-xl font-semibold text-primary mb-4">
+        <p className="text-base lg:text-xl font-black text-purple-600 mb-4">
           #{anime.rank} Spotlight
-        </h2>
-        <h1 className="text-4xl font-bold text-white mb-4 line-clamp-2">
+        </p>
+        <h1 className="text-2xl lg:text-4xl font-bold text-white mb-4 line-clamp-2">
           {anime.name}
         </h1>
         <div className="hidden lg:flex space-x-4 mb-4">

@@ -30,7 +30,7 @@ function TrendingAnimeCard({ anime }: { anime: HiAnime.TrendingAnime }) {
         </div>
       </div>
 
-      <p className="line-clamp-1 text-white text-sm">{anime.name}</p>
+      <p className="line-clamp-1 font-medium text-white text-base">{anime.name}</p>
     </div>
   );
 }

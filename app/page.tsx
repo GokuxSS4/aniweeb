@@ -19,7 +19,6 @@ export default async function Home() {
     ...homePageData.top10Animes,
   };
 
-  console.log(homePageData.topAiringAnimes);
   return (
     <div className="text-white flex flex-col gap-5">
       <SpotLight spotLightAnimes={homePageData.spotlightAnimes} />
