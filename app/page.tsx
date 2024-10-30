@@ -5,16 +5,19 @@ import { EstimatedSchedule } from "@/components/home/EstimatedScheduel";
 import { TopUpcoming } from "@/components/home/TopUpcoming";
 import { LatestEpisodes } from "@/components/home/LatestEpisodes";
 import { getHomeData } from "@/actions";
+import { HiAnime } from "aniwatch";
 
 
 export default async function Home() {
-  const homePageData = await getHomeData();
+  const homePageData:HiAnime.ScrapedHomePage = await getHomeData();
 
-  if (homePageData.error) {
-    throw new Error(
-      "The service is temporarily unavailable. Please try again later."
-    );
+
+  const top10Animes = {
+    "top airing":homePageData.topAiringAnimes.slice(0,10),
+    ...homePageData.top10Animes,
   }
+
+  console.log("top10Animes",Object.keys(top10Animes));
 
   return (
     <div className="text-white flex flex-col gap-5">
@@ -23,7 +26,7 @@ export default async function Home() {
       />
       <div className="w-[90%] mx-auto">
         <Trending aniList={homePageData.trendingAnimes} />
-        <TopAnimes top10Animes={homePageData.top10Animes} />
+        <TopAnimes top10Animes={top10Animes} />
         <LatestEpisodes
           aniList={homePageData.latestEpisodeAnimes}
         />

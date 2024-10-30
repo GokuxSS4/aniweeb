@@ -14,15 +14,15 @@ type Top10AnimesTypeKeys = keyof Top10AnimesType;
 function TopAnime({
   topAnime,
   title,
-  isExpanded
 }: {
   topAnime: TopAnimeType[];
   title: Top10AnimesTypeKeys;
-  isExpanded:boolean
 }) {
+  const [isExpanded, setIsExpanded] = useState(false);
+
   return (
     <div className="flex flex-col w-full">
-      <h2 className="capitalize text-xl font-semibold text-center pb-4">
+      <h2 className="capitalize text-xl font-semibold text-start pl-4 pb-4">
         {title}
       </h2>
 
@@ -61,28 +61,8 @@ function TopAnime({
           </div>
         ))}
       </div>
-    </div>
-  );
-}
 
-export function TopAnimes({ top10Animes }: { top10Animes: Top10AnimesType }) {
-  const [isExpanded, setIsExpanded] = useState(false);
-  const topCategory = Object.keys(top10Animes) as Top10AnimesTypeKeys[];
-
-  return (
-    <div className="w-full">
-      <Header title="Top Anime" />
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {topCategory.map((category: Top10AnimesTypeKeys) => (
-          <TopAnime
-            key={category}
-            topAnime={top10Animes[category]}
-            title={category}
-            isExpanded={isExpanded}
-          />
-        ))}
-      </div>
-      <div className="w-full flex justify-end mt-6">
+      <div className="w-full flex justify-end lg:justify-start mt-6 pl-4">
         <button
           className="flex justify-center items-center gap-1 text-white brightness-75 hover:brightness-100"
           onClick={() => setIsExpanded(!isExpanded)}
@@ -90,6 +70,25 @@ export function TopAnimes({ top10Animes }: { top10Animes: Top10AnimesType }) {
           <span>{isExpanded ? "Show less" : "Show more"}</span>
           {isExpanded ? <MdKeyboardArrowUp /> : <MdKeyboardArrowDown />}
         </button>
+      </div>
+    </div>
+  );
+}
+
+export function TopAnimes({ top10Animes }: { top10Animes: Top10AnimesType }) {
+  const topCategory = Object.keys(top10Animes) as Top10AnimesTypeKeys[];
+
+  return (
+    <div className="w-full">
+      <Header title="Top Anime" />
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {topCategory.map((category: Top10AnimesTypeKeys) => (
+          <TopAnime
+            key={category}
+            topAnime={top10Animes[category]}
+            title={category}
+          />
+        ))}
       </div>
     </div>
   );
