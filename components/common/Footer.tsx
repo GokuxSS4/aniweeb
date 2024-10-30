@@ -27,7 +27,7 @@ export function Footer() {
             </p>
           </div>
 
-          <div className="flex flex-col gap-2 items-start justify-center">
+          <div className="flex flex-row gap-4 md:flex-col md:gap-2 items-start justify-center">
             <button className="text-gray-400 hover:text-white transition-colors">
               Donate &lt;3
             </button>
