@@ -41,7 +41,7 @@ function AnimeItem({ anime }: AnimeItemProps) {
   );
 }
 
-export function SearchBar({isCompitable}:{isCompitable:boolean}) {
+export function SearchBar({ isCompitable }: { isCompitable: boolean }) {
   const [searchAnime, setSearchAnime] = useState("");
   const [suggestedAnimes, setSuggestedAnimes] = useState<
     HiAnime.AnimeSearchSuggestion[]
@@ -76,7 +76,11 @@ export function SearchBar({isCompitable}:{isCompitable:boolean}) {
         onChange={(e) => setSearchAnime(e.target.value)}
         value={searchAnime}
         className={`w-full bg-white/90 text-black placeholder-gray-400 pl-10 pr-10 py-2.5 outline-none ${
-          isCompitable ? 'rounded-none': (isShowResult) ? "rounded-t-md" : "rounded-md"
+          isCompitable
+            ? "rounded-none"
+            : isShowResult
+            ? "rounded-t-md"
+            : "rounded-md"
         }`}
       />
       <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -92,7 +96,7 @@ export function SearchBar({isCompitable}:{isCompitable:boolean}) {
       )}
 
       {isShowResult && (
-        <div className="absolute w-full z-100">
+        <div className="absolute w-full z-60">
           <div className="w-full bg-black border border-white-20">
             {suggestedAnimes.map((anime) => (
               <AnimeItem key={anime.id} anime={anime} />

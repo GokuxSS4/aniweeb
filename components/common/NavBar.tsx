@@ -27,7 +27,7 @@ export function NavBar() {
 
   return (
     <nav
-      className={`w-full lg:fixed z-50 transition-all duration-500 ease-in-out ${
+      className={`w-full relative lg:fixed z-50 transition-all duration-500 ease-in-out ${
         isNavBarMirroVisible
           ? "bg-gradient-to-b from-black/60 to-[#010100]/70 backdrop-blur-[6px] border-b border-gray-700/30"
           : "bg-transparent border-b border-transparent"

@@ -95,6 +95,8 @@ export function Trending({ aniList }: { aniList: HiAnime.TrendingAnime[] }) {
   };
 
   useEffect(() => {
+    updateSlidesToShow();
+
     const handleResize = () => {
       updateSlidesToShow();
     };

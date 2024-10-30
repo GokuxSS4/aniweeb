@@ -117,7 +117,7 @@ export function EstimatedSchedule() {
       </div>
 
       <div className="flex flex-col gap-4 ">
-        {scheduleList.map((schedule: EstimatedSchedule, index: number) => <ScheduleItem schedule={schedule} index={index} isExpanded={isExpanded} /> )}
+        {scheduleList.map((schedule: EstimatedSchedule, index: number) => <ScheduleItem key={schedule.id} schedule={schedule} index={index} isExpanded={isExpanded} /> )}
       </div>
       <div className={`w-full justify-end mt-6 ${scheduleList.length > 5 ? 'flex':'hidden'}`}>
         <button

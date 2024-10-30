@@ -37,7 +37,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${roboto.className} antialiased overflow-x-hidden overflow-y-scroll scroll-container bg-[#010100]`}
+        className={`${roboto.className} antialiased overflow-x-hidden overflow-y-scroll bg-[#010100]`}
       >
         <NavBar />
         {children}
