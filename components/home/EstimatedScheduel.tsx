@@ -56,7 +56,7 @@ function ScheduleItem({
     >
       <div className="flex gap-4">
         <p className="font-light">{schedule.time}</p>
-        <p className="font-bold">{schedule.name}</p>
+        <p className="font-bold line-clamp-2">{schedule.name}</p>
       </div>
       <button className="flex px-4 justify-center items-center gap-1 rounded-md text-sm">
         <IoIosPlay />
@@ -90,7 +90,7 @@ export function EstimatedSchedule() {
   return (
     <div className="w-full h-full">
       <Header title={"Estimated Schedule"} />
-      <div className="flex gap-3 my-4 mb-6 overflow-x-scroll md:overflow-hidden">
+      <div className="grid grid-cols-4  md:flex gap-3 my-4 mb-6 flex-wrap">
         {weekList.map((date: Date, index: number) => {
           const { day, month, dayOfWeek } = getFormattedDate(date);
           const isSelectedDate = day === getFormattedDate(selectedDate).day;
