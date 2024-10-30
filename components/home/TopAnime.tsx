@@ -1,6 +1,6 @@
 "use client";
 
-import {useState } from "react";
+import { useState } from "react";
 import { BsBadgeCc } from "react-icons/bs";
 import { MdMicNone } from "react-icons/md";
 import { HiAnime } from "aniwatch";
@@ -27,9 +27,11 @@ function TopAnime({
       </h2>
 
       <div className="flex flex-col w-full">
-        {topAnime.map((anime: TopAnimeType,index:number) => (
+        {topAnime.map((anime: TopAnimeType, index: number) => (
           <div
-            className={`p-4 gap-4 border-b border-gray-500 ${index >= (topAnime.length / 2) && !isExpanded ? 'hidden' : 'flex'}`}
+            className={`p-4 gap-4 border-b border-gray-500 ${
+              index >= topAnime.length / 2 && !isExpanded ? "hidden" : "flex"
+            }`}
             key={anime.id}
           >
             <div className="flex-shrink-0 w-[50px] aspect-[2/3]">
