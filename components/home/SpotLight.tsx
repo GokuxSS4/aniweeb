@@ -8,6 +8,7 @@ import { useRef, useState } from "react";
 import { FaRegPlayCircle } from "react-icons/fa";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 import { HiAnime } from "aniwatch";
+import { IoInformationCircle } from "react-icons/io5";
 
 function CustomDots({
   currentSlide,
@@ -25,9 +26,8 @@ function CustomDots({
           key={i}
           onClick={() => goToSlide(i)}
           aria-label={`Go to slide ${i + 1}`}
-          className={`w-2 h-2 rounded-full transition-all duration-200 ${
-            currentSlide === i ? "bg-blue-600" : "bg-white opacity-70"
-          } hover:opacity-100`}
+          className={`w-2 h-2 rounded-full transition-all duration-200 ${currentSlide === i ? "bg-blue-600" : "bg-white opacity-70"
+            } hover:opacity-100`}
         />
       ))}
     </div>
@@ -73,10 +73,17 @@ function SpoitLightAnimeInfo({ anime }: { anime: HiAnime.SpotlightAnime }) {
             {anime.description}
           </p>
         </div>
-        <button className="bg-primary hover:bg-purple-700 text-black font-bold py-2 px-4 rounded-full flex justify-center items-center gap-2">
-          <FaRegPlayCircle />
-          Watch Now
-        </button>
+        <div className="flex gap-2">
+          <button className="bg-primary hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-full flex justify-center items-center gap-2">
+            <FaRegPlayCircle />
+            Watch Now
+          </button>
+          <button className="bg-white-10 hover:bg-white-20 text-white font-bold py-2 px-4 rounded-full flex justify-center items-center gap-2">
+            <IoInformationCircle />
+            Details
+          </button>
+        </div>
+
       </div>
     </div>
   );
