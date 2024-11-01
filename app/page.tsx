@@ -2,7 +2,7 @@ import { HiAnime } from "aniwatch";
 
 import { SpotLight } from "@/components/home/SpotLight";
 import { Trending } from "@/components/home/Trending";
-import { TopAnimes } from "@/components/home/TopAnime";
+import { TopChoices } from "@/components/home/TopChoices";
 import { EstimatedSchedule } from "@/components/home/EstimatedScheduel";
 import { TopUpcoming } from "@/components/home/TopUpcoming";
 import { LatestEpisodes } from "@/components/home/LatestEpisodes";
@@ -15,8 +15,8 @@ export default async function Home() {
   const topAiringAnimes = getUniqueAnimes(homePageData.topAiringAnimes);
 
   const top10Animes = {
-    "top airing": topAiringAnimes.slice(0, 10),
     ...homePageData.top10Animes,
+    "current season": topAiringAnimes.slice(0, 10),
   };
 
   return (
@@ -24,7 +24,7 @@ export default async function Home() {
       <SpotLight spotLightAnimes={homePageData.spotlightAnimes} />
       <div className="w-[90%] mx-auto">
         <Trending aniList={homePageData.trendingAnimes} />
-        <TopAnimes top10Animes={top10Animes} />
+        <TopChoices top10Animes={top10Animes} />
         <LatestEpisodes aniList={homePageData.latestEpisodeAnimes} />
         <EstimatedSchedule />
         <TopUpcoming aniList={homePageData.topUpcomingAnimes} />

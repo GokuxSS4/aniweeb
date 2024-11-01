@@ -2,6 +2,7 @@ import { HiAnime } from "aniwatch";
 import { getAnimeDetails } from "@/app/details/action";
 import { RecomendedAnime } from "@/components/details/RecomendedAnime";
 import { Overview } from "@/components/details/Overview";
+import { RelatedAnime } from "@/components/details/RelatedAnime";
 
 export default async function AnimeDetails({
   searchParams,
@@ -20,6 +21,7 @@ export default async function AnimeDetails({
   return (
     <div className="w-[90%] mx-auto text-white">
       <Overview animeInfo={animeDetails.anime} />
+      <RelatedAnime relatedAnimes={animeDetails.relatedAnimes}/>
       <RecomendedAnime recomendedAnimes={animeDetails.recommendedAnimes} />
     </div>
   );

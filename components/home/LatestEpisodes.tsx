@@ -7,13 +7,12 @@ import { Header } from "@/components/common/Header";
 export function AniCard({ anime }: { anime: HiAnime.Anime }) {
   return (
     <div className="flex flex-col w-[calc(16.66% - 1rem)] gap-2">
-      <div className="w-full h-full overflow-hidden relative">
+      <div className="w-full aspect-[2/3] overflow-hidden relative">
         <img
           src={anime?.poster || ""}
           alt=""
           loading="lazy"
-          className="h-full w-full object-cover
-          "
+          className="h-full w-full object-cover"
         />
 
         {anime.rating && (

@@ -77,12 +77,12 @@ function TopAnime({
   );
 }
 
-export function TopAnimes({ top10Animes }: { top10Animes: Top10AnimesType }) {
+export function TopChoices({ top10Animes }: { top10Animes: Top10AnimesType }) {
   const topCategory = Object.keys(top10Animes) as Top10AnimesTypeKeys[];
 
   return (
     <div className="w-full">
-      <Header title="Top Anime" />
+      <Header title="Top Choices" />
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {topCategory.map((category: Top10AnimesTypeKeys) => (
           <TopAnime

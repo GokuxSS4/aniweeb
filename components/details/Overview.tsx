@@ -96,7 +96,11 @@ export function Overview({
               <p key={field.key} className="flex gap-5 justify-between">
                 <span className="font-semibold">{field.label}</span>
                 <span className="text-sm">
-                  {formatText(animeInfo.moreInfo[field.key])}
+                  {animeInfo.moreInfo[field.key] ? (
+                    formatText(animeInfo.moreInfo[field.key])
+                  ) : (
+                    <span>&#63;</span>
+                  )}
                 </span>
               </p>
             ))}
