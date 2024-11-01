@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import Slider from "react-slick";
 import { BsBadgeCc } from "react-icons/bs";
 import { MdMicNone } from "react-icons/md";
@@ -26,8 +27,9 @@ function CustomDots({
           key={i}
           onClick={() => goToSlide(i)}
           aria-label={`Go to slide ${i + 1}`}
-          className={`w-2 h-2 rounded-full transition-all duration-200 ${currentSlide === i ? "bg-blue-600" : "bg-white opacity-70"
-            } hover:opacity-100`}
+          className={`w-2 h-2 rounded-full transition-all duration-200 ${
+            currentSlide === i ? "bg-blue-600" : "bg-white opacity-70"
+          } hover:opacity-100`}
         />
       ))}
     </div>
@@ -78,12 +80,13 @@ function SpoitLightAnimeInfo({ anime }: { anime: HiAnime.SpotlightAnime }) {
             <FaRegPlayCircle />
             Watch Now
           </button>
-          <button className="bg-white-10 hover:bg-white-20 text-white font-bold py-2 px-4 rounded-full flex justify-center items-center gap-2">
-            <IoInformationCircle />
-            Details
-          </button>
+          <Link href={`details?animeId=${anime.id}`}>
+            <button className="bg-white-10 hover:bg-white-20 text-white font-bold py-2 px-4 rounded-full flex justify-center items-center gap-2">
+              <IoInformationCircle />
+              Details
+            </button>
+          </Link>
         </div>
-
       </div>
     </div>
   );
