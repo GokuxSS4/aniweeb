@@ -51,14 +51,16 @@ function LoadingSkeletons() {
   return (
     <div className="overflow-hidden">
       <div className="flex gap-4 w-full">
-        {[...Array(6)].map((_, index) => (
+        {[...Array(8)].map((_, index) => (
           <div
             key={index}
             className={`
               flex-1 min-w-0
               ${index == 3 ? "hidden md:block" : ""}
               ${index == 4 ? "hidden xl:block" : ""}
-              ${index == 5 ? "hidden 2xl:block" : ""}
+              ${index == 5 ? "hidden xl:block" : ""}
+              ${index == 6 ? "hidden 2xl:block" : ""}
+              ${index == 7 ? "hidden 2xl:block" : ""}
             `}
           >
             <TrendingCardSkeleton />
@@ -99,21 +101,21 @@ export function Trending({ aniList }: TrendingProps) {
     speed: 500,
     arrows: false,
     swipeToSlide: true,
-    slidesToShow: 6,
+    slidesToShow: 8,
     slidesToScroll: 1,
     initialSlide: 0,
     responsive: [
       {
-        breakpoint: 1411,
+        breakpoint: 1536,
         settings: {
-          slidesToShow: 6,
+          slidesToShow: 8,
           slidesToScroll: 1,
         },
       },
       {
         breakpoint: 1280,
         settings: {
-          slidesToShow: 5,
+          slidesToShow: 6,
           slidesToScroll: 1,
         },
       },

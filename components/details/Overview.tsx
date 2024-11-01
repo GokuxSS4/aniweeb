@@ -3,11 +3,36 @@ import { BsBadgeCc } from "react-icons/bs";
 import { FaRegPlayCircle } from "react-icons/fa";
 import { MdMicNone } from "react-icons/md";
 
+function formatText(text: string | string[]) {
+  if (typeof text === "string") return text;
+
+  return text
+    .map((item) =>
+      item
+        .toLowerCase()
+        .split(" ")
+        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(" ")
+    )
+    .join(", ");
+}
+
 export function Overview({
   animeInfo,
 }: {
   animeInfo: HiAnime.ScrapedAnimeAboutInfo["anime"];
 }) {
+  const infoFields = [
+    { label: "Japanese", key: "japanese" },
+    { label: "Synonyms", key: "synonyms" },
+    { label: "Aired", key: "aired" },
+    { label: "Premiered", key: "premiered" },
+    { label: "Status", key: "status" },
+    { label: "MAL Score", key: "malscore" },
+    { label: "Studios", key: "studios" },
+    { label: "Producers", key: "producers" },
+    { label: "Genres", key: "genres" },
+  ];
   return (
     <div className="pt-16 flex flex-col gap-5">
       <div className="flex  gap-8">
@@ -67,72 +92,14 @@ export function Overview({
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-            <p className="flex gap-5 justify-between">
-              <span className="font-semibold">Japanese</span>
-              <span>{animeInfo.moreInfo.japanese}</span>
-            </p>
-            <p className="flex gap-5 justify-between">
-              <span className="font-semibold">Synonyms</span>
-              <span>{animeInfo.moreInfo.synonyms}</span>
-            </p>
-            <p className="flex  gap-5 justify-between">
-              <span className="font-semibold">Aired</span>
-              <span>{animeInfo.moreInfo.aired}</span>
-            </p>
-            <p className="flex gap-5 justify-between">
-              <span className="font-semibold">Premiered</span>
-              <span>{animeInfo.moreInfo.premiered}</span>
-            </p>
-            <p className="flex gap-5 justify-between">
-              <span className="font-semibold">Status</span>
-              <span>{animeInfo.moreInfo.status}</span>
-            </p>
-            <p className="flex gap-5 justify-between">
-              <span className="font-semibold">MAL Score</span>
-              <span>{animeInfo.moreInfo.malscore}</span>
-            </p>
-            <p className="flex gap-5 justify-between">
-              <span className="font-semibold">Studios</span>
-              <span>{animeInfo.moreInfo.studios}</span>
-            </p>
-            <p className="flex  gap-5 justify-between">
-              <span className="font-semibold">Producers</span>
-              <span className="text-sm">
-                {typeof animeInfo.moreInfo.producers == "string"
-                  ? animeInfo.moreInfo.producers
-                  : animeInfo.moreInfo.producers
-                      .map((producer: string) =>
-                        producer
-                          .toLowerCase()
-                          .split(" ")
-                          .map(
-                            (word) =>
-                              word.charAt(0).toUpperCase() + word.slice(1)
-                          )
-                          .join(" ")
-                      )
-                      .join(", ")}
-              </span>
-            </p>
-            <p className="flex gap-5 justify-between">
-              <span className="font-semibold">Genres</span>
-              <span className="text-sm">
-                {typeof animeInfo.moreInfo.genres == "string"
-                  ? animeInfo.moreInfo.genres
-                  : animeInfo.moreInfo.genres
-                      .map((producer: string) =>
-                        producer
-                          .toLowerCase()
-                          .split(" ")
-                          .map(
-                            (word) =>
-                              word.charAt(0).toUpperCase() + word.slice(1)
-                          )
-                          .join(" ")
-                      )
-                      .join(", ")}
-              </span>
-            </p>
+            {infoFields.map((field) => (
+              <p key={field.key} className="flex gap-5 justify-between">
+                <span className="font-semibold">{field.label}</span>
+                <span className="text-sm">
+                  {formatText(animeInfo.moreInfo[field.key])}
+                </span>
+              </p>
+            ))}
           </div>
         </div>
       </div>
