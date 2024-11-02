@@ -3,6 +3,8 @@ import { getAnimeDetails } from "@/app/details/action";
 import { RecomendedAnime } from "@/components/details/RecomendedAnime";
 import { Overview } from "@/components/details/Overview";
 import { RelatedAnime } from "@/components/details/RelatedAnime";
+import { Seasons } from "@/components/details/Seasons";
+import { LeadCharacters } from "@/components/details/LeadCharacters";
 
 export default async function AnimeDetails({
   searchParams,
@@ -16,12 +18,16 @@ export default async function AnimeDetails({
   );
   // console.log("voice actors:", animeDetails.relatedAnimes);
   // console.log("length of voice actor", animeDetails.relatedAnimes.length);
-  console.log("anime", animeDetails.anime);
+  // console.log("anime", animeDetails.anime);
 
   return (
     <div className="w-[90%] mx-auto text-white">
       <Overview animeInfo={animeDetails.anime} />
-      <RelatedAnime relatedAnimes={animeDetails.relatedAnimes}/>
+      <Seasons animeSeasons={animeDetails.seasons} />
+      <LeadCharacters
+        leadCharacters={animeDetails.anime.info.charactersVoiceActors}
+      />
+      <RelatedAnime relatedAnimes={animeDetails.relatedAnimes} />
       <RecomendedAnime recomendedAnimes={animeDetails.recommendedAnimes} />
     </div>
   );
