@@ -58,7 +58,6 @@ export function LoadingSkeletons() {
             key={index}
             className={`
               flex-1 min-w-0
-              ${index == 3 ? "hidden md:block" : ""}
               ${index == 4 ? "hidden xl:block" : ""}
               ${index == 5 ? "hidden xl:block" : ""}
               ${index == 6 ? "hidden 2xl:block" : ""}
@@ -80,7 +79,7 @@ interface TrendingProps {
 export function Trending({ aniList }: TrendingProps) {
   const sliderRef = useRef<Slider>(null);
   const [isMounted, setIsMounted] = useState(false);
-
+  
   useEffect(() => {
     setIsMounted(true);
   }, []);
@@ -141,7 +140,7 @@ export function Trending({ aniList }: TrendingProps) {
   return (
     <div className="w-full h-full">
       <Header title="Trending" />
-      <div className="relative w-full px-0 md:px-8">
+      <div className="relative w-full">
         {isMounted ? (
           <>
             <Slider ref={sliderRef} {...settings} className="!static">
@@ -150,19 +149,19 @@ export function Trending({ aniList }: TrendingProps) {
               ))}
             </Slider>
 
-            <button
-              onClick={previous}
-              className="absolute left-0 top-[45%] bg-opacity-75 transform -translate-y-1/2 rounded-full p-3 text-white  hidden md:flex items-center justify-center transition-all duration-200 hover:bg-white/10"
-            >
-              <FaChevronLeft size={24} />
-            </button>
+              <button
+                onClick={previous}
+                className="absolute left-4 top-[45%]  bg-black/60 transform -translate-y-1/2 rounded-full p-2 text-white hidden md:flex items-center justify-center transition-all duration-200 hover:bg-black/70"
+              >
+                <FaChevronLeft size={24} />
+              </button>
 
-            <button
-              onClick={next}
-              className="absolute right-0 top-[45%] bg-opacity-75 transform -translate-y-1/2 rounded-full p-3 text-white  hidden md:flex items-center justify-center transition-all duration-200 hover:bg-white/10"
-            >
-              <FaChevronRight size={24} />
-            </button>
+              <button
+                onClick={next}
+                className="absolute right-2 top-[45%] bg-black/60 transform -translate-y-1/2 rounded-full p-2 text-white hidden md:flex items-center justify-center transition-all duration-200 hover:bg-black/70"
+              >
+                <FaChevronRight size={24} />
+              </button>
           </>
         ) : (
           <LoadingSkeletons />

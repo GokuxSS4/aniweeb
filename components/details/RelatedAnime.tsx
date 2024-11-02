@@ -84,7 +84,7 @@ export function RelatedAnime({
     infinite: false,
     speed: 500,
     arrows: false,
-    swipeToSlide: true,
+    swipeToSlide: false,
     slidesToShow: 8,
     slidesToScroll: 1,
     initialSlide: 0,
@@ -123,7 +123,7 @@ export function RelatedAnime({
   return (
     <div className="w-full h-full">
       <Header title="Related" />
-      <div className="relative w-full px-0 md:px-8">
+      <div className="relative w-full p-0">
         {isMounted ? (
           <>
             <Slider ref={sliderRef} {...settings} className="!static">
@@ -132,19 +132,22 @@ export function RelatedAnime({
               ))}
             </Slider>
 
-            <button
-              onClick={previous}
-              className="absolute left-0 top-[45%] bg-opacity-75 transform -translate-y-1/2 rounded-full p-3 text-white hidden md:flex items-center justify-center transition-all duration-200 hover:bg-white/10"
-            >
-              <FaChevronLeft size={24} />
-            </button>
+ 
+              <button
+                onClick={previous}
+                className="absolute left-4 top-[45%]  bg-black/60 transform -translate-y-1/2 rounded-full p-2 text-white hidden md:flex items-center justify-center transition-all duration-200 hover:bg-black/70"
+              >
+                <FaChevronLeft size={24} />
+              </button>
 
-            <button
-              onClick={next}
-              className="absolute right-0 top-[45%] bg-opacity-75 transform -translate-y-1/2 rounded-full p-3 text-white hidden md:flex items-center justify-center transition-all duration-200 hover:bg-white/10"
-            >
-              <FaChevronRight size={24} />
-            </button>
+
+
+              <button
+                onClick={next}
+                className="absolute right-2 top-[45%] bg-black/60 transform -translate-y-1/2 rounded-full p-2 text-white hidden md:flex items-center justify-center transition-all duration-200 hover:bg-black/70"
+              >
+                <FaChevronRight size={24} />
+              </button>
           </>
         ) : (
           <LoadingSkeletons />

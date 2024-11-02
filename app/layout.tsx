@@ -5,9 +5,9 @@ import { Roboto } from "next/font/google";
 import { NavBar } from "@/components/common/NavBar";
 import { Footer } from "@/components/common/Footer";
 
-import "./globals.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import "./globals.css";
 
 const poppins = Poppins({
   subsets: ["latin"],
