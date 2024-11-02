@@ -1,6 +1,8 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import Link from "next/link";
+
+import { useEffect, useRef, useState } from "react";
 import Slider from "react-slick";
 import { HiAnime } from "aniwatch";
 import { BsBadgeCc } from "react-icons/bs";
@@ -14,6 +16,7 @@ type RelatedAnimeType = HiAnime.ScrapedAnimeAboutInfo["relatedAnimes"][number];
 
 export function RelatedAnimeCard({ anime }: { anime: RelatedAnimeType }) {
   return (
+    <Link href={`details?animeId=${anime.id}`}>
     <div className="w-[calc(16.66% - 1rem)] gap-2 p-2 flex flex-col flex-shrink-0">
       <div className="w-full aspect-[2/3] overflow-hidden relative">
         <img
@@ -48,6 +51,7 @@ export function RelatedAnimeCard({ anime }: { anime: RelatedAnimeType }) {
         {anime.name}
       </p>
     </div>
+    </Link>
   );
 }
 
@@ -127,8 +131,8 @@ export function RelatedAnime({
         {isMounted ? (
           <>
             <Slider ref={sliderRef} {...settings} className="!static">
-              {relatedAnimes.map((anime: any) => (
-                <RelatedAnimeCard anime={anime} />
+              {relatedAnimes.map((anime: RelatedAnimeType) => (
+                <RelatedAnimeCard anime={anime} key={anime.id} />
               ))}
             </Slider>
 

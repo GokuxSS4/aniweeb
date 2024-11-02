@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+
 import { HiAnime } from "aniwatch";
 import { useEffect, useState } from "react";
 import { IoIosPlay } from "react-icons/io";
@@ -81,8 +83,8 @@ function ScheduleItem({
   isExpanded: boolean;
 }) {
   return (
-    <div
-      key={schedule.id}
+    <Link
+      href={`details?animeId=${schedule.id}`}
       className={`border-b border-white-10 py-3 justify-between brightness-75 hover:brightness-100 cursor-pointer ${
         index >= 5 && !isExpanded ? "hidden" : "flex"
       }`}
@@ -96,7 +98,7 @@ function ScheduleItem({
         <p>Episode</p>
         <p>{schedule.episode}</p>
       </button>
-    </div>
+    </Link>
   );
 }
 

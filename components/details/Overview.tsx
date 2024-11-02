@@ -34,7 +34,7 @@ export function Overview({
     { label: "Genres", key: "genres" },
   ];
   return (
-    <div className="pt-16 flex flex-col gap-5">
+    <div className="flex flex-col gap-5 pt-24">
       <div className="flex  gap-8">
         <div className="flex flex-col md:flex-row gap-6">
           <div className="w-[160px]">

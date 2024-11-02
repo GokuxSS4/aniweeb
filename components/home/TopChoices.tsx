@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+
 import { useState } from "react";
 import { BsBadgeCc } from "react-icons/bs";
 import { MdMicNone } from "react-icons/md";
@@ -28,39 +30,40 @@ function TopAnime({
 
       <div className="flex flex-col w-full">
         {topAnime.map((anime: TopAnimeType, index: number) => (
-          <div
-            className={`p-4 gap-4 border-b border-gray-500 ${
-              index >= topAnime.length / 2 && !isExpanded ? "hidden" : "flex"
-            }`}
-            key={anime.id}
-          >
-            <div className="flex-shrink-0 w-[50px] aspect-[2/3]">
-              <img
-                src={anime.poster || ""}
-                alt={anime.name || "failed to retrieve image"}
-                className="rounded-md h-full w-full object-cover"
-                loading="lazy"
-              />
-            </div>
+          <Link href={`details?animeId=${anime.id}`}>
+            <div
+              className={`p-4 gap-4 border-b border-gray-500 ${index >= topAnime.length / 2 && !isExpanded ? "hidden" : "flex"
+                }`}
+              key={anime.id}
+            >
+              <div className="flex-shrink-0 w-[50px] aspect-[2/3]">
+                <img
+                  src={anime.poster || ""}
+                  alt={anime.name || "failed to retrieve image"}
+                  className="rounded-md h-full w-full object-cover"
+                  loading="lazy"
+                />
+              </div>
 
-            <div className="flex flex-col justify-center  gap-2 min-w-0">
-              <div className="line-clamp-2 break-words">{anime.name}</div>
-              <div className="flex gap-2">
-                {anime.episodes.sub && (
-                  <div className="flex items-center text-white text-xs bg-primary px-1.5 py-0.5 rounded gap-0.5">
-                    <BsBadgeCc className="w-3 h-3" />
-                    <span>{anime.episodes.sub}</span>
-                  </div>
-                )}
-                {anime.episodes.dub && (
-                  <div className="flex items-center text-white text-xs bg-secondary px-1.5 py-0.5 rounded gap-0.5">
-                    <MdMicNone className="w-3 h-3" />
-                    <span>{anime.episodes.dub}</span>
-                  </div>
-                )}
+              <div className="flex flex-col justify-center  gap-2 min-w-0">
+                <div className="line-clamp-2 break-words">{anime.name}</div>
+                <div className="flex gap-2">
+                  {anime.episodes.sub && (
+                    <div className="flex items-center text-white text-xs bg-primary px-1.5 py-0.5 rounded gap-0.5">
+                      <BsBadgeCc className="w-3 h-3" />
+                      <span>{anime.episodes.sub}</span>
+                    </div>
+                  )}
+                  {anime.episodes.dub && (
+                    <div className="flex items-center text-white text-xs bg-secondary px-1.5 py-0.5 rounded gap-0.5">
+                      <MdMicNone className="w-3 h-3" />
+                      <span>{anime.episodes.dub}</span>
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
 

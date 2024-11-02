@@ -1,11 +1,15 @@
 "use client";
 
+import Link from "next/link";
+
+import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { CiSearch } from "react-icons/ci";
 import { MdClear } from "react-icons/md";
 import { SearchBar } from "@/components/common/SearchBar";
 
 export function NavBar() {
+  const pathname = usePathname();
   const [hasScrolled, setHasScrolled] = useState(false);
   const [isSearchInputVisible, setIsSearchInputVisible] = useState(false);
 
@@ -23,7 +27,8 @@ export function NavBar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const isNavBarMirroVisible = hasScrolled || isSearchInputVisible;
+  const isNavBarMirroVisible =
+    hasScrolled || isSearchInputVisible || pathname !== "/";
 
   return (
     <nav
@@ -34,12 +39,14 @@ export function NavBar() {
       }`}
     >
       <div className="w-[90%] mx-auto flex items-center justify-between py-4">
-        <h1 className="text-white font-semibold text-xl">Aniweeb.tv</h1>
-        
+        <Link href="/">
+          <h1 className="text-white font-semibold text-xl">Aniweeb.tv</h1>
+        </Link>
+
         <div className="hidden lg:flex lg:justify-end w-full">
-          <SearchBar isCompitable={false}/>
+          <SearchBar isCompitable={false} />
         </div>
-        
+
         <div className="lg:hidden w-full flex justify-end">
           {isSearchInputVisible ? (
             <MdClear

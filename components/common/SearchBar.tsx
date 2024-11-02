@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+
 import { getSearchSuggestion } from "@/actions";
 import { HiAnime } from "aniwatch";
 import { useEffect, useState } from "react";
@@ -14,30 +16,32 @@ interface AnimeItemProps {
 
 function AnimeItem({ anime }: AnimeItemProps) {
   return (
-    <div className="flex items-start gap-3 p-3  hover:bg-slate-800/50 transition-colors cursor-pointer border-b border-white-20">
-      <div className="flex-shrink-0 w-[50px] aspect-[2/3] ">
-        <img
-          src={anime.poster || ""}
-          alt={anime.name || "Anime poster"}
-          className="rounded-md h-full w-full object-cover"
-          loading="lazy"
-        />
-      </div>
-      <div className="flex flex-col gap-1 justify-between">
-        <p className="text-white font-medium line-clamp-1">{anime.name}</p>
-        <p className="text-gray-400 line-clamp-1">{anime.jname}</p>
-        <div className="flex gap-2 text-gray-400 text-sm line-clamp-2">
-          {anime.moreInfo.map((info: string, index: number) => {
-            return (
-              <span key={index} className="flex gap-2">
-                {info}{" "}
-                {index != anime.moreInfo.length - 1 && <span>&#8226; </span>}
-              </span>
-            );
-          })}
+    <Link href={`details?animeId=${anime.id}`}>
+      <div className="flex items-start gap-3 p-3  hover:bg-slate-800/50 transition-colors cursor-pointer border-b border-white-20">
+        <div className="flex-shrink-0 w-[50px] aspect-[2/3] ">
+          <img
+            src={anime.poster || ""}
+            alt={anime.name || "Anime poster"}
+            className="rounded-md h-full w-full object-cover"
+            loading="lazy"
+          />
+        </div>
+        <div className="flex flex-col gap-1 justify-between">
+          <p className="text-white font-medium line-clamp-1">{anime.name}</p>
+          <p className="text-gray-400 line-clamp-1">{anime.jname}</p>
+          <div className="flex gap-2 text-gray-400 text-sm line-clamp-2">
+            {anime.moreInfo.map((info: string, index: number) => {
+              return (
+                <span key={index} className="flex gap-2">
+                  {info}{" "}
+                  {index != anime.moreInfo.length - 1 && <span>&#8226; </span>}
+                </span>
+              );
+            })}
+          </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
 
