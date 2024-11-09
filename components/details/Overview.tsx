@@ -1,4 +1,5 @@
 import { HiAnime } from "aniwatch";
+import Link from "next/link";
 import { BsBadgeCc } from "react-icons/bs";
 import { FaRegPlayCircle } from "react-icons/fa";
 import { MdMicNone } from "react-icons/md";
@@ -34,7 +35,7 @@ export function Overview({
     { label: "Genres", key: "genres" },
   ];
   return (
-    <div className="flex flex-col gap-5 pt-24">
+    <div className="flex flex-col gap-5 pt-6 lg:pt-24">
       <div className="flex  gap-8">
         <div className="flex flex-col md:flex-row gap-6">
           <div className="w-[160px]">
@@ -47,7 +48,8 @@ export function Overview({
 
           <div className="flex flex-col gap-6 justify-end">
             <h1 className="text-6xl font-bold">{animeInfo.info.name}</h1>
-            <div className="flex gap-3 text-xs">
+            <div className="flex gap-3 text-xs items-center
+            ">
               <p className="px-1.5 py-0.5 rounded  bg-white-10">
                 {animeInfo.info.stats.rating}
               </p>
@@ -72,12 +74,12 @@ export function Overview({
               <p className="py-0.5">{animeInfo.info.stats.duration}</p>
             </div>
 
-            <div>
+            <Link href={`/watch/${animeInfo.info.id}`}>
               <button className="bg-primary  hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-full flex justify-center items-center gap-2">
                 <FaRegPlayCircle />
                 Watch Now
               </button>
-            </div>
+            </Link>
           </div>
         </div>
       </div>

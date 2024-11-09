@@ -76,10 +76,12 @@ function SpoitLightAnimeInfo({ anime }: { anime: HiAnime.SpotlightAnime }) {
           </p>
         </div>
         <div className="flex gap-2">
-          <button className="bg-primary hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-full flex justify-center items-center gap-2">
-            <FaRegPlayCircle />
-            Watch Now
-          </button>
+          <Link href={`/watch/${anime.id}`}>
+            <button className="bg-primary hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-full flex justify-center items-center gap-2">
+              <FaRegPlayCircle />
+              Watch Now
+            </button>
+          </Link>
           <Link href={`details?animeId=${anime.id}`}>
             <button className="bg-white-10 hover:bg-white-20 text-white font-bold py-2 px-4 rounded-full flex justify-center items-center gap-2">
               <IoInformationCircle />

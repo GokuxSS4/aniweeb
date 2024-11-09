@@ -22,6 +22,7 @@ function TopAnime({
 }) {
   const [isExpanded, setIsExpanded] = useState(false);
 
+
   return (
     <div className="flex flex-col w-full">
       <h2 className="capitalize text-xl font-semibold text-start pl-4 pb-4">
@@ -30,11 +31,11 @@ function TopAnime({
 
       <div className="flex flex-col w-full">
         {topAnime.map((anime: TopAnimeType, index: number) => (
-          <Link href={`details?animeId=${anime.id}`}>
+          <Link href={`details?animeId=${anime.id}`} key={anime.id}>
             <div
-              className={`p-4 gap-4 border-b border-gray-500 ${index >= topAnime.length / 2 && !isExpanded ? "hidden" : "flex"
-                }`}
-              key={anime.id}
+              className={`p-4 gap-4 border-b border-gray-500 ${
+                index >= topAnime.length / 2 && !isExpanded ? "hidden" : "flex"
+              }`}
             >
               <div className="flex-shrink-0 w-[50px] aspect-[2/3]">
                 <img
@@ -87,9 +88,9 @@ export function TopChoices({ top10Animes }: { top10Animes: Top10AnimesType }) {
     <div className="w-full">
       <Header title="Top Choices" />
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {topCategory.map((category: Top10AnimesTypeKeys) => (
+        {topCategory.map((category: Top10AnimesTypeKeys, index: number) => (
           <TopAnime
-            key={category}
+            key={index}
             topAnime={top10Animes[category]}
             title={category}
           />

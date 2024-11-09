@@ -7,6 +7,9 @@ import { Footer } from "@/components/common/Footer";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import '@vidstack/react/player/styles/base.css';
+import '@vidstack/react/player/styles/plyr/theme.css';
+
 import "./globals.css";
 
 const poppins = Poppins({
