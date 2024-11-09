@@ -6,6 +6,14 @@ import {
   plyrLayoutIcons,
 } from "@vidstack/react/player/layouts/plyr";
 
+export function VidStackPlayerSkeleton() {
+  return (
+    <MediaPlayer title=""  src={""}>
+      <MediaProvider />
+    </MediaPlayer>
+  );
+}
+
 export function VidStackPlayer({
   videoUrl,
   subtitleUrls,
@@ -38,12 +46,7 @@ export function VidStackPlayer({
         />
       ))}
 
-      <Track
-        src={thumbnailUrl} 
-        kind="metadata" 
-        label="Thumbnails"
-        default
-      />
+      <Track src={thumbnailUrl} kind="metadata" label="Thumbnails" default />
 
       <PlyrLayout icons={plyrLayoutIcons} />
     </MediaPlayer>

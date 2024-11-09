@@ -2,7 +2,7 @@ import { HiAnime } from "aniwatch";
 
 import { getAnimeEpisodes } from "@/app/watch/actions";
 
-import { WatchContainer } from "@/components/watch/WatchContainer";
+import { AnimeOverView, WatchContainer } from "@/components/watch/WatchContainer";
 import { getAnimeDetails } from "@/app/details/action";
 import { RelatedAnime } from "@/components/details/RelatedAnime";
 import { RecomendedAnime } from "@/components/details/RecomendedAnime";
@@ -22,8 +22,10 @@ export default async function WatchAnime({
   );
 
   return (
-    <div className="w-[90%] mx-auto text-white">
-      <WatchContainer animeEpisodes={animeEpisodes} animeInfo={animeDetails.anime}/>
+    <div className="w-[90%] mx-auto text-white ">
+      <WatchContainer animeEpisodes={animeEpisodes}/>
+      <AnimeOverView animeInfo={animeDetails.anime}/>
+
       <LeadCharacters
         leadCharacters={animeDetails.anime.info.charactersVoiceActors}
       />

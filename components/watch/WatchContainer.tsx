@@ -5,17 +5,18 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { ListOfEpisodes } from "./ListOfEpisodes";
 import { VideoContainer } from "./VideoContainer";
+
 import { BsBadgeCc } from "react-icons/bs";
 import { MdMicNone } from "react-icons/md";
 
-function AnimeOverView({
+export function AnimeOverView({
   animeInfo,
 }: {
   animeInfo: HiAnime.ScrapedAnimeAboutInfo["anime"];
 }) {
   const [isViewMoreText, setIsViewMoreText] = useState(true);
   return (
-    <div className="flex flex-row gap-3 md:gap-8">
+    <div className="flex flex-row gap-3 md:gap-8 pt-10">
       <div className="w-[80px] h-[150px] md:w-[160px] md:h-[240px] flex-shrink-0">
         <img
           src={animeInfo.info.poster || ""}
@@ -82,10 +83,8 @@ function AnimeOverView({
 
 export function WatchContainer({
   animeEpisodes,
-  animeInfo,
 }: {
   animeEpisodes: HiAnime.ScrapedAnimeEpisodes;
-  animeInfo: HiAnime.ScrapedAnimeAboutInfo["anime"];
 }) {
   const [currentEpisode, setCurrentEpisode] = useState(
     animeEpisodes.episodes[0].episodeId
@@ -100,7 +99,6 @@ export function WatchContainer({
     <div className="pt-6 flex gap-6 flex-col lg:flex-row lg:pt-24">
       <div className="flex-1 flex flex-col gap-6">
         <VideoContainer currentEpisode={currentEpisode as string} />
-        <AnimeOverView animeInfo={animeInfo} />
       </div>
       <div className="w-full lg:w-1/4">
         <ListOfEpisodes

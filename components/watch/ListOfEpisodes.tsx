@@ -58,13 +58,13 @@ export function ListOfEpisodes({
       <div
         className={`grid ${
           totlaEpisodes <= 100 ? "grid-cols-1" : "grid-cols-5 md:grid-cols-10 lg:grid-cols-5"
-        } gap-3`}
+        } gap-2`}
       >
         {listOfEpisodes[selectedCategory].map((episode) => {
           return (
             <button
               key={episode.number}
-              className={`py-1 px-1 rounded-md flex gap-4 items-center ${
+              className={`py-1 px-1 rounded-md flex gap-3 items-center ${
                 totlaEpisodes <= 100 ? "justify-start" : "justify-center"
               } ${episode.isFiller ? "bg-orange-600" : "bg-gray-500"} ${
                 currentEpisode == episode.episodeId && "bg-purple-500"
