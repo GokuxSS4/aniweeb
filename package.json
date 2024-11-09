@@ -11,6 +11,7 @@
   "dependencies": {
     "@types/react-slick": "^0.23.13",
     "@vidstack/react": "^1.12.12",
+    "@warren-bank/hls-proxy": "^3.5.4",
     "aniwatch": "^2.4.1",
     "hls.js": "^1.5.17",
     "ioredis": "^5.4.1",

@@ -16,7 +16,7 @@ type RelatedAnimeType = HiAnime.ScrapedAnimeAboutInfo["relatedAnimes"][number];
 
 export function RelatedAnimeCard({ anime }: { anime: RelatedAnimeType }) {
   return (
-    <Link href={`details?animeId=${anime.id}`}>
+    <Link href={`/details?animeId=${anime.id}`}>
     <div className="w-[calc(16.66% - 1rem)] gap-2 p-2 flex flex-col flex-shrink-0">
       <div className="w-full aspect-[2/3] overflow-hidden relative">
         <img

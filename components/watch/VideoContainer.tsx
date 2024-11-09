@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { VidStackPlayer, VidStackPlayerSkeleton } from "./VidStackPlayer";
 import { BsBadgeCc } from "react-icons/bs";
 import { MdMicNone } from "react-icons/md";
+import { file_extension, proxy_url } from "@/utils/helper";
 
 type ServerInfoType = {
   watchCategory: "sub" | "dub" | "raw";
@@ -49,6 +50,8 @@ export function VideoContainer({ currentEpisode }: { currentEpisode: string }) {
   );
   const [serverResources, setServerResources] = useState<any | null>(null);
 
+  const [isServerResourceError, setIsServerResourceError] = useState(false);
+
   useEffect(() => {
     const fetchServerDetails = async () => {
       try {
@@ -56,6 +59,7 @@ export function VideoContainer({ currentEpisode }: { currentEpisode: string }) {
         setAvailableServers(servers);
         const initialServer = getFirstServer(servers);
         setSelectedServer(initialServer);
+        setIsServerResourceError(false);
       } catch (error) {
         console.error("Error fetching available servers:", error);
       }
@@ -74,13 +78,30 @@ export function VideoContainer({ currentEpisode }: { currentEpisode: string }) {
       if (!selectedServer) return;
 
       try {
-        const resources = await getEpServerResources(
+        const resources: any = await getEpServerResources(
           currentEpisode,
           selectedServer.serverName,
           selectedServer.watchCategory
         );
+        resources.sources = resources.sources
+          .filter((source: any) => source.type === "hls")
+          .map((source: any) => {
+            const encodedUrl = btoa(source.url);
+            return {
+              ...source,
+              url: `${proxy_url}/${encodedUrl}${file_extension}`,
+            };
+          });
+
+        resources.tracks = resources.tracks.map((track: any) => {
+          const encodedFile = btoa(track.file);
+          return { ...track, file: `${proxy_url}/${encodedFile}` };
+        });
+
         setServerResources(resources);
+        setIsServerResourceError(false);
       } catch (error) {
+        setIsServerResourceError(true);
         console.error("Error fetching server resources:", error);
       }
     };
@@ -108,14 +129,14 @@ export function VideoContainer({ currentEpisode }: { currentEpisode: string }) {
                 ? "bg-primary"
                 : "bg-gray-500 hover:bg-gray-600 transition-colors"
             }`}
-            onClick={() =>{
+            onClick={() => {
               setSelectedServer({
                 watchCategory: category,
                 serverName: server.serverName as HiAnime.AnimeServers,
-              })
+              });
               setServerResources(null);
-            }
-            }
+              setIsServerResourceError(false);
+            }}
           >
             {server.serverName}
           </button>
@@ -127,7 +148,14 @@ export function VideoContainer({ currentEpisode }: { currentEpisode: string }) {
   return (
     <div className="w-full flex flex-col gap-6">
       <div className="relative aspect-video w-full">
-        {serverResources ? (
+        {isServerResourceError ? (
+          <div className="w-full h-full relative bg-gray-300">
+            <p className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center text-black">
+              Failed to retrieve
+            </p>
+            <VidStackPlayerSkeleton />
+          </div>
+        ) : serverResources ? (
           <VidStackPlayer
             videoUrl={serverResources.sources[0].url}
             thumbnailUrl={
@@ -140,11 +168,13 @@ export function VideoContainer({ currentEpisode }: { currentEpisode: string }) {
             )}
           />
         ) : (
-          <div className="w-full h-full animate-pulse transform transition-transform duration-500 bg-gray-700">
+          <div className="w-full h-full animate-pulse bg-gray-700">
             <VidStackPlayerSkeleton />
           </div>
         )}
+        </div>
 
+        <div>
         {availableServers ? (
           <div className="bg-[rgb(15,14,15)] rounded-lg mt-4 overflow-hidden border border-gray-800">
             <div className="flex flex-col lg:flex-row">
@@ -186,7 +216,7 @@ export function VideoContainer({ currentEpisode }: { currentEpisode: string }) {
             </div>
           </div>
         ) : (
-          <div className="rounded-lg mt-4 overflow-hidden border border-gray-800 animate-pulse transform transition-transform duration-500 bg-gray-700">
+          <div className="rounded-lg mt-4  border border-gray-800 animate-pulse transform transition-transform duration-500 bg-gray-700">
             <div className="flex flex-col lg:flex-row">
               <div className="lg:w-[250px] p-6 bg-gray-900/50">
                 <div className="flex flex-col items-center text-center gap-2">
@@ -204,7 +234,8 @@ export function VideoContainer({ currentEpisode }: { currentEpisode: string }) {
             </div>
           </div>
         )}
-      </div>
+        </div>
+        
     </div>
   );
 }

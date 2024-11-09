@@ -34,6 +34,7 @@ export function VidStackPlayer({
       title="Sprite Fight"
       className="border-2 border-white-10 rounded-lg"
       src={videoUrl}
+      crossOrigin={true}
     >
       <MediaProvider />
       {subtitleUrls.map((track: any, index: any) => (
