@@ -106,10 +106,12 @@ export function SearchBar({ isCompitable }: { isCompitable: boolean }) {
               <AnimeItem key={anime.id} anime={anime} />
             ))}
           </div>
-          <button className="flex gap-1 w-full p-3 justify-center items-center bg-primary  text-white rounded-b-md">
-            <span>Show all results</span>
-            <MdKeyboardArrowRight />
-          </button>
+          <Link href={`/search?keyword=${searchAnime}`}>
+            <button className="flex gap-1 w-full p-3 justify-center items-center bg-primary  text-white rounded-b-md">
+              <span>Show all results</span>
+              <MdKeyboardArrowRight />
+            </button>
+          </Link>
         </div>
       )}
     </div>
