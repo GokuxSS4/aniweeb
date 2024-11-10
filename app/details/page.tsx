@@ -16,9 +16,6 @@ export default async function AnimeDetails({
   const animeDetails: HiAnime.ScrapedAnimeAboutInfo = await getAnimeDetails(
     animeId
   );
-  // console.log("voice actors:", animeDetails.relatedAnimes);
-  // console.log("length of voice actor", animeDetails.relatedAnimes.length);
-  // console.log("anime", animeDetails.anime);
 
   return (
     <div className="w-[90%] mx-auto text-white">
