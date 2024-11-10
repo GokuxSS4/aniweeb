@@ -48,8 +48,10 @@ export function Overview({
 
           <div className="flex flex-col gap-6 justify-end">
             <h1 className="text-6xl font-bold">{animeInfo.info.name}</h1>
-            <div className="flex gap-3 text-xs items-center
-            ">
+            <div
+              className="flex gap-3 text-xs items-center
+            "
+            >
               <p className="px-1.5 py-0.5 rounded  bg-white-10">
                 {animeInfo.info.stats.rating}
               </p>
@@ -74,12 +76,14 @@ export function Overview({
               <p className="py-0.5">{animeInfo.info.stats.duration}</p>
             </div>
 
-            <Link href={`/watch/${animeInfo.info.id}`}>
-              <button className="bg-primary  hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-full flex justify-center items-center gap-2">
-                <FaRegPlayCircle />
-                Watch Now
-              </button>
-            </Link>
+            {animeInfo.info.id && (
+              <Link href={`/watch/${animeInfo.info.id}`}>
+                <button className="bg-primary  hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-full flex justify-center items-center gap-2">
+                  <FaRegPlayCircle />
+                  Watch Now
+                </button>
+              </Link>
+            )}
           </div>
         </div>
       </div>
