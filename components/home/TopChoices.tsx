@@ -33,21 +33,22 @@ function TopAnime({
         {topAnime.map((anime: TopAnimeType, index: number) => (
           <Link href={`details?animeId=${anime.id}`} key={anime.id}>
             <div
-              className={`p-4 gap-4 border-b border-gray-500 ${
+              className={`p-4 gap-4 border-b border-gray-500 group ${
                 index >= topAnime.length / 2 && !isExpanded ? "hidden" : "flex"
               }`}
             >
-              <div className="flex-shrink-0 w-[50px] aspect-[2/3]">
+              <div className="flex-shrink-0 w-[50px] aspect-[2/3] relative">
                 <img
                   src={anime.poster || ""}
                   alt={anime.name || "failed to retrieve image"}
                   className="rounded-md h-full w-full object-cover"
                   loading="lazy"
                 />
+                <div className="absolute inset-0 rounded-md group-hover:backdrop-blur-sm transition duration-300"></div>
               </div>
 
               <div className="flex flex-col justify-center  gap-2 min-w-0">
-                <div className="line-clamp-2 break-words">{anime.name}</div>
+                <div className="line-clamp-2 break-words ">{anime.name}</div>
                 <div className="flex gap-2">
                   {anime.episodes.sub && (
                     <div className="flex items-center text-white text-xs bg-primary px-1.5 py-0.5 rounded gap-0.5">
