@@ -69,7 +69,7 @@ export function LatestEpisodes({
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6  gap-6">
         {aniList.map((anime: HiAnime.Anime, index: number) => {
           return (
-            <Link href={`details?animeId=${anime.id}`} key={index}>
+            <Link href={`/details?animeId=${anime.id}`} key={index}>
               <AniCard key={index} anime={anime} />
             </Link>
           );
