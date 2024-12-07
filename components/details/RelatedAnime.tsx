@@ -1,9 +1,9 @@
 "use client";
 
 import Link from "next/link";
+import Carousel from "react-multi-carousel";
 
-import { useEffect, useRef, useState } from "react";
-import Slider from "react-slick";
+import { useEffect, useState } from "react";
 import { HiAnime } from "aniwatch";
 import { BsBadgeCc } from "react-icons/bs";
 import { MdMicNone } from "react-icons/md";
@@ -11,6 +11,8 @@ import { FaChevronLeft, FaChevronRight, FaPlay } from "react-icons/fa6";
 
 import { Header } from "@/components/common/Header";
 import { LoadingSkeletons } from "@/components/home/Trending";
+
+import "react-multi-carousel/lib/styles.css";
 
 type RelatedAnimeType = HiAnime.ScrapedAnimeAboutInfo["relatedAnimes"][number];
 
@@ -22,7 +24,7 @@ export function RelatedAnimeCard({ anime }: { anime: RelatedAnimeType }) {
           <img
             src={anime.poster || ""}
             alt={anime.name || "failed to retrive image"}
-            className="rounded-md h-full w-full object-cover"
+            className="h-full w-full object-cover"
             loading="lazy"
           />
           <div className="absolute inset-0 group-hover:backdrop-blur-sm transition duration-300"></div>
@@ -68,92 +70,80 @@ export function RelatedAnime({
   if (!relatedAnimes.length) {
     return <></>;
   }
-
-  const sliderRef = useRef<Slider>(null);
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
     setIsMounted(true);
   }, []);
 
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
 
-  const next = () => {
-    sliderRef.current?.slickNext();
+  const CustomLeftArrow = ({ onClick }: any) => {
+    return (
+      <button
+        onClick={onClick}
+        className="absolute left-4 top-[45%]  bg-black/60 transform -translate-y-1/2 rounded-full p-2 text-white hidden md:flex items-center justify-center transition-all duration-200 hover:bg-black/70"
+      >
+        <FaChevronLeft size={24} />
+      </button>
+    );
+  };
+  const CustomRightArrow = ({ onClick }: any) => {
+    return (
+      <button
+        onClick={onClick}
+        className="absolute right-4 top-[45%] bg-black/60 transform -translate-y-1/2 rounded-full p-2 text-white hidden md:flex items-center justify-center transition-all duration-200 hover:bg-black/70"
+      >
+        <FaChevronRight size={24} />
+      </button>
+    );
   };
 
-  const previous = () => {
-    sliderRef.current?.slickPrev();
+  const responsiveSettings = {
+    largeDesktop: {
+      breakpoint: { max: 3000, min: 1536 },
+      items: 8,
+      slidesToSlide: 1,
+    },
+    desktop: {
+      breakpoint: { max: 1535, min: 1280 },
+      items: 6,
+      slidesToSlide: 1,
+    },
+    tablet: {
+      breakpoint: { max: 1279, min: 768 },
+      items: 4,
+      slidesToSlide: 1,
+    },
+    mobile: {
+      breakpoint: { max: 767, min: 300 },
+      items: 3,
+      slidesToSlide: 1,
+    },
   };
 
-  const settings = {
-    dots: false,
-    infinite: false,
-    speed: 500,
-    arrows: false,
-    swipeToSlide: false,
-    slidesToShow: 8,
-    slidesToScroll: 1,
-    initialSlide: 0,
-    responsive: [
-      {
-        breakpoint: 1536,
-        settings: {
-          slidesToShow: 8,
-          slidesToScroll: 1,
-        },
-      },
-      {
-        breakpoint: 1280,
-        settings: {
-          slidesToShow: 6,
-          slidesToScroll: 1,
-        },
-      },
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 4,
-          slidesToScroll: 1,
-        },
-      },
-      {
-        breakpoint: 768,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 1,
-        },
-      },
-    ],
-  };
 
   return (
     <div className="w-full h-full">
       <Header title="Related" />
       <div className="relative w-full p-0">
-        {isMounted ? (
+      {isMounted ? (
           <>
-            <Slider ref={sliderRef} {...settings} className="!static">
-              {relatedAnimes.map((anime: RelatedAnimeType) => (
+            <Carousel
+              swipeable={true}
+              draggable={false}
+              responsive={responsiveSettings}
+              keyBoardControl={true}
+              customLeftArrow={<CustomLeftArrow />}
+              customRightArrow={<CustomRightArrow />}
+              customTransition="transform 500ms ease-in-out"
+              transitionDuration={500}
+              containerClass="carousel-container"
+              itemClass="carousel-item-padding-40-px"
+            >
+               {relatedAnimes.map((anime: RelatedAnimeType) => (
                 <RelatedAnimeCard anime={anime} key={anime.id} />
               ))}
-            </Slider>
-
-            <button
-              onClick={previous}
-              className="absolute left-4 top-[45%]  bg-black/60 transform -translate-y-1/2 rounded-full p-2 text-white hidden md:flex items-center justify-center transition-all duration-200 hover:bg-black/70"
-            >
-              <FaChevronLeft size={24} />
-            </button>
-
-            <button
-              onClick={next}
-              className="absolute right-2 top-[45%] bg-black/60 transform -translate-y-1/2 rounded-full p-2 text-white hidden md:flex items-center justify-center transition-all duration-200 hover:bg-black/70"
-            >
-              <FaChevronRight size={24} />
-            </button>
+            </Carousel>
           </>
         ) : (
           <LoadingSkeletons />

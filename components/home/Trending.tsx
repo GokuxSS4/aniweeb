@@ -1,43 +1,18 @@
 "use client";
 
 import Link from "next/link";
+import Carousel from "react-multi-carousel";
 
-import { useEffect, useRef, useState } from "react";
-import Slider from "react-slick";
+import { useEffect, useState } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 import { HiAnime } from "aniwatch";
 import { Header } from "@/components/common/Header";
 import { FaPlay } from "react-icons/fa";
 
+import "react-multi-carousel/lib/styles.css";
+
 function TrendingAnimeCard({ anime }: { anime: HiAnime.TrendingAnime }) {
   return (
-    // <Link href={`details?animeId=${anime.id}`}>
-    //   <div className="w-[calc(16.66% - 1rem)] gap-2 p-2 flex flex-col flex-shrink-0 group">
-    //     <div className="w-full aspect-[2/3] overflow-hidden relative group-hover:backdrop-blur-lg">
-    //       <img
-    //         src={anime.poster || ""}
-    //         alt={anime.name || "failed to retrive image"}
-    //         className="rounded-md h-full w-full object-cover group-hover:backdrop-blur-lg"
-    //         loading="lazy"
-    //       />
-    //       <div className="absolute top-0 left-0">
-    //         <div className="relative flex items-center justify-center size-8 lg:size-10">
-    //           <div className="absolute inset-0 bg-black/30 backdrop-blur-md" />
-
-    //           <div className="absolute inset-0 border-2 border-white/30" />
-
-    //           <span className="relative text-white text-sm md:text-base lg:text-lg font-bold">
-    //             #{anime.rank}
-    //           </span>
-    //         </div>
-    //       </div>
-    //     </div>
-
-    //     <p className="line-clamp-1 font-medium text-white text-base">
-    //       {anime.name}
-    //     </p>
-    //   </div>
-    // </Link>
     <Link href={`details?animeId=${anime.id}`}>
       <div className="w-[calc(16.66% - 1rem)] gap-2 p-2 flex flex-col flex-shrink-0 group">
         <div className="w-full aspect-[2/3] overflow-hidden relative">
@@ -93,6 +68,7 @@ export function LoadingSkeletons() {
             key={index}
             className={`
               flex-1 min-w-0
+              ${index == 3 ? "hidden md:block" : ""}
               ${index == 4 ? "hidden xl:block" : ""}
               ${index == 5 ? "hidden xl:block" : ""}
               ${index == 6 ? "hidden 2xl:block" : ""}
@@ -112,64 +88,55 @@ interface TrendingProps {
 }
 
 export function Trending({ aniList }: TrendingProps) {
-  const sliderRef = useRef<Slider>(null);
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
     setIsMounted(true);
   }, []);
 
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
 
-  const next = () => {
-    sliderRef.current?.slickNext();
+  const CustomLeftArrow = ({ onClick }: any) => {
+    return (
+      <button
+        onClick={onClick}
+        className="absolute left-4 top-[45%]  bg-black/60 transform -translate-y-1/2 rounded-full p-2 text-white hidden md:flex items-center justify-center transition-all duration-200 hover:bg-black/70"
+      >
+        <FaChevronLeft size={24} />
+      </button>
+    );
+  };
+  const CustomRightArrow = ({ onClick }: any) => {
+    return (
+      <button
+        onClick={onClick}
+        className="absolute right-4 top-[45%] bg-black/60 transform -translate-y-1/2 rounded-full p-2 text-white hidden md:flex items-center justify-center transition-all duration-200 hover:bg-black/70"
+      >
+        <FaChevronRight size={24} />
+      </button>
+    );
   };
 
-  const previous = () => {
-    sliderRef.current?.slickPrev();
-  };
-
-  const settings = {
-    dots: false,
-    infinite: false,
-    speed: 500,
-    arrows: false,
-    swipeToSlide: true,
-    slidesToShow: 8,
-    slidesToScroll: 1,
-    initialSlide: 0,
-    responsive: [
-      {
-        breakpoint: 1536,
-        settings: {
-          slidesToShow: 8,
-          slidesToScroll: 1,
-        },
-      },
-      {
-        breakpoint: 1280,
-        settings: {
-          slidesToShow: 6,
-          slidesToScroll: 1,
-        },
-      },
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 4,
-          slidesToScroll: 1,
-        },
-      },
-      {
-        breakpoint: 768,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 1,
-        },
-      },
-    ],
+  const responsiveSettings = {
+    largeDesktop: {
+      breakpoint: { max: 3000, min: 1536 },
+      items: 8,
+      slidesToSlide: 1,
+    },
+    desktop: {
+      breakpoint: { max: 1535, min: 1280 },
+      items: 6,
+      slidesToSlide: 1,
+    },
+    tablet: {
+      breakpoint: { max: 1279, min: 768 },
+      items: 4,
+      slidesToSlide: 1,
+    },
+    mobile: {
+      breakpoint: { max: 767, min: 300 },
+      items: 3,
+      slidesToSlide: 1,
+    },
   };
 
   return (
@@ -178,25 +145,22 @@ export function Trending({ aniList }: TrendingProps) {
       <div className="relative w-full">
         {isMounted ? (
           <>
-            <Slider ref={sliderRef} {...settings} className="!static">
+            <Carousel
+              swipeable={true}
+              draggable={false}
+              responsive={responsiveSettings}
+              keyBoardControl={true}
+              customLeftArrow={<CustomLeftArrow />}
+              customRightArrow={<CustomRightArrow />}
+              customTransition="transform 500ms ease-in-out"
+              transitionDuration={500}
+              containerClass="carousel-container"
+              itemClass="carousel-item-padding-40-px"
+            >
               {aniList.map((anime) => (
                 <TrendingAnimeCard anime={anime} key={anime.id} />
               ))}
-            </Slider>
-
-            <button
-              onClick={previous}
-              className="absolute left-4 top-[45%]  bg-black/60 transform -translate-y-1/2 rounded-full p-2 text-white hidden md:flex items-center justify-center transition-all duration-200 hover:bg-black/70"
-            >
-              <FaChevronLeft size={24} />
-            </button>
-
-            <button
-              onClick={next}
-              className="absolute right-2 top-[45%] bg-black/60 transform -translate-y-1/2 rounded-full p-2 text-white hidden md:flex items-center justify-center transition-all duration-200 hover:bg-black/70"
-            >
-              <FaChevronRight size={24} />
-            </button>
+            </Carousel>
           </>
         ) : (
           <LoadingSkeletons />
