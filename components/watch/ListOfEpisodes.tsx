@@ -27,10 +27,12 @@ export function ListOfEpisodes({
   animeEpisodes,
   currentEpisode,
   handleCurrentEpisode,
+  handleTitle
 }: {
   animeEpisodes: HiAnime.ScrapedAnimeEpisodes;
   currentEpisode: string;
   handleCurrentEpisode: (episode: string) => void;
+  handleTitle: (title:string)=>void
 }) {
   const totlaEpisodes = animeEpisodes.totalEpisodes;
   const listOfEpisodes = getListOfEpisodes(
@@ -57,7 +59,7 @@ export function ListOfEpisodes({
       </div>
       <div
         className={`grid ${
-          totlaEpisodes <= 100 ? "grid-cols-1" : "grid-cols-5 md:grid-cols-10 lg:grid-cols-5"
+          totlaEpisodes <= 50 ? "grid-cols-1" : "grid-cols-5 md:grid-cols-10 lg:grid-cols-5"
         } gap-2`}
       >
         {listOfEpisodes[selectedCategory].map((episode) => {
@@ -65,12 +67,13 @@ export function ListOfEpisodes({
             <button
               key={episode.number}
               className={`py-1 px-1 rounded-md flex gap-3 items-center ${
-                totlaEpisodes <= 100 ? "justify-start" : "justify-center"
+                totlaEpisodes <= 50 ? "justify-start" : "justify-center"
               } ${episode.isFiller ? "bg-orange-600" : "bg-gray-500"} ${
                 currentEpisode == episode.episodeId && "bg-purple-500"
               }`}
               onClick={() => {
                 handleCurrentEpisode(episode.episodeId as string);
+                handleTitle(episode.title as string)
               }}
             >
               {currentEpisode == episode.episodeId ? (
@@ -78,7 +81,7 @@ export function ListOfEpisodes({
               ) : (
                 episode.number
               )}
-              {totlaEpisodes <= 100 && <span className="line-clamp-1">{episode.title}</span>}
+              {totlaEpisodes <= 50 && <span className="line-clamp-1">{episode.title}</span>}
             </button>
           );
         })}

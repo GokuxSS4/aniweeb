@@ -89,6 +89,7 @@ export function WatchContainer({
   const [currentEpisode, setCurrentEpisode] = useState(
     animeEpisodes.episodes[0].episodeId
   );
+  const [title,setTitle]=useState(animeEpisodes.episodes[0].title);
   const router = useRouter();
 
   useEffect(() => {
@@ -98,13 +99,14 @@ export function WatchContainer({
   return (
     <div className="pt-6 flex gap-6 flex-col lg:flex-row lg:pt-24">
       <div className="flex-1 flex flex-col gap-6">
-        <VideoContainer currentEpisode={currentEpisode as string} />
+        <VideoContainer title={title as string} currentEpisode={currentEpisode as string} />
       </div>
       <div className="w-full lg:w-1/4">
         <ListOfEpisodes
           animeEpisodes={animeEpisodes}
           currentEpisode={currentEpisode as string}
           handleCurrentEpisode={setCurrentEpisode}
+          handleTitle={setTitle}
         />
       </div>
     </div>

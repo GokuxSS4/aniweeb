@@ -5,11 +5,12 @@ import {
   getEpServerResources,
 } from "@/app/watch/actions";
 import { HiAnime } from "aniwatch";
-import { useEffect, useState } from "react";
-import { VidStackPlayer, VidStackPlayerSkeleton } from "./VidStackPlayer";
+import { useEffect, useLayoutEffect, useState } from "react";
+import { VidStackPlayerSkeleton } from "./VidstackPlyrPlayer";
 import { BsBadgeCc } from "react-icons/bs";
 import { MdMicNone } from "react-icons/md";
 import { file_extension, proxy_url } from "@/utils/helper";
+import { VidstackDefaultPlayer } from "./VidstackDefaultPlayer";
 
 type ServerInfoType = {
   watchCategory: "sub" | "dub" | "raw";
@@ -42,7 +43,13 @@ function getFirstServer(
   return null;
 }
 
-export function VideoContainer({ currentEpisode }: { currentEpisode: string }) {
+export function VideoContainer({
+  currentEpisode,
+  title,
+}: {
+  currentEpisode: string;
+  title: string;
+}) {
   const [availableServers, setAvailableServers] =
     useState<HiAnime.ScrapedEpisodeServers | null>(null);
   const [selectedServer, setSelectedServer] = useState<ServerInfoType | null>(
@@ -52,61 +59,111 @@ export function VideoContainer({ currentEpisode }: { currentEpisode: string }) {
 
   const [isServerResourceError, setIsServerResourceError] = useState(false);
 
+  // useLayoutEffect(() => {
+  //   setAvailableServers(null);
+  //   setSelectedServer(null);
+  //   setServerResources(null);
+  //   setIsServerResourceError(false);
+  // }, [currentEpisode]);
+
+  // Fetch Available Servers
   useEffect(() => {
-    const fetchServerDetails = async () => {
+    const abortController = new AbortController();
+
+    const fetchServers = async () => {
       try {
-        const servers = await getEpsAvailableServers(currentEpisode);
-        setAvailableServers(servers);
-        const initialServer = getFirstServer(servers);
-        setSelectedServer(initialServer);
-        setIsServerResourceError(false);
+        const response = await fetch(
+          `/api/anime/servers?animeEpisode=${encodeURIComponent(currentEpisode)}`,
+          { signal: abortController.signal }
+        );
+
+        if (!response.ok) {
+          throw new Error('Failed to fetch servers');
+        }
+
+        const servers = await response.json();
+        
+        if (!abortController.signal.aborted) {
+          setAvailableServers(servers);
+          setIsServerResourceError(false);
+        }
       } catch (error) {
-        console.error("Error fetching available servers:", error);
+        if (error.name !== 'AbortError') {
+          console.error("Error fetching available servers:", error);
+          setIsServerResourceError(true);
+        }
       }
     };
 
-    fetchServerDetails();
+    fetchServers();
 
     return () => {
-      setSelectedServer(null);
-      setServerResources(null);
+      abortController.abort();
     };
   }, [currentEpisode]);
 
+  // Select Initial Server
   useEffect(() => {
-    const fetchServerResources = async () => {
-      if (!selectedServer) return;
+    if (availableServers) {
+      const initialServer = getFirstServer(availableServers);
+      setSelectedServer(initialServer);
+    }
+  }, [availableServers]);
+
+  // Fetch Server Resources
+  useEffect(() => {
+    const abortController = new AbortController();
+
+    const fetchResources = async () => {
+      if (!selectedServer) {
+        setServerResources(null);
+        return;
+      }
 
       try {
-        const resources: any = await getEpServerResources(
-          currentEpisode,
-          selectedServer.serverName,
-          selectedServer.watchCategory
+        const response = await fetch(
+          `/api/anime/sources?` + new URLSearchParams({
+            animeEpisode: currentEpisode,
+            serverName: selectedServer.serverName,
+            category: selectedServer.watchCategory
+          }),
+          { signal: abortController.signal }
         );
-        resources.sources = resources.sources
-          .filter((source: any) => source.type === "hls")
-          .map((source: any) => {
-            const encodedUrl = btoa(source.url);
-            return {
-              ...source,
-              url: `${proxy_url}/${encodedUrl}${file_extension}`,
-            };
-          });
 
-        resources.tracks = resources.tracks.map((track: any) => {
-          const encodedFile = btoa(track.file);
-          return { ...track, file: `${proxy_url}/${encodedFile}` };
-        });
+        if (!response.ok) {
+          throw new Error('Failed to fetch server resources');
+        }
 
-        setServerResources(resources);
-        setIsServerResourceError(false);
+        let resources = await response.json();
+
+        if (!abortController.signal.aborted) {
+          // Transform resource URLs if needed
+          resources.sources = resources.sources
+            .filter((source: any) => source.type === "hls")
+            .map((source: any) => {
+              const encodedUrl = btoa(source.url);
+              return {
+                ...source,
+                url: `${proxy_url}/${encodedUrl}${file_extension}`,
+              };
+            });
+
+          setServerResources(resources);
+          setIsServerResourceError(false);
+        }
       } catch (error) {
-        setIsServerResourceError(true);
-        console.error("Error fetching server resources:", error);
+        if (error.name !== 'AbortError') {
+          console.error("Error fetching server resources:", error);
+          setIsServerResourceError(true);
+        }
       }
     };
 
-    fetchServerResources();
+    fetchResources();
+
+    return () => {
+      abortController.abort();
+    };
   }, [selectedServer, currentEpisode]);
 
   const renderServerButtons = (
@@ -156,26 +213,29 @@ export function VideoContainer({ currentEpisode }: { currentEpisode: string }) {
             <VidStackPlayerSkeleton />
           </div>
         ) : serverResources ? (
-          <VidStackPlayer
-            videoUrl={serverResources.sources[0].url}
-            thumbnailUrl={
-              serverResources.tracks.find(
-                (track: any) => track.kind === "thumbnails"
-              )?.file
-            }
-            subtitleUrls={serverResources.tracks.filter(
-              (track: any) => track.kind === "captions"
-            )}
-          />
+          <div className="w-full h-full">
+            <VidstackDefaultPlayer
+              title={title}
+              videoUrl={serverResources.sources[0].url}
+              thumbnailUrl={
+                serverResources.tracks.find(
+                  (track: any) => track.kind === "thumbnails"
+                )?.file
+              }
+              subtitleUrls={serverResources.tracks.filter(
+                (track: any) => track.kind === "captions"
+              )}
+            />
+          </div>
         ) : (
           <div className="w-full h-full animate-pulse bg-gray-700">
             <VidStackPlayerSkeleton />
           </div>
         )}
-        </div>
+      </div>
 
-        <div>
-        {availableServers ? (
+      <div>
+        {availableServers != null ? (
           <div className="bg-[rgb(15,14,15)] rounded-lg mt-4 overflow-hidden border border-gray-800">
             <div className="flex flex-col lg:flex-row">
               <div className="lg:w-[250px] p-6 bg-gray-900/50">
@@ -234,8 +294,7 @@ export function VideoContainer({ currentEpisode }: { currentEpisode: string }) {
             </div>
           </div>
         )}
-        </div>
-        
+      </div>
     </div>
   );
 }
