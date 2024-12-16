@@ -13,6 +13,11 @@ import { getEstimatedScheduleByDate } from "@/actions";
 type EstimatedSchedule =
   HiAnime.ScrapedEstimatedSchedule["scheduledAnimes"][number];
 
+interface WeekContentProps {
+  scheduleList: EstimatedSchedule[];
+  isExpanded: boolean;
+}
+
 function getWeekByDate(date: Date) {
   const day = date.getDay();
   let array = [];
@@ -102,6 +107,29 @@ function ScheduleItem({
   );
 }
 
+function WeekContent({ scheduleList, isExpanded }: WeekContentProps) {
+  if (scheduleList.length > 0) {
+    return (
+      <>
+        {scheduleList.map((schedule, index) => (
+          <ScheduleItem
+            key={schedule.id}
+            schedule={schedule}
+            index={index}
+            isExpanded={isExpanded}
+          />
+        ))}
+      </>
+    );
+  } else {
+    return (
+      <div className="text-center pt-4">
+        <p className="text-2xl">No Schedule has been Found</p>
+      </div>
+    );
+  }
+}
+
 function WeekItemSkeleton() {
   return (
     <div className="flex grow h-16 flex-col px-4 py-2 items-center justify-center rounded-md animate-pulse transform transition-transform duration-500 bg-gray-700"></div>
@@ -159,18 +187,13 @@ export function EstimatedSchedule() {
       </div>
 
       <div className="flex flex-col gap-4 ">
-        {isMounted
-          ? scheduleList.map((schedule: EstimatedSchedule, index: number) => (
-              <ScheduleItem
-                key={schedule.id}
-                schedule={schedule}
-                index={index}
-                isExpanded={isExpanded}
-              />
-            ))
-          : Array.from({ length: 5 }).map((_, index) => (
-              <ScheduleItemSkeleton key={index} />
-            ))}
+        {isMounted ? (
+          <WeekContent scheduleList={scheduleList} isExpanded={isExpanded} />
+        ) : (
+          Array.from({ length: 5 }).map((_, index) => (
+            <ScheduleItemSkeleton key={index} />
+          ))
+        )}
       </div>
       <div
         className={`w-full justify-end mt-6 ${

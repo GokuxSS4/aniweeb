@@ -133,10 +133,15 @@ export function Trending({ aniList }: TrendingProps) {
       slidesToSlide: 1,
     },
     mobile: {
-      breakpoint: { max: 767, min: 300 },
+      breakpoint: { max: 767, min: 450 },
       items: 3,
       slidesToSlide: 1,
     },
+    smallmobile:{
+      breakpoint: { max: 450, min: 250 },
+      items: 2.5,
+      slidesToSlide: 1,
+    }
   };
 
   return (

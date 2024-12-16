@@ -34,20 +34,20 @@ export function RelatedAnimeCard({ anime }: { anime: RelatedAnimeType }) {
           </div>
 
           {anime.type && (
-            <div className="absolute top-2 left-2 text-white text-xs  bg-black bg-opacity-80  px-1.5 py-0.5 rounded s">
+            <div className="absolute top-2 left-2 text-white text-[10px] sm:text-xs  bg-black bg-opacity-80 px-1 py-0.5 sm:px-1.5 sm:py-0.5 rounded s">
               {anime.type}
             </div>
           )}
-          <div className="absolute flex gap-1 bottom-2 right-1 text-xs">
+          <div className="absolute flex  gap-1 bottom-2 right-1 text-xs">
             {anime.episodes.sub && (
-              <div className="flex items-center text-white text-xs bg-primary px-1.5 py-0.5 rounded gap-0.5">
-                <BsBadgeCc className="w-3 h-3" />
+              <div className="flex items-center text-white text-[10px] sm:text-xs bg-primary px-1 py-0.5 sm:px-1.5 sm:py-0.5 rounded gap-0.5">
+                <BsBadgeCc className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
                 <span>{anime.episodes.sub}</span>
               </div>
             )}
             {anime.episodes.dub && (
-              <div className="flex items-center text-white text-xs bg-secondary px-1.5 py-0.5 rounded gap-0.5">
-                <MdMicNone className="w-3 h-3" />
+              <div className="flex items-center text-white text-[10px] sm:text-xs bg-secondary px-1 py-0.5 sm:px-1.5 sm:py-0.5 rounded gap-0.5">
+                <MdMicNone className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
                 <span>{anime.episodes.dub}</span>
               </div>
             )}
@@ -75,7 +75,6 @@ export function RelatedAnime({
   useEffect(() => {
     setIsMounted(true);
   }, []);
-
 
   const CustomLeftArrow = ({ onClick }: any) => {
     return (
@@ -119,14 +118,18 @@ export function RelatedAnime({
       items: 3,
       slidesToSlide: 1,
     },
+    smallmobile: {
+      breakpoint: { max: 450, min: 250 },
+      items: 2.5,
+      slidesToSlide: 1,
+    },
   };
-
 
   return (
     <div className="w-full h-full">
       <Header title="Related" />
       <div className="relative w-full p-0">
-      {isMounted ? (
+        {isMounted ? (
           <>
             <Carousel
               swipeable={true}
@@ -140,7 +143,7 @@ export function RelatedAnime({
               containerClass="carousel-container"
               itemClass="carousel-item-padding-40-px"
             >
-               {relatedAnimes.map((anime: RelatedAnimeType) => (
+              {relatedAnimes.map((anime: RelatedAnimeType) => (
                 <RelatedAnimeCard anime={anime} key={anime.id} />
               ))}
             </Carousel>
