@@ -27,9 +27,9 @@ export function RelatedAnimeCard({ anime }: { anime: RelatedAnimeType }) {
             className="h-full w-full object-cover"
             loading="lazy"
           />
-          <div className="absolute inset-0 group-hover:backdrop-blur-sm transition duration-300"></div>
+          <div className="absolute inset-0 lg:group-hover:backdrop-blur-sm lg:transition lg:duration-300"></div>
 
-          <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <div className="absolute inset-0 flex items-center justify-center opacity-0 lg:group-hover:opacity-100 lg:transition-opacity lg:duration-300">
             <FaPlay className="text-white text-3xl lg:text-4xl" />
           </div>
 

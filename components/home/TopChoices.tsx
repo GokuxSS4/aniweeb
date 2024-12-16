@@ -44,11 +44,10 @@ function TopAnime({
                   className="rounded-md h-full w-full object-cover"
                   loading="lazy"
                 />
-                <div className="absolute inset-0 rounded-md group-hover:backdrop-blur-sm transition duration-300"></div>
               </div>
 
               <div className="flex flex-col justify-center  gap-2 min-w-0">
-                <div className="line-clamp-2 break-words ">{anime.name}</div>
+                <div className="line-clamp-2 break-words brightness-100 lg:brightness-90 lg:group-hover:brightness-100">{anime.name}</div>
                 <div className="flex gap-2">
                   {anime.episodes.sub && (
                     <div className="flex items-center text-white text-xs bg-primary px-1.5 py-0.5 rounded gap-0.5">
