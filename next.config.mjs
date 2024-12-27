@@ -1,14 +1,16 @@
 /** @type {import('next').NextConfig} */
 
-const nextConfig = {images: {
+const nextConfig = {
+  output: "standalone",
+  reactStrictMode: false,
+  images: {
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: '*',
+        protocol: "https",
+        hostname: "*",
       },
     ],
   },
-  reactStrictMode:false
 };
 
 export default nextConfig;
