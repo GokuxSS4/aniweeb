@@ -27,12 +27,14 @@ export function ListOfEpisodes({
   animeEpisodes,
   currentEpisode,
   handleCurrentEpisode,
-  handleTitle
+  handleTitle,
+  handleVideoSkeletonVisibilty
 }: {
   animeEpisodes: HiAnime.ScrapedAnimeEpisodes;
   currentEpisode: string;
   handleCurrentEpisode: (episode: string) => void;
   handleTitle: (title:string)=>void
+  handleVideoSkeletonVisibilty: (isVisible:boolean)=>void
 }) {
   const totlaEpisodes = animeEpisodes.totalEpisodes;
   const listOfEpisodes = getListOfEpisodes(
@@ -43,12 +45,12 @@ export function ListOfEpisodes({
   const [selectedCategory, setSelectedCategory] = useState(episodesCategory[0]);
 
   return (
-    <div className="flex flex-col gap-3 border-2 border-white-10 p-4 rounded-lg">
+    <div className="flex flex-col gap-3 border-2 border-white-10 p-2 rounded-lg">
       <div className="relative inline-block text-left">
         <select
           value={selectedCategory}
           onChange={(e) => setSelectedCategory(e.target.value)}
-          className="block w-[50%] bg-white border border-gray-300 rounded-md shadow-sm px-1 py-1 text-base font-medium text-gray-700 focus:outline-none"
+          className="block w-[50%] bg-[#0f0f11] border border-300 rounded-md shadow-sm px-1 py-1 text-base font-medium text-white focus:outline-none"
         >
           {episodesCategory.map((episode, index) => (
             <option key={index} value={episode}>
@@ -57,23 +59,24 @@ export function ListOfEpisodes({
           ))}
         </select>
       </div>
-      <div
-        className={`grid ${
+{/* 
+      ${
           totlaEpisodes <= 50 ? "grid-cols-1" : "grid-cols-5 md:grid-cols-10 lg:grid-cols-5"
-        } gap-2`}
+        } */}
+      <div
+        className={`grid grid-cols-5 md:grid-cols-10 lg:grid-cols-5 gap-2`}
       >
         {listOfEpisodes[selectedCategory].map((episode) => {
           return (
             <button
               key={episode.number}
-              className={`py-1 px-1 rounded-md flex gap-3 items-center ${
-                totlaEpisodes <= 50 ? "justify-start" : "justify-center"
-              } ${episode.isFiller ? "bg-orange-600" : "bg-gray-500"} ${
+              className={`p-1 rounded-md flex gap-3 items-center  justify-center ${episode.isFiller ? "bg-orange-600" : "bg-[#0f0f11]"} ${
                 currentEpisode == episode.episodeId && "bg-purple-500"
               }`}
               onClick={() => {
                 handleCurrentEpisode(episode.episodeId as string);
                 handleTitle(episode.title as string)
+                handleVideoSkeletonVisibilty(true)
               }}
             >
               {currentEpisode == episode.episodeId ? (
@@ -81,7 +84,6 @@ export function ListOfEpisodes({
               ) : (
                 episode.number
               )}
-              {totlaEpisodes <= 50 && <span className="line-clamp-1">{episode.title}</span>}
             </button>
           );
         })}

@@ -12,7 +12,7 @@
     "@types/react-slick": "^0.23.13",
     "@vidstack/react": "next",
     "@warren-bank/hls-proxy": "^3.5.4",
-    "aniwatch": "^2.4.1",
+    "aniwatch": "^2.18.1",
     "hls.js": "^1.5.17",
     "ioredis": "^5.4.1",
     "media-icons": "^1.1.5",

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { aniScraper } from "@/config/aniScraper";
-import { redis } from "@/config/redis";
+// import { redis } from "@/config/redis";
 import { HiAnime } from "aniwatch";
 
 const ANIME_EPISODES_MAX_AGE = 60_000 * 60 * 0.5;
@@ -19,10 +19,10 @@ export async function GET(request: NextRequest) {
   const ANIME_EPISODES_RESOURCES_KEY = animeEpisode + serverName + category;
 
   try {
-    const cachedHomeData = await redis.get(ANIME_EPISODES_RESOURCES_KEY);
-    if (cachedHomeData) {
-      return NextResponse.json(JSON.parse(cachedHomeData));
-    }
+    // const cachedHomeData = await redis.get(ANIME_EPISODES_RESOURCES_KEY);
+    // if (cachedHomeData) {
+    //   return NextResponse.json(JSON.parse(cachedHomeData));
+    // }
 
     const animeEpisodesServers = await aniScraper.getEpisodeSources(
       animeEpisode,
@@ -30,12 +30,12 @@ export async function GET(request: NextRequest) {
       category
     );
 
-    await redis.set(
-      animeEpisode,
-      JSON.stringify(animeEpisodesServers),
-      EXPIRY_MS,
-      ANIME_EPISODES_MAX_AGE
-    );
+    // await redis.set(
+    //   animeEpisode,
+    //   JSON.stringify(animeEpisodesServers),
+    //   EXPIRY_MS,
+    //   ANIME_EPISODES_MAX_AGE
+    // );
 
     return NextResponse.json(animeEpisodesServers);
   } catch (error) {

@@ -46,9 +46,13 @@ function getFirstServer(
 export function VideoContainer({
   currentEpisode,
   title,
+  isVideoSkeletonVisible,
+  handleVideoSkeletonVisibilty
 }: {
   currentEpisode: string;
   title: string;
+  isVideoSkeletonVisible: boolean,
+  handleVideoSkeletonVisibilty: (isVisible:boolean)=>void
 }) {
   const [availableServers, setAvailableServers] =
     useState<HiAnime.ScrapedEpisodeServers | null>(null);
@@ -88,8 +92,9 @@ export function VideoContainer({
           setIsServerResourceError(false);
         }
       } catch (error) {
-        if (error.name !== 'AbortError') {
-          console.error("Error fetching available servers:", error);
+        const err = error as Error; 
+        if (err.name !== 'AbortError') {
+          console.error("Error fetching available servers:", err);
           setIsServerResourceError(true);
         }
       }
@@ -138,22 +143,24 @@ export function VideoContainer({
 
         if (!abortController.signal.aborted) {
           // Transform resource URLs if needed
-          resources.sources = resources.sources
-            .filter((source: any) => source.type === "hls")
-            .map((source: any) => {
-              const encodedUrl = btoa(source.url);
-              return {
-                ...source,
-                url: `${proxy_url}/${encodedUrl}${file_extension}`,
-              };
-            });
+          // resources.sources = resources.sources
+          //   .filter((source: any) => source.type === "hls")
+          //   .map((source: any) => {
+          //     const encodedUrl = btoa(source.url);
+          //     return {
+          //       ...source,
+          //       url: `${proxy_url}/${encodedUrl}${file_extension}`,
+          //     };
+          //   });
 
           setServerResources(resources);
+          handleVideoSkeletonVisibilty(false);
           setIsServerResourceError(false);
         }
       } catch (error) {
-        if (error.name !== 'AbortError') {
-          console.error("Error fetching server resources:", error);
+        const err = error as Error; 
+        if (err.name !== 'AbortError') {
+          console.error("Error fetching available servers:", err);
           setIsServerResourceError(true);
         }
       }
@@ -184,7 +191,7 @@ export function VideoContainer({
               selectedServer?.watchCategory === category &&
               selectedServer.serverName === server.serverName
                 ? "bg-primary"
-                : "bg-gray-500 hover:bg-gray-600 transition-colors"
+                : "bg-secondary hover:bg-[#272770] transition-colors"
             }`}
             onClick={() => {
               setSelectedServer({
@@ -212,7 +219,7 @@ export function VideoContainer({
             </p>
             <VidStackPlayerSkeleton />
           </div>
-        ) : serverResources ? (
+        ) : serverResources && !isVideoSkeletonVisible ? (
           <div className="w-full h-full">
             <VidstackDefaultPlayer
               title={title}
@@ -228,7 +235,7 @@ export function VideoContainer({
             />
           </div>
         ) : (
-          <div className="w-full h-full animate-pulse bg-gray-700">
+          <div className="w-full h-full animate-pulse bg-gray-700 rounded-lg">
             <VidStackPlayerSkeleton />
           </div>
         )}
