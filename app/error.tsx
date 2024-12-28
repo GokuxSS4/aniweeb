@@ -4,13 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import NotFoundImage from "@/assets/images/luffy.png";
 
-export default function Error({
-    error,
-    reset,
-  }: {
-    error: Error & { digest?: string }
-    reset: () => void
-  }) {
+export default function Error({ reset }: { reset: () => void }) {
   return (
     <div className="min-h-screen w-full flex flex-col items-center justify-center gap-6 px-4 text-center">
       <div className="relative w-96 aspect-square overflow-hidden">
@@ -23,7 +17,9 @@ export default function Error({
         />
       </div>
 
-      <h2 className="text-white text-2xl md:text-3xl font-bold">Something went wrong</h2>
+      <h2 className="text-white text-2xl md:text-3xl font-bold">
+        Something went wrong
+      </h2>
       <div className="space-y-2">
         <p className="text-white text-sm md:text-base">
           We encountered an unexpected error while processing your request.
@@ -40,7 +36,7 @@ export default function Error({
         >
           Try again
         </button>
-        <Link 
+        <Link
           href="/"
           className="px-6 py-3 rounded-md border border-white/20 text-white hover:bg-white/10 transition-colors text-sm md:text-base"
         >

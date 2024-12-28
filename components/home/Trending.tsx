@@ -68,11 +68,11 @@ export function LoadingSkeletons() {
             key={index}
             className={`
               flex-1 min-w-0
-              ${index == 3 ? "hidden md:block" : ""}
-              ${index == 4 ? "hidden xl:block" : ""}
-              ${index == 5 ? "hidden xl:block" : ""}
-              ${index == 6 ? "hidden 2xl:block" : ""}
-              ${index == 7 ? "hidden 2xl:block" : ""}
+              ${index === 3 ? "hidden md:block" : ""}
+              ${index === 4 ? "hidden xl:block" : ""}
+              ${index === 5 ? "hidden xl:block" : ""}
+              ${index === 6 ? "hidden 2xl:block" : ""}
+              ${index === 7 ? "hidden 2xl:block" : ""}
             `}
           >
             <TrendingCardSkeleton />
@@ -93,7 +93,6 @@ export function Trending({ aniList }: TrendingProps) {
   useEffect(() => {
     setIsMounted(true);
   }, []);
-
 
   const CustomLeftArrow = ({ onClick }: any) => {
     return (
@@ -137,11 +136,11 @@ export function Trending({ aniList }: TrendingProps) {
       items: 3,
       slidesToSlide: 1,
     },
-    smallmobile:{
+    smallmobile: {
       breakpoint: { max: 450, min: 250 },
       items: 2.5,
       slidesToSlide: 1,
-    }
+    },
   };
 
   return (

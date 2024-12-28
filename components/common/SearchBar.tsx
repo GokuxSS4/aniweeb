@@ -34,7 +34,7 @@ function AnimeItem({ anime }: AnimeItemProps) {
               return (
                 <span key={index} className="flex gap-2">
                   {info}{" "}
-                  {index != anime.moreInfo.length - 1 && <span>&#8226; </span>}
+                  {index !== anime.moreInfo.length - 1 && <span>&#8226; </span>}
                 </span>
               );
             })}
@@ -80,11 +80,12 @@ export function SearchBar({ isCompitable }: { isCompitable: boolean }) {
         onChange={(e) => setSearchAnime(e.target.value)}
         value={searchAnime}
         className={`w-full bg-white/90 text-black placeholder-gray-400 pl-10 pr-10 py-2.5 outline-none ${
+          // eslint-disable-next-line no-nested-ternary
           isCompitable
             ? "rounded-none"
             : isShowResult
-            ? "rounded-t-md"
-            : "rounded-md"
+              ? "rounded-t-md"
+              : "rounded-md"
         }`}
       />
       <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -93,7 +94,9 @@ export function SearchBar({ isCompitable }: { isCompitable: boolean }) {
       {searchAnime && (
         <button
           onClick={clearSearch}
-          className={`absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400`}
+          className={
+            "absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400"
+          }
         >
           <MdClear className="h-5 w-5" />
         </button>

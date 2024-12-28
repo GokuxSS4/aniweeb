@@ -20,12 +20,12 @@ interface WeekContentProps {
 
 function getWeekByDate(date: Date) {
   const day = date.getDay();
-  let array = [];
+  const array = [];
 
   for (let i = 0; i < 7; i++) {
-    if (i - day != 0) {
-      let days = i - day;
-      let newDate = new Date(date.getTime() + days * 24 * 60 * 60 * 1000);
+    if (i - day !== 0) {
+      const days = i - day;
+      const newDate = new Date(date.getTime() + days * 24 * 60 * 60 * 1000);
       array.push(newDate);
     } else {
       array.push(date);
@@ -41,9 +41,9 @@ function getFormattedDate(date: Date) {
   const dayOfWeek = date.toLocaleString("default", { weekday: "short" });
 
   return {
-    day: day,
-    month: month,
-    dayOfWeek: dayOfWeek,
+    day,
+    month,
+    dayOfWeek,
   };
 }
 
@@ -121,13 +121,12 @@ function WeekContent({ scheduleList, isExpanded }: WeekContentProps) {
         ))}
       </>
     );
-  } else {
-    return (
-      <div className="text-center pt-4">
-        <p className="text-2xl">No Schedule has been Found</p>
-      </div>
-    );
   }
+  return (
+    <div className="text-center pt-4">
+      <p className="text-2xl">No Schedule has been Found</p>
+    </div>
+  );
 }
 
 function WeekItemSkeleton() {
@@ -158,7 +157,7 @@ export function EstimatedSchedule() {
 
   useEffect(() => {
     async function fetchScheduel(date: Date) {
-      const scheduel = await getEstimatedScheduleByDate(selectedDate);
+      const scheduel = await getEstimatedScheduleByDate(date);
       setScheduelList(scheduel.scheduledAnimes);
     }
     fetchScheduel(selectedDate);

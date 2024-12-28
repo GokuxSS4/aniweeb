@@ -6,7 +6,7 @@ import { redis } from "@/config/redis";
 const ANIME_DETAILS = "details";
 
 const MAX_AGE = 60_000 * 60 * 1;
-const EXPIRY_MS = `PX`;
+const EXPIRY_MS = "PX";
 
 export async function getAnimeDetails(animeId: string) {
   const key = `${ANIME_DETAILS}_${animeId}`;
@@ -14,7 +14,7 @@ export async function getAnimeDetails(animeId: string) {
   const cachedHomeData = await redis.get(key);
 
   if (cachedHomeData) {
-    console.log("Redis cache data",cachedHomeData)
+    console.log("Redis cache data", cachedHomeData);
     return JSON.parse(cachedHomeData);
   }
 

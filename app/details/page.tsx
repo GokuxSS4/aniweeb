@@ -13,9 +13,8 @@ export default async function AnimeDetails({
 }) {
   const animeId = searchParams.animeId as string;
 
-  const animeDetails: HiAnime.ScrapedAnimeAboutInfo = await getAnimeDetails(
-    animeId
-  );
+  const animeDetails: HiAnime.ScrapedAnimeAboutInfo =
+    await getAnimeDetails(animeId);
 
   return (
     <div className="w-[90%] mx-auto text-white">

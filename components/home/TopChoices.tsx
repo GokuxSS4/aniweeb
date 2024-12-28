@@ -22,7 +22,6 @@ function TopAnime({
 }) {
   const [isExpanded, setIsExpanded] = useState(false);
 
-
   return (
     <div className="flex flex-col w-full">
       <h2 className="capitalize text-xl font-semibold text-start pl-4 pb-4">
@@ -47,7 +46,9 @@ function TopAnime({
               </div>
 
               <div className="flex flex-col justify-center  gap-2 min-w-0">
-                <div className="line-clamp-2 break-words brightness-100 lg:brightness-90 lg:group-hover:brightness-100">{anime.name}</div>
+                <div className="line-clamp-2 break-words brightness-100 lg:brightness-90 lg:group-hover:brightness-100">
+                  {anime.name}
+                </div>
                 <div className="flex gap-2">
                   {anime.episodes.sub && (
                     <div className="flex items-center text-white text-xs bg-primary px-1.5 py-0.5 rounded gap-0.5">

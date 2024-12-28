@@ -11,8 +11,7 @@ export default async function FilterPage({
 }) {
   const { keyword } = await searchParams;
 
-
-  const results = await aniScraper.search(keyword,1);
+  const results = await aniScraper.search(keyword, 1);
 
   return (
     <div className="w-[90%] mx-auto text-white">
@@ -26,7 +25,7 @@ export default async function FilterPage({
                   <AniCard key={index} anime={anime} />
                 </Link>
               );
-            }
+            },
           )}
         </div>
       </div>

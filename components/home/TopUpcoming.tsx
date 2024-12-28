@@ -17,7 +17,7 @@ export function TopUpcoming({
         {aniList.map((anime: HiAnime.TopUpcomingAnime, index: number) => {
           return (
             <Link href={`details?animeId=${anime.id}`} key={index}>
-              <AniCard  anime={anime} />
+              <AniCard anime={anime} />
             </Link>
           );
         })}

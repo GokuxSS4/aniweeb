@@ -1,16 +1,17 @@
+/* eslint-disable no-nested-ternary */
 "use client";
 
-import {
-  getEpsAvailableServers,
-  getEpServerResources,
-} from "@/app/watch/actions";
+import React from "react";
+
 import { HiAnime } from "aniwatch";
-import { useEffect, useLayoutEffect, useState } from "react";
-import { VidStackPlayerSkeleton } from "./VidstackPlyrPlayer";
+import { useEffect, useState } from "react";
 import { BsBadgeCc } from "react-icons/bs";
 import { MdMicNone } from "react-icons/md";
-import { file_extension, proxy_url } from "@/utils/helper";
-import { VidstackDefaultPlayer } from "./VidstackDefaultPlayer";
+// import { file_extension, proxy_url } from "@/utils/helper";
+import {
+  VidstackDefaultPlayer,
+  VidStackPlayerSkeleton,
+} from "./VidstackDefaultPlayer";
 
 type ServerInfoType = {
   watchCategory: "sub" | "dub" | "raw";
@@ -18,7 +19,7 @@ type ServerInfoType = {
 };
 
 function getFirstServer(
-  aniServer?: HiAnime.ScrapedEpisodeServers
+  aniServer?: HiAnime.ScrapedEpisodeServers,
 ): ServerInfoType | null {
   if (!aniServer) return null;
 
@@ -47,17 +48,17 @@ export function VideoContainer({
   currentEpisode,
   title,
   isVideoSkeletonVisible,
-  handleVideoSkeletonVisibilty
+  handleVideoSkeletonVisibilty,
 }: {
   currentEpisode: string;
   title: string;
-  isVideoSkeletonVisible: boolean,
-  handleVideoSkeletonVisibilty: (isVisible:boolean)=>void
+  isVideoSkeletonVisible: boolean;
+  handleVideoSkeletonVisibilty: (isVisible: boolean) => void;
 }) {
   const [availableServers, setAvailableServers] =
     useState<HiAnime.ScrapedEpisodeServers | null>(null);
   const [selectedServer, setSelectedServer] = useState<ServerInfoType | null>(
-    null
+    null,
   );
   const [serverResources, setServerResources] = useState<any | null>(null);
 
@@ -78,22 +79,22 @@ export function VideoContainer({
       try {
         const response = await fetch(
           `/api/anime/servers?animeEpisode=${encodeURIComponent(currentEpisode)}`,
-          { signal: abortController.signal }
+          { signal: abortController.signal },
         );
 
         if (!response.ok) {
-          throw new Error('Failed to fetch servers');
+          throw new Error("Failed to fetch servers");
         }
 
         const servers = await response.json();
-        
+
         if (!abortController.signal.aborted) {
           setAvailableServers(servers);
           setIsServerResourceError(false);
         }
       } catch (error) {
-        const err = error as Error; 
-        if (err.name !== 'AbortError') {
+        const err = error as Error;
+        if (err.name !== "AbortError") {
           console.error("Error fetching available servers:", err);
           setIsServerResourceError(true);
         }
@@ -127,19 +128,19 @@ export function VideoContainer({
 
       try {
         const response = await fetch(
-          `/api/anime/sources?` + new URLSearchParams({
+          `/api/anime/sources?${new URLSearchParams({
             animeEpisode: currentEpisode,
             serverName: selectedServer.serverName,
-            category: selectedServer.watchCategory
-          }),
-          { signal: abortController.signal }
+            category: selectedServer.watchCategory,
+          })}`,
+          { signal: abortController.signal },
         );
 
         if (!response.ok) {
-          throw new Error('Failed to fetch server resources');
+          throw new Error("Failed to fetch server resources");
         }
 
-        let resources = await response.json();
+        const resources = await response.json();
 
         if (!abortController.signal.aborted) {
           // Transform resource URLs if needed
@@ -158,8 +159,8 @@ export function VideoContainer({
           setIsServerResourceError(false);
         }
       } catch (error) {
-        const err = error as Error; 
-        if (err.name !== 'AbortError') {
+        const err = error as Error;
+        if (err.name !== "AbortError") {
           console.error("Error fetching available servers:", err);
           setIsServerResourceError(true);
         }
@@ -176,7 +177,7 @@ export function VideoContainer({
   const renderServerButtons = (
     servers: any[],
     category: "sub" | "dub" | "raw",
-    icon?: React.ReactNode
+    icon?: React.ReactNode,
   ) => (
     <div className="w-full flex  flex-1 gap-5 px-4 py-2 justify-start items-center">
       <div className="px-2 py-1 text-sm flex gap-2 items-center justify-center">
@@ -226,11 +227,11 @@ export function VideoContainer({
               videoUrl={serverResources.sources[0].url}
               thumbnailUrl={
                 serverResources.tracks.find(
-                  (track: any) => track.kind === "thumbnails"
+                  (track: any) => track.kind === "thumbnails",
                 )?.file
               }
               subtitleUrls={serverResources.tracks.filter(
-                (track: any) => track.kind === "captions"
+                (track: any) => track.kind === "captions",
               )}
             />
           </div>
@@ -242,7 +243,7 @@ export function VideoContainer({
       </div>
 
       <div>
-        {availableServers != null ? (
+        {availableServers !== null ? (
           <div className="bg-[rgb(15,14,15)] rounded-lg mt-4 overflow-hidden border border-gray-800">
             <div className="flex flex-col lg:flex-row">
               <div className="lg:w-[250px] p-6 bg-gray-900/50">
@@ -265,14 +266,14 @@ export function VideoContainer({
                       renderServerButtons(
                         availableServers.sub,
                         "sub",
-                        <BsBadgeCc className="size-4" />
+                        <BsBadgeCc className="size-4" />,
                       )}
 
                     {availableServers.dub?.length > 0 &&
                       renderServerButtons(
                         availableServers.dub,
                         "dub",
-                        <MdMicNone className="size-5" />
+                        <MdMicNone className="size-5" />,
                       )}
 
                     {availableServers.raw?.length > 0 &&

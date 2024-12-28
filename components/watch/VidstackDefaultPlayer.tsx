@@ -4,21 +4,21 @@ import "@vidstack/react/player/styles/default/theme.css";
 import "@vidstack/react/player/styles/default/layouts/audio.css";
 import "@vidstack/react/player/styles/default/layouts/video.css";
 
-import {
-  MediaPlayer,
-  MediaProvider,
-  Poster,
-  SeekButton,
-  Track,
-  Gesture,
-} from "@vidstack/react";
+import { MediaPlayer, MediaProvider, SeekButton, Track } from "@vidstack/react";
 import {
   DefaultVideoLayout,
   defaultLayoutIcons,
   DefaultAudioLayout,
 } from "@vidstack/react/player/layouts/default";
-import { useRef, useState } from "react";
-import { SeekBackward10Icon, SeekForward10Icon,PreviousIcon,NextIcon } from "@vidstack/react/icons";
+import { SeekBackward10Icon, SeekForward10Icon } from "@vidstack/react/icons";
+
+export function VidStackPlayerSkeleton() {
+  return (
+    <MediaPlayer title="" src={""}>
+      <MediaProvider />
+    </MediaPlayer>
+  );
+}
 
 export function VidstackDefaultPlayer({
   videoUrl,
