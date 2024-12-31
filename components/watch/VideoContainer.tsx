@@ -7,7 +7,7 @@ import { HiAnime } from "aniwatch";
 import { useEffect, useState } from "react";
 import { BsBadgeCc } from "react-icons/bs";
 import { MdMicNone } from "react-icons/md";
-// import { file_extension, proxy_url } from "@/utils/helper";
+import { file_extension, proxy_url } from "@/utils/helper";
 import {
   VidstackDefaultPlayer,
   VidStackPlayerSkeleton,
@@ -144,15 +144,15 @@ export function VideoContainer({
 
         if (!abortController.signal.aborted) {
           // Transform resource URLs if needed
-          // resources.sources = resources.sources
-          //   .filter((source: any) => source.type === "hls")
-          //   .map((source: any) => {
-          //     const encodedUrl = btoa(source.url);
-          //     return {
-          //       ...source,
-          //       url: `${proxy_url}/${encodedUrl}${file_extension}`,
-          //     };
-          //   });
+          resources.sources = resources.sources
+            .filter((source: any) => source.type === "hls")
+            .map((source: any) => {
+              const encodedUrl = btoa(source.url);
+              return {
+                ...source,
+                url: `${proxy_url}/${encodedUrl}${file_extension}`,
+              };
+            });
 
           setServerResources(resources);
           handleVideoSkeletonVisibilty(false);
