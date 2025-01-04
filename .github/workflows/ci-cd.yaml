@@ -1,0 +1,56 @@
+name: CI/CD Workflow
+
+on:
+  pull_request:
+    branches:
+      - "**"
+  push:
+    branches:
+      - dev
+      - main
+
+jobs:
+  linting-and-formatting:
+    name: Perform linting and formatting checks
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the Repository
+        uses: actions/checkout@v3
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Run linting check
+        run: npm run lint:check
+
+      - name: Check formatting
+        run: npm run format:check
+
+  build-and-deploy:
+    name: Build and Deploy Application
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.REPO_TOKEN }}
+
+      - name: Build and Push app.prod Image
+        run: |
+          REPO_OWNER_LOWER=$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')
+          REPO_NAME_LOWER=$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]')
+          docker build -f Dockerfile.app.prod -t ghcr.io/$REPO_NAME_LOWER/app-prod:latest .
+          docker push ghcr.io/$REPO_NAME_LOWER/app-prod:latest
+
+      - name: Build and Push hls_proxy Image
+        run: |
+          REPO_OWNER_LOWER=$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')
+          REPO_NAME_LOWER=$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]')
+          docker build -f Dockerfile.hls_proxy -t ghcr.io/$REPO_NAME_LOWER/hls-proxy:latest .
+          docker push ghcr.io/$REPO_NAME_LOWER/hls-proxy:latest

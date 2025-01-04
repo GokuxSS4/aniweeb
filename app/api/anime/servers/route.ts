@@ -15,11 +15,9 @@ export async function GET(request: NextRequest) {
   try {
     const animeEpisodesServers =
       await aniScraper.getEpisodeServers(animeEpisode);
-    console.log("Fresh Servers", animeEpisodesServers);
 
     return NextResponse.json(animeEpisodesServers);
   } catch (error) {
-    console.error("Error fetching anime episode servers:", error);
     return NextResponse.json(
       { error: "Failed to fetch anime episode servers" },
       { status: 500 },

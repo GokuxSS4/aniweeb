@@ -14,7 +14,6 @@ export async function getAnimeDetails(animeId: string) {
   const cachedHomeData = await redis.get(key);
 
   if (cachedHomeData) {
-    console.log("Redis cache data", cachedHomeData);
     return JSON.parse(cachedHomeData);
   }
 

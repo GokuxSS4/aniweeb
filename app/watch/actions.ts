@@ -28,12 +28,10 @@ export async function getAnimeEpisodes(animeName: string) {
 }
 
 export async function getEpsAvailableServers(animeEpisode: string) {
-  console.log("Anime server", animeEpisode);
   const AVAILABLE_SERVER_KEY = `available_server_${animeEpisode}`;
 
   const cachedHomeData = await redis.get(AVAILABLE_SERVER_KEY);
   if (cachedHomeData) {
-    console.log("Cached Servers", cachedHomeData);
     return JSON.parse(cachedHomeData) as HiAnime.ScrapedEpisodeServers;
   }
 
@@ -44,8 +42,6 @@ export async function getEpsAvailableServers(animeEpisode: string) {
     EXPIRY_MS,
     ANIME_EPISODE_DETAILS_AGE,
   );
-
-  console.log("Fresh Servers", animeEpisodesServers);
 
   return animeEpisodesServers;
 }

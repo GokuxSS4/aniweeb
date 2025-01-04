@@ -47,7 +47,6 @@ export function LeadCharacters({
     return <></>;
   }
 
-  // console.log("leadCharacters", leadCharacters);
   return (
     <div className="w-full h-full">
       <Header title={"Lead Characters & Voice Actors"} />

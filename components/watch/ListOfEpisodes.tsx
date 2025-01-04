@@ -59,10 +59,6 @@ export function ListOfEpisodes({
           ))}
         </select>
       </div>
-      {/*
-      ${
-          totlaEpisodes <= 50 ? "grid-cols-1" : "grid-cols-5 md:grid-cols-10 lg:grid-cols-5"
-        } */}
       <div className={"grid grid-cols-5 md:grid-cols-10 lg:grid-cols-5 gap-2"}>
         {listOfEpisodes[selectedCategory].map((episode) => {
           return (

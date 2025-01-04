@@ -23,7 +23,6 @@ export function VidStackPlayerSkeleton() {
 export function VidstackDefaultPlayer({
   videoUrl,
   subtitleUrls,
-  thumbnailUrl,
   title,
 }: {
   videoUrl: string;
@@ -33,12 +32,8 @@ export function VidstackDefaultPlayer({
     kind: string;
     default?: boolean;
   }>;
-  thumbnailUrl: string;
   title: string;
 }) {
-  console.log("video url", videoUrl);
-  console.log("thumbnail url", thumbnailUrl);
-
   return (
     <MediaPlayer
       title={title}

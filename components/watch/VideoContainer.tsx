@@ -7,7 +7,6 @@ import { HiAnime } from "aniwatch";
 import { useEffect, useState } from "react";
 import { BsBadgeCc } from "react-icons/bs";
 import { MdMicNone } from "react-icons/md";
-import { file_extension, proxy_url } from "@/utils/helper";
 import {
   VidstackDefaultPlayer,
   VidStackPlayerSkeleton,
@@ -64,13 +63,6 @@ export function VideoContainer({
 
   const [isServerResourceError, setIsServerResourceError] = useState(false);
 
-  // useLayoutEffect(() => {
-  //   setAvailableServers(null);
-  //   setSelectedServer(null);
-  //   setServerResources(null);
-  //   setIsServerResourceError(false);
-  // }, [currentEpisode]);
-
   // Fetch Available Servers
   useEffect(() => {
     const abortController = new AbortController();
@@ -95,7 +87,6 @@ export function VideoContainer({
       } catch (error) {
         const err = error as Error;
         if (err.name !== "AbortError") {
-          console.error("Error fetching available servers:", err);
           setIsServerResourceError(true);
         }
       }
@@ -143,16 +134,21 @@ export function VideoContainer({
         const resources = await response.json();
 
         if (!abortController.signal.aborted) {
-          // Transform resource URLs if needed
-          resources.sources = resources.sources
-            .filter((source: any) => source.type === "hls")
-            .map((source: any) => {
-              const encodedUrl = btoa(source.url);
-              return {
-                ...source,
-                url: `${proxy_url}/${encodedUrl}${file_extension}`,
-              };
-            });
+          // Transform resource URLs in production
+          if (process.env.NODE_ENV === "production") {
+            const proxy_url = "http://proxy.aniweeb.live";
+            const file_extension = ".m3u8";
+
+            resources.sources = resources.sources
+              .filter((source: any) => source.type === "hls")
+              .map((source: any) => {
+                const encodedUrl = btoa(source.url);
+                return {
+                  ...source,
+                  url: `${proxy_url}/${encodedUrl}${file_extension}`,
+                };
+              });
+          }
 
           setServerResources(resources);
           handleVideoSkeletonVisibilty(false);
@@ -161,7 +157,6 @@ export function VideoContainer({
       } catch (error) {
         const err = error as Error;
         if (err.name !== "AbortError") {
-          console.error("Error fetching available servers:", err);
           setIsServerResourceError(true);
         }
       }
@@ -225,11 +220,6 @@ export function VideoContainer({
             <VidstackDefaultPlayer
               title={title}
               videoUrl={serverResources.sources[0].url}
-              thumbnailUrl={
-                serverResources.tracks.find(
-                  (track: any) => track.kind === "thumbnails",
-                )?.file
-              }
               subtitleUrls={serverResources.tracks.filter(
                 (track: any) => track.kind === "captions",
               )}
