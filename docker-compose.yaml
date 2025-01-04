@@ -3,11 +3,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.app.dev
-      args:
-        - REDIS_HOST=redis
-        - REDIS_PORT=6379
-        - HLS_PROXY_HOST=hls_proxy
-        - HLS_PROXY_PORT=8080
     container_name: app-container
     ports:
       - "3000:3000"
