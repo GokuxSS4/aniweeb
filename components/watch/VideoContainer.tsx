@@ -136,7 +136,7 @@ export function VideoContainer({
         if (!abortController.signal.aborted) {
           // Transform resource URLs in production
           if (process.env.NODE_ENV === "production") {
-            const proxy_url = "http://proxy.aniweeb.live";
+            const proxy_url = "https://proxy.aniweeb.live";
             const file_extension = ".m3u8";
 
             resources.sources = resources.sources
