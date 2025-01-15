@@ -6,7 +6,7 @@ RUN npm install --global "@warren-bank/hls-proxy"
 
 EXPOSE 8080
 
-CMD ["hlsd", "--port", "8080", \
+CMD ["hlsd","--tls","--req-insecure","--port", "8080", \
      "--header", "Access-Control-Allow-Origin: *", \
      "--header", "Access-Control-Allow-Methods: GET, POST, OPTIONS", \
      "--header", "Access-Control-Allow-Headers: Content-Type, Authorization", \

@@ -134,21 +134,22 @@ export function VideoContainer({
         const resources = await response.json();
 
         if (!abortController.signal.aborted) {
-          // Transform resource URLs in production
-          if (process.env.NODE_ENV === "production") {
-            const proxy_url = "https://proxy.aniweeb.live";
-            const file_extension = ".m3u8";
+          const proxy_url =
+            process.env.NODE_ENV === "production"
+              ? "https://proxy.aniweeb.live"
+              : "https://hls_proxy:8080";
 
-            resources.sources = resources.sources
-              .filter((source: any) => source.type === "hls")
-              .map((source: any) => {
-                const encodedUrl = btoa(source.url);
-                return {
-                  ...source,
-                  url: `${proxy_url}/${encodedUrl}${file_extension}`,
-                };
-              });
-          }
+          const file_extension = ".m3u8";
+
+          resources.sources = resources.sources
+            .filter((source: any) => source.type === "hls")
+            .map((source: any) => {
+              const encodedUrl = btoa(source.url);
+              return {
+                ...source,
+                url: `${proxy_url}/${encodedUrl}${file_extension}`,
+              };
+            });
 
           setServerResources(resources);
           handleVideoSkeletonVisibilty(false);
