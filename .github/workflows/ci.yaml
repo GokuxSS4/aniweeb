@@ -48,7 +48,7 @@ jobs:
       - name: Build and Push hls_proxy Image
         run: |
           REPO_NAME_LOWER=$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]')
-          docker build -f Dockerfile.hls_proxy -t ghcr.io/$REPO_NAME_LOWER/hls-proxy:${{ needs.linting-and-formatting.outputs.short_commit_hash }} .
+          docker build -f Dockerfile.hls_proxy.prod -t ghcr.io/$REPO_NAME_LOWER/hls-proxy:${{ needs.linting-and-formatting.outputs.short_commit_hash }} .
           docker push ghcr.io/$REPO_NAME_LOWER/hls-proxy:${{ needs.linting-and-formatting.outputs.short_commit_hash }}
 
   update-infra:

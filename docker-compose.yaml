@@ -33,7 +33,7 @@ services:
   hls_proxy:
     build:
       context: .
-      dockerfile: Dockerfile.hls_proxy
+      dockerfile: Dockerfile.hls_proxy.dev
     container_name: hls_proxy
     ports:
       - "8080:8080"
