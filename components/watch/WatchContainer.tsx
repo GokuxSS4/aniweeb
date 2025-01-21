@@ -8,13 +8,13 @@ import { VideoContainer } from "./VideoContainer";
 
 import { BsBadgeCc } from "react-icons/bs";
 import { MdMicNone } from "react-icons/md";
+import { ExpandableParagraphs } from "../common/ExpandableParagraph";
 
 export function AnimeOverView({
   animeInfo,
 }: {
   animeInfo: HiAnime.ScrapedAnimeAboutInfo["anime"];
 }) {
-  const [isViewMoreText, setIsViewMoreText] = useState(true);
   return (
     <div className="flex flex-row gap-3 md:gap-8 pt-10">
       <div className="w-[80px] h-[150px] md:w-[160px] md:h-[240px] flex-shrink-0">
@@ -55,26 +55,12 @@ export function AnimeOverView({
           <p className="py-0.5">{animeInfo.info.stats.duration}</p>
         </div>
         <div className="flex flex-col ">
-          <div
-            className={`text-base ${
-              isViewMoreText ? "line-clamp-3" : "line-clamp-none"
-            }`}
-          >
-            {animeInfo.info.description &&
-              animeInfo.info.description
-                .split("\n\n")
-                .map((paragraph, index) => (
-                  <p key={index} className="mb-2">
-                    {paragraph}
-                  </p>
-                ))}
-          </div>
-          <button
-            className="test base flex justify-end"
-            onClick={() => setIsViewMoreText(!isViewMoreText)}
-          >
-            {isViewMoreText ? "+ More" : "- Less"}
-          </button>
+          {animeInfo.info.description && (
+            <ExpandableParagraphs
+              paragraphs={animeInfo.info.description.split("\n\n")}
+              maxHeight={70}
+            />
+          )}
         </div>
       </div>
     </div>

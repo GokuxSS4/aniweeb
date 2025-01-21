@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+// import Image from "next/image";
 
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
@@ -40,7 +41,10 @@ export function NavBar() {
     >
       <div className="w-[90%] mx-auto flex items-center justify-between py-4">
         <Link href="/">
-          <h1 className="text-white font-semibold text-xl">Aniweeb.tv</h1>
+          <h1 className="text-white font-semibold text-xl">
+            {/* <Image src={AniweebLogo} alt={""} width={100} height={100} /> */}
+            Aniweeb
+          </h1>
         </Link>
 
         <div className="hidden lg:flex lg:justify-end w-full">

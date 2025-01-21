@@ -4,6 +4,8 @@ import { BsBadgeCc } from "react-icons/bs";
 import { FaRegPlayCircle } from "react-icons/fa";
 import { MdMicNone } from "react-icons/md";
 
+import { ExpandableParagraphs } from "@/components/common/ExpandableParagraph";
+
 function formatText(text: string | string[]) {
   if (typeof text === "string") return text;
 
@@ -90,12 +92,12 @@ export function Overview({
       <div className="flex flex-col gap-3">
         <h3 className="text-2xl font-semibold">Overview</h3>
         <div className="flex flex-col gap-8">
-          <div className="flex flex-col gap-3">
-            {animeInfo.info.description &&
-              animeInfo.info.description
-                .split("\n\n")
-                .map((paragraph, index) => <p key={index}>{paragraph}</p>)}
-          </div>
+          {animeInfo.info.description && (
+            <ExpandableParagraphs
+              paragraphs={animeInfo.info.description.split("\n\n")}
+              maxHeight={70}
+            />
+          )}
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {infoFields.map((field) => (

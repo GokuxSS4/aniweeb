@@ -45,7 +45,7 @@ export function Footer() {
         <div className="flex flex-col md:flex-row justify-between items-center gap-4">
           <div className="flex items-center gap-2 text-sm text-gray-400">
             <FaCopyright className="text-gray-400" />
-            <p>Aniweeb.tv</p>
+            <p>Aniweeb</p>
             <span className="mx-2">|</span>
             <p>
               Website Made by{" "}
