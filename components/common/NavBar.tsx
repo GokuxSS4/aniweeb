@@ -1,13 +1,15 @@
 "use client";
 
 import Link from "next/link";
-// import Image from "next/image";
+import Image from "next/image";
 
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { CiSearch } from "react-icons/ci";
 import { MdClear } from "react-icons/md";
 import { SearchBar } from "@/components/common/SearchBar";
+
+import AniweebLogo from "@/public/icons/aniweeb-logo.png";
 
 export function NavBar() {
   const pathname = usePathname();
@@ -39,12 +41,14 @@ export function NavBar() {
           : "bg-transparent border-b border-transparent"
       }`}
     >
-      <div className="w-[90%] mx-auto flex items-center justify-between py-4">
+      <div className="w-[90%] mx-auto flex items-center justify-between py-2">
         <Link href="/">
-          <h1 className="text-white font-semibold text-xl">
-            {/* <Image src={AniweebLogo} alt={""} width={100} height={100} /> */}
-            Aniweeb
-          </h1>
+            <Image
+              src={AniweebLogo}
+              alt={"Aniweeb Logo"}
+              width={150}
+              height={150}
+            />
         </Link>
 
         <div className="hidden lg:flex lg:justify-end w-full">

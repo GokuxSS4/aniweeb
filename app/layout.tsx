@@ -18,10 +18,13 @@ const roboto = Roboto({
 });
 
 export const metadata: Metadata = {
-  title: "Aniweeb · Free  Anime Streaming",
-  description: "Streaming anime platfrom for hardcore anime fans",
+  title: {
+    default: "Aniweeb · Free  Anime Streaming",
+    template: "%s · Aniweeb"
+  },
+  description: "Streaming anime platfrom for anime fans",
   icons: {
-    icon: "/icons/aniweeb_icon.svg",
+    icon: "/icons/aniweeb-icon.ico",
   },
 };
 

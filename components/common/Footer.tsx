@@ -1,4 +1,4 @@
-import AniweebLogo from "@/assets/logos/aniweeb_logo.jpeg";
+import AniweebLogo from "@/public/icons/aniweeb-logo.png";
 import Image from "next/image";
 
 import { FaDiscord } from "react-icons/fa";
@@ -16,8 +16,8 @@ export function Footer() {
               <Image
                 src={AniweebLogo}
                 alt="Aniweeb Logo"
-                width={128}
-                height={192}
+                width={200}
+                height={200}
                 className="object-contain"
               />
             </div>
