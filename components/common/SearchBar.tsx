@@ -9,6 +9,7 @@ import { CiSearch } from "react-icons/ci";
 import { MdClear } from "react-icons/md";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import { useDebounce } from "use-debounce";
+import Image from "next/image";
 
 interface AnimeItemProps {
   anime: HiAnime.AnimeSearchSuggestion;
@@ -19,11 +20,13 @@ function AnimeItem({ anime }: AnimeItemProps) {
     <Link href={`details?animeId=${anime.id}`}>
       <div className="flex items-start gap-3 p-3  hover:bg-slate-800/50 transition-colors cursor-pointer border-b border-white-20">
         <div className="flex-shrink-0 w-[50px] aspect-[2/3] ">
-          <img
+          <Image
             src={anime.poster || ""}
-            alt={anime.name || "Anime poster"}
-            className="rounded-md h-full w-full object-cover"
+            alt={anime.name || ""}
+            className="rounded-md object-cover"
             loading="lazy"
+            width={50}
+            height={75}
           />
         </div>
         <div className="flex flex-col gap-1 justify-between">

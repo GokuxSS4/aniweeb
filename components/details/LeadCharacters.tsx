@@ -1,5 +1,6 @@
 import { HiAnime } from "aniwatch";
 import { Header } from "@/components/common/Header";
+import Image from "next/image";
 
 type LeadCharactersType =
   HiAnime.ScrapedAnimeAboutInfo["anime"]["info"]["charactersVoiceActors"][number];
@@ -13,9 +14,11 @@ function LeadCharacterItem({
     <div className="w-full h-24 bg-[#0f0f11] rounded-md flex justify-between items-center px-4">
       <div className="flex flex-1 justify-start gap-4 items-center">
         <div className="size-[45px]">
-          <img
+          <Image
             src={characterInfo.character.poster}
             alt=""
+            width={45}
+            height={45}
             className="w-full h-full rounded-full object-cover"
             loading="lazy"
           />
@@ -26,9 +29,11 @@ function LeadCharacterItem({
       <div className="flex flex-1 justify-end gap-4 items-center">
         <p>{characterInfo.voiceActor.name}</p>
         <div className="size-[45px]">
-          <img
+          <Image
             src={characterInfo.voiceActor.poster}
             alt=""
+            width={45}
+            height={45}
             className="w-full h-full rounded-full object-cover"
             loading="lazy"
           />

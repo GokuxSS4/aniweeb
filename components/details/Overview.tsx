@@ -1,5 +1,7 @@
-import { HiAnime } from "aniwatch";
 import Link from "next/link";
+import Image from "next/image";
+
+import { HiAnime } from "aniwatch";
 import { BsBadgeCc } from "react-icons/bs";
 import { FaRegPlayCircle } from "react-icons/fa";
 import { MdMicNone } from "react-icons/md";
@@ -41,10 +43,13 @@ export function Overview({
       <div className="flex  gap-8">
         <div className="flex flex-col md:flex-row gap-6">
           <div className="w-[160px]">
-            <img
+            <Image
               src={animeInfo.info.poster || ""}
               alt=""
+              width={160}
+              height={240}
               className="w-full h-full overflow-hidden object-cover"
+              loading="lazy"
             />
           </div>
 

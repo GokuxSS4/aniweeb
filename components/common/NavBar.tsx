@@ -43,12 +43,7 @@ export function NavBar() {
     >
       <div className="w-[90%] mx-auto flex items-center justify-between py-2">
         <Link href="/">
-          <Image
-            src={AniweebLogo}
-            alt={"Aniweeb Logo"}
-            width={150}
-            height={150}
-          />
+          <Image src={AniweebLogo} alt={"Aniweeb"} width={150} height={150} />
         </Link>
 
         <div className="hidden lg:flex lg:justify-end w-full">

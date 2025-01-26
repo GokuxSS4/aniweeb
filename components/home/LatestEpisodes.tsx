@@ -1,20 +1,23 @@
+import Image from "next/image";
+import Link from "next/link";
+
 import { HiAnime } from "aniwatch";
 import { BsBadgeCc } from "react-icons/bs";
 import { MdMicNone } from "react-icons/md";
 
 import { Header } from "@/components/common/Header";
 import { FaPlay } from "react-icons/fa";
-import Link from "next/link";
 
 export function AniCard({ anime }: { anime: HiAnime.Anime }) {
   return (
     <div className="flex flex-col w-[calc(16.66% - 1rem)] gap-2 group">
       <div className="w-full aspect-[2/3] overflow-hidden relative">
-        <img
+        <Image
           src={anime?.poster || ""}
-          alt=""
-          loading="lazy"
+          alt={anime.name || ""}
+          fill
           className="h-full w-full object-cover"
+          loading="lazy"
         />
 
         <div className="absolute inset-0 lg:group-hover:backdrop-blur-sm lg:transition lg:duration-300"></div>

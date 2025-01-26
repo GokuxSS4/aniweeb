@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 
 import { HiAnime } from "aniwatch";
 import { useEffect, useState } from "react";
@@ -18,11 +19,15 @@ export function AnimeOverView({
   return (
     <div className="flex flex-row gap-3 md:gap-8 pt-10">
       <div className="w-[80px] h-[150px] md:w-[160px] md:h-[240px] flex-shrink-0">
-        <img
-          src={animeInfo.info.poster || ""}
-          alt={animeInfo.info.name || "Anime Poster"}
-          className="w-full h-full object-cover rounded overflow-hidden"
-        />
+        <div className="w-full h-full overflow-hidden relative">
+          <Image
+            src={animeInfo.info.poster || ""}
+            alt={animeInfo.info.name || ""}
+            fill
+            className="w-full h-full object-cover rounded overflow-hidden"
+            loading="lazy"
+          />
+        </div>
       </div>
 
       <div className="flex flex-col gap-4 justify-start p-2">

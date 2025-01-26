@@ -20,6 +20,7 @@ COPY --from=build --chown=1001:1001 usr/src/app/.next/static ./.next/static
 COPY --from=build --chown=1001:1001 usr/src/app/public ./public
 
 ENV NODE_ENV production
+ENV NEXT_PUBLIC_BASE_URL aniweeb.com
 ENV PORT 3000
 ENV HOSTNAME "0.0.0.0"
 ENV REDIS_HOST=${REDIS_HOST}

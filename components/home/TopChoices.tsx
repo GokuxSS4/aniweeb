@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 
 import { useState } from "react";
 import { BsBadgeCc } from "react-icons/bs";
@@ -37,9 +38,10 @@ function TopAnime({
               }`}
             >
               <div className="flex-shrink-0 w-[50px] aspect-[2/3] relative">
-                <img
+                <Image
                   src={anime.poster || ""}
-                  alt={anime.name || "failed to retrieve image"}
+                  alt={anime.name || ""}
+                  fill
                   className="rounded-md h-full w-full object-cover"
                   loading="lazy"
                 />

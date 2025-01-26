@@ -22,7 +22,8 @@ export const metadata: Metadata = {
     default: "Aniweeb · Free  Anime Streaming",
     template: "%s · Aniweeb",
   },
-  description: "Watch your favorite anime online in Dub or Sub format without registration on Aniweeb.",
+  description:
+    "Watch your favorite anime online in Dub or Sub format without registration on Aniweeb.",
   icons: {
     icon: "/icons/aniweeb-icon.ico",
   },

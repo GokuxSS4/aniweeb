@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import Carousel from "react-multi-carousel";
+import Image from "next/image";
 
 import { useEffect, useState } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
@@ -16,9 +17,10 @@ function TrendingAnimeCard({ anime }: { anime: HiAnime.TrendingAnime }) {
     <Link href={`details?animeId=${anime.id}`}>
       <div className="w-[calc(16.66% - 1rem)] gap-2 p-2 flex flex-col flex-shrink-0 group">
         <div className="w-full aspect-[2/3] overflow-hidden relative">
-          <img
+          <Image
             src={anime.poster || ""}
-            alt={anime.name || "failed to retrieve image"}
+            alt={anime.name || ""}
+            fill
             className="h-full w-full object-cover"
             loading="lazy"
           />

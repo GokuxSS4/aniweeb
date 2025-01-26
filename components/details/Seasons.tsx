@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 import { HiAnime } from "aniwatch";
 import { Header } from "@/components/common/Header";
@@ -13,9 +14,10 @@ function SeasonItem({ anime }: { anime: AnimeSeasonType }) {
           anime.isCurrent ? "border-2 border-purple-500" : ""
         }`}
       >
-        <img
+        <Image
           src={anime.poster || ""}
           alt={anime.name || ""}
+          fill
           className="h-full w-full object-cover brightness-50"
           loading="lazy"
         />

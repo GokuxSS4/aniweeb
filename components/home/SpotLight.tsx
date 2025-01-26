@@ -144,14 +144,14 @@ export function SpotLight({
               <div className="relative w-full h-[450px] lg:h-[600px] brightness-50">
                 <Image
                   src={anime.poster || ""}
-                  alt={anime.name || "can't retrive image"}
+                  alt={anime.name || ""}
                   fill
                   style={{
                     objectFit: "cover",
                     objectPosition: "top",
                   }}
                   quality={100}
-                  priority
+                  loading="lazy"
                 />
                 <div
                   className="absolute inset-0"

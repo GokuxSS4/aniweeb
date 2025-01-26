@@ -15,7 +15,7 @@ export function Footer() {
             <div className="w-32 mb-4">
               <Image
                 src={AniweebLogo}
-                alt="Aniweeb Logo"
+                alt="Aniweeb"
                 width={200}
                 height={200}
                 className="object-contain"
