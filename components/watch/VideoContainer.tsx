@@ -7,6 +7,7 @@ import { HiAnime } from "aniwatch";
 import { useEffect, useState } from "react";
 import { BsBadgeCc } from "react-icons/bs";
 import { MdMicNone } from "react-icons/md";
+import { BsFileEarmark } from "react-icons/bs";
 import {
   VidstackDefaultPlayer,
   VidStackPlayerSkeleton,
@@ -257,7 +258,7 @@ export function VideoContainer({
                       renderServerButtons(
                         availableServers.sub,
                         "sub",
-                        <BsBadgeCc className="size-4" />,
+                        <BsBadgeCc className="size-5" />,
                       )}
 
                     {availableServers.dub?.length > 0 &&
@@ -268,7 +269,11 @@ export function VideoContainer({
                       )}
 
                     {availableServers.raw?.length > 0 &&
-                      renderServerButtons(availableServers.raw, "raw")}
+                      renderServerButtons(
+                        availableServers.raw,
+                        "raw",
+                        <BsFileEarmark className="size-5" />,
+                      )}
                   </>
                 )}
               </div>

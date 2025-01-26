@@ -19,13 +19,17 @@ const roboto = Roboto({
 
 export const metadata: Metadata = {
   title: {
-    default: "Aniweeb · Free  Anime Streaming",
+    default: "Aniweeb · Watch Free Anime Online",
     template: "%s · Aniweeb",
   },
   description:
     "Watch your favorite anime online in Dub or Sub format without registration on Aniweeb.",
   icons: {
     icon: "/icons/aniweeb-icon.ico",
+  },
+  metadataBase: new URL("https://aniweeb.com"),
+  openGraph: {
+    images: "/opengraph-image.png",
   },
 };
 

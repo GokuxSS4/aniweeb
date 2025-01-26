@@ -66,22 +66,12 @@ export function VidstackDefaultPlayer({
         noGestures={false}
         slots={{
           afterCaptionButton: (
-            <SeekButton seconds={-10} className="block md:hidden vds-button">
+            <SeekButton seconds={-10} className="vds-button">
               <SeekBackward10Icon size={32} className="vds-icon" />
             </SeekButton>
           ),
           beforeSettingsMenu: (
-            <SeekButton seconds={10} className="block md:hidden vds-button">
-              <SeekForward10Icon size={32} className="vds-icon" />
-            </SeekButton>
-          ),
-          afterPlayButton: (
-            <SeekButton seconds={-10} className="hidden md:block vds-button">
-              <SeekBackward10Icon size={32} className="vds-icon" />
-            </SeekButton>
-          ),
-          beforeMuteButton: (
-            <SeekButton seconds={10} className="hidden md:block vds-button">
+            <SeekButton seconds={10} className="vds-button">
               <SeekForward10Icon size={32} className="vds-icon" />
             </SeekButton>
           ),
