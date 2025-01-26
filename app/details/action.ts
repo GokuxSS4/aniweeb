@@ -20,6 +20,5 @@ export async function getAnimeDetails(animeId: string) {
   const animeDetails = await aniScraper.getInfo(animeId);
 
   await redis.set(key, JSON.stringify(animeDetails), EXPIRY_MS, MAX_AGE);
-
   return animeDetails;
 }

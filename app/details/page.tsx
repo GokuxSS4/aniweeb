@@ -9,10 +9,6 @@ import { LeadCharacters } from "@/components/details/LeadCharacters";
 import { Metadata } from "next";
 import { cache } from "react";
 
-// export const metadata: Metadata = {
-//   title: ""
-// }
-
 const wrapperOfGetAnimeDetails = cache(async (animeId: string) => {
   const animeDetails: HiAnime.ScrapedAnimeAboutInfo =
     await getAnimeDetails(animeId);
@@ -26,19 +22,11 @@ export async function generateMetadata({
   searchParams: { [key: string]: string | string[] | undefined };
 }): Promise<Metadata> {
   const animeId = searchParams.animeId as string;
-  const animeDetails: HiAnime.ScrapedAnimeAboutInfo =
-    await getAnimeDetails(animeId);
+  const animeDetails = await wrapperOfGetAnimeDetails(animeId);
 
   return {
     title: animeDetails.anime.info.name,
-    description: animeDetails.anime.info.description,
-    openGraph: {
-      images: [
-        {
-          url: animeDetails.anime.info.poster as string,
-        },
-      ],
-    },
+    description: `Best site to watch ${animeDetails.anime.info.name} English Sub/Dub online Free and download ${animeDetails.anime.info.name} English Sub/Dub anime.`,
   };
 }
 
@@ -48,9 +36,7 @@ export default async function AnimeDetails({
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
   const animeId = searchParams.animeId as string;
-
-  const animeDetails: HiAnime.ScrapedAnimeAboutInfo =
-    await getAnimeDetails(animeId);
+  const animeDetails = await wrapperOfGetAnimeDetails(animeId);
 
   return (
     <div className="w-[90%] mx-auto text-white">
