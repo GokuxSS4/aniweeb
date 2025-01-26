@@ -12,6 +12,7 @@
     "format:fix": "prettier --write \"**/*.{ts,tsx,json}\""
   },
   "dependencies": {
+    "@next/third-parties": "^15.1.6",
     "@types/react-slick": "^0.23.13",
     "@vidstack/react": "next",
     "@warren-bank/hls-proxy": "^3.5.4",

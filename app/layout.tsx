@@ -1,4 +1,6 @@
 import React from "react";
+
+import { GoogleAnalytics } from "@next/third-parties/google";
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 
@@ -47,6 +49,7 @@ export default function RootLayout({
         {children}
         <Footer />
       </body>
+      <GoogleAnalytics gaId="G-KSX0KG52CK" />
     </html>
   );
 }
