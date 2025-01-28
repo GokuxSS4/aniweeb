@@ -1,0 +1,29 @@
+# Build Stage
+FROM node:20-alpine AS build
+
+WORKDIR /usr/src/app
+
+COPY package.json package-lock.json ./
+RUN npm ci
+
+COPY . .
+RUN npm run build
+
+# Final Stage
+FROM node:20-alpine AS run
+WORKDIR /usr/src/app
+
+USER 1001:1001
+
+COPY --from=build --chown=1001:1001 usr/src/app/.next/standalone ./
+COPY --from=build --chown=1001:1001 usr/src/app/.next/static ./.next/static
+COPY --from=build --chown=1001:1001 usr/src/app/public ./public
+
+ENV NODE_ENV production
+ENV NEXT_PUBLIC_BASE_URL aniweeb.com
+ENV PORT 3000
+ENV HOSTNAME "0.0.0.0"
+ENV REDIS_HOST=${REDIS_HOST}
+ENV REDIS_PORT=${REDIS_PORT}
+
+CMD [ "node", "server.js" ]
