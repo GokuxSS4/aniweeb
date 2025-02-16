@@ -33,6 +33,17 @@ export const metadata: Metadata = {
   openGraph: {
     images: "/opengraph-image.png",
   },
+  keywords: [
+    "anime to watch",
+    "watch anime",
+    "anime online",
+    "free anime online",
+    "online anime",
+    "anime streaming",
+    "stream anime online",
+    "english anime",
+    "english dubbed anime",
+  ],
 };
 
 export default function RootLayout({
