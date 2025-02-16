@@ -10,6 +10,7 @@ import { VideoContainer } from "./VideoContainer";
 import { BsBadgeCc } from "react-icons/bs";
 import { MdMicNone } from "react-icons/md";
 import { ExpandableParagraphs } from "../common/ExpandableParagraph";
+import { VideoSettingsProvider } from "./VideoSettingsProvider";
 
 export function AnimeOverView({
   animeInfo,
@@ -93,12 +94,16 @@ export function WatchContainer({
   return (
     <div className="pt-6 flex gap-6 flex-col lg:flex-row lg:pt-24">
       <div className="flex-1 flex flex-col gap-6">
-        <VideoContainer
-          title={title as string}
-          isVideoSkeletonVisible={isVideoSkeletonVisible}
-          handleVideoSkeletonVisibilty={setIsVideoSkeletonVisible}
-          currentEpisode={currentEpisode as string}
-        />
+        <VideoSettingsProvider>
+          <VideoContainer
+            title={title as string}
+            isVideoSkeletonVisible={isVideoSkeletonVisible}
+            handleVideoSkeletonVisibilty={setIsVideoSkeletonVisible}
+            currentEpisode={currentEpisode as string}
+            animeEpisodes={animeEpisodes}
+            handleCurrentEpisode={setCurrentEpisode}
+          />
+        </VideoSettingsProvider>
       </div>
       <div className="w-full lg:w-1/4">
         <ListOfEpisodes

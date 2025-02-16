@@ -5,13 +5,17 @@ import React from "react";
 
 import { HiAnime } from "aniwatch";
 import { useEffect, useState } from "react";
-import { BsBadgeCc } from "react-icons/bs";
+import { BsBadgeCc, BsFileEarmark } from "react-icons/bs";
 import { MdMicNone } from "react-icons/md";
-import { BsFileEarmark } from "react-icons/bs";
+import { FaCheck } from "react-icons/fa6";
+import { RiCheckboxBlankFill } from "react-icons/ri";
+import { TbPlayerTrackPrev, TbPlayerTrackNext } from "react-icons/tb";
 import {
   VidstackDefaultPlayer,
   VidStackPlayerSkeleton,
 } from "./VidstackDefaultPlayer";
+
+import { useSettings } from "./VideoSettingsProvider";
 
 type ServerInfoType = {
   watchCategory: "sub" | "dub" | "raw";
@@ -49,11 +53,15 @@ export function VideoContainer({
   title,
   isVideoSkeletonVisible,
   handleVideoSkeletonVisibilty,
+  animeEpisodes,
+  handleCurrentEpisode,
 }: {
   currentEpisode: string;
   title: string;
   isVideoSkeletonVisible: boolean;
   handleVideoSkeletonVisibilty: (isVisible: boolean) => void;
+  animeEpisodes: HiAnime.ScrapedAnimeEpisodes;
+  handleCurrentEpisode: (episode: string) => void;
 }) {
   const [availableServers, setAvailableServers] =
     useState<HiAnime.ScrapedEpisodeServers | null>(null);
@@ -63,6 +71,73 @@ export function VideoContainer({
   const [serverResources, setServerResources] = useState<any | null>(null);
 
   const [isServerResourceError, setIsServerResourceError] = useState(false);
+
+  const [isCurrentVideoEnded, setIsCurrentVideoEnded] = useState(false);
+
+  const { settings, setSettings } = useSettings();
+  const { autoPlay, autoNext, autoSkip } = settings;
+
+  const toggleAutoPlay = () =>
+    setSettings({ ...settings, autoPlay: !autoPlay });
+  const toggleAutoNext = () =>
+    setSettings({ ...settings, autoNext: !autoNext });
+  const toggleAutoSkip = () =>
+    setSettings({ ...settings, autoSkip: !autoSkip });
+
+  const handlePrevEpisode = () => {
+    const { episodes } = animeEpisodes;
+    const firstEpisode = episodes[0]?.episodeId;
+
+    if (currentEpisode !== firstEpisode) {
+      const currentEpisodeIndex = episodes.findIndex(
+        (episode) => episode.episodeId === currentEpisode,
+      );
+
+      if (currentEpisodeIndex !== -1 && currentEpisodeIndex > 0) {
+        const previoudEpisodeId = episodes[currentEpisodeIndex - 1].episodeId;
+        if (previoudEpisodeId) {
+          handleCurrentEpisode(previoudEpisodeId);
+          setIsCurrentVideoEnded(false);
+          setServerResources(null);
+          handleVideoSkeletonVisibilty(true);
+        }
+      }
+    }
+  };
+
+  const handleNextEpisode = () => {
+    const { totalEpisodes, episodes } = animeEpisodes;
+    const lastEpisode = episodes[totalEpisodes - 1]?.episodeId;
+
+    if (currentEpisode !== lastEpisode) {
+      const currentEpisodeIndex = episodes.findIndex(
+        (episode) => episode.episodeId === currentEpisode,
+      );
+
+      if (
+        currentEpisodeIndex !== -1 &&
+        currentEpisodeIndex < totalEpisodes - 1
+      ) {
+        const nextEpisodeId = episodes[currentEpisodeIndex + 1].episodeId;
+        if (nextEpisodeId) {
+          handleCurrentEpisode(nextEpisodeId);
+          setIsCurrentVideoEnded(false);
+          setServerResources(null);
+          handleVideoSkeletonVisibilty(true);
+        }
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (
+      animeEpisodes &&
+      animeEpisodes.episodes?.length > 0 &&
+      isCurrentVideoEnded
+    ) {
+      handleNextEpisode();
+    }
+  }, [animeEpisodes, currentEpisode, isCurrentVideoEnded]);
 
   // Fetch Available Servers
   useEffect(() => {
@@ -135,22 +210,26 @@ export function VideoContainer({
         const resources = await response.json();
 
         if (!abortController.signal.aborted) {
-          const proxy_url =
-            process.env.NODE_ENV === "production"
-              ? "https://proxy.aniweeb.com"
-              : "https://hls_proxy:8080";
+          // const proxy_url =
+          //   process.env.NODE_ENV === "production"
+          //     ? "https://proxy.aniweeb.com"
+          //     : "https://hls_proxy:8080";
+
+          const proxy_url = "https://proxy.aniweeb.com";
 
           const file_extension = ".m3u8";
 
-          resources.sources = resources.sources
-            .filter((source: any) => source.type === "hls")
-            .map((source: any) => {
-              const encodedUrl = btoa(source.url);
-              return {
-                ...source,
-                url: `${proxy_url}/${encodedUrl}${file_extension}`,
-              };
-            });
+          if (process.env.NODE_ENV === "production") {
+            resources.sources = resources.sources
+              .filter((source: any) => source.type === "hls")
+              .map((source: any) => {
+                const encodedUrl = btoa(source.url);
+                return {
+                  ...source,
+                  url: `${proxy_url}/${encodedUrl}${file_extension}`,
+                };
+              });
+          }
 
           setServerResources(resources);
           handleVideoSkeletonVisibilty(false);
@@ -208,7 +287,7 @@ export function VideoContainer({
   );
 
   return (
-    <div className="w-full flex flex-col gap-6">
+    <div className="w-full flex flex-col">
       <div className="relative aspect-video w-full">
         {isServerResourceError ? (
           <div className="w-full h-full relative bg-gray-300">
@@ -225,6 +304,12 @@ export function VideoContainer({
               subtitleUrls={serverResources.tracks.filter(
                 (track: any) => track.kind === "captions",
               )}
+              introTiming={serverResources.intro}
+              outroTiming={serverResources.outro}
+              onVideoEnd={() => setIsCurrentVideoEnded(true)}
+              autoPlay={autoPlay}
+              autoNext={autoNext}
+              autoSkip={autoSkip}
             />
           </div>
         ) : (
@@ -234,7 +319,59 @@ export function VideoContainer({
         )}
       </div>
 
-      <div>
+      <div className="bg-[#0f0f11] flex flex-wrap gap-2 md:gap-4 px-2 py-1 mt-1 rounded-lg text-xs">
+        <button
+          className="flex items-center gap-1 text-white/50 hover:text-white transition-colors"
+          onClick={toggleAutoPlay}
+        >
+          {autoPlay ? (
+            <FaCheck className="text-blue-400 text-xs" />
+          ) : (
+            <RiCheckboxBlankFill className="text-xs" />
+          )}{" "}
+          Auto Play
+        </button>
+
+        <button
+          className="flex items-center gap-1 text-white/50 hover:text-white transition-colors"
+          onClick={toggleAutoSkip}
+        >
+          {autoSkip ? (
+            <FaCheck className="text-blue-400 text-xs" />
+          ) : (
+            <RiCheckboxBlankFill className="text-xs" />
+          )}{" "}
+          Auto Skip
+        </button>
+
+        <button
+          className="flex items-center gap-1 text-white/50 hover:text-white transition-colors"
+          onClick={toggleAutoNext}
+        >
+          {autoNext ? (
+            <FaCheck className="text-blue-400 text-xs" />
+          ) : (
+            <RiCheckboxBlankFill className="text-xs" />
+          )}{" "}
+          Auto Next
+        </button>
+
+        <button
+          className="flex items-center gap-1 text-white/50 hover:text-white transition-colors"
+          onClick={handlePrevEpisode}
+        >
+          <TbPlayerTrackPrev className="text-xs" /> Prev
+        </button>
+
+        <button
+          className="flex items-center gap-1 text-white/50 hover:text-white transition-colors"
+          onClick={handleNextEpisode}
+        >
+          <TbPlayerTrackNext className="text-xs" /> Next
+        </button>
+      </div>
+
+      <div className="">
         {availableServers !== null ? (
           <div className="bg-[rgb(15,14,15)] rounded-lg mt-4 overflow-hidden border border-gray-800">
             <div className="flex flex-col lg:flex-row">
@@ -280,7 +417,7 @@ export function VideoContainer({
             </div>
           </div>
         ) : (
-          <div className="rounded-lg mt-4  border border-gray-800 animate-pulse transform transition-transform duration-500 bg-gray-700">
+          <div className="rounded-lg mt-4 border border-gray-800 animate-pulse transform transition-transform duration-500 bg-gray-700">
             <div className="flex flex-col lg:flex-row">
               <div className="lg:w-[250px] p-6 bg-gray-900/50">
                 <div className="flex flex-col items-center text-center gap-2">
