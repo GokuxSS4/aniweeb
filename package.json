@@ -14,7 +14,7 @@
   "dependencies": {
     "@next/third-parties": "^15.1.6",
     "@types/react-slick": "^0.23.13",
-    "@vidstack/react": "next",
+    "@vidstack/react": "1.12.12",
     "@warren-bank/hls-proxy": "^3.5.4",
     "aniwatch": "^2.18.1",
     "hls.js": "^1.5.17",
