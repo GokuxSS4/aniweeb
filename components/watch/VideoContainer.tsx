@@ -22,32 +22,6 @@ type ServerInfoType = {
   serverName: HiAnime.AnimeServers;
 };
 
-function getFirstServer(
-  aniServer?: HiAnime.ScrapedEpisodeServers,
-): ServerInfoType | null {
-  if (!aniServer) return null;
-
-  if (aniServer.sub?.length) {
-    return {
-      watchCategory: "sub",
-      serverName: aniServer.sub[0].serverName as HiAnime.AnimeServers,
-    };
-  }
-  if (aniServer.dub?.length) {
-    return {
-      watchCategory: "dub",
-      serverName: aniServer.dub[0].serverName as HiAnime.AnimeServers,
-    };
-  }
-  if (aniServer.raw?.length) {
-    return {
-      watchCategory: "raw",
-      serverName: aniServer.raw[0].serverName as HiAnime.AnimeServers,
-    };
-  }
-  return null;
-}
-
 export function VideoContainer({
   currentEpisode,
   title,
@@ -129,6 +103,42 @@ export function VideoContainer({
     }
   };
 
+  function getFirstServer(
+    aniServer?: HiAnime.ScrapedEpisodeServers,
+    category?: "sub" | "dub" | "raw",
+  ): ServerInfoType | null {
+    if (!aniServer) return null;
+
+    if (category) {
+      if (aniServer[category]?.length) {
+        return {
+          watchCategory: category,
+          serverName: aniServer[category][0].serverName as HiAnime.AnimeServers,
+        };
+      }
+    }
+
+    if (aniServer.sub?.length) {
+      return {
+        watchCategory: "sub",
+        serverName: aniServer.sub[0].serverName as HiAnime.AnimeServers,
+      };
+    }
+    if (aniServer.dub?.length) {
+      return {
+        watchCategory: "dub",
+        serverName: aniServer.dub[0].serverName as HiAnime.AnimeServers,
+      };
+    }
+    if (aniServer.raw?.length) {
+      return {
+        watchCategory: "raw",
+        serverName: aniServer.raw[0].serverName as HiAnime.AnimeServers,
+      };
+    }
+    return null;
+  }
+
   useEffect(() => {
     if (
       animeEpisodes &&
@@ -178,7 +188,10 @@ export function VideoContainer({
   // Select Initial Server
   useEffect(() => {
     if (availableServers) {
-      const initialServer = getFirstServer(availableServers);
+      const initialServer = getFirstServer(
+        availableServers,
+        settings.defaultLanguage,
+      );
       setSelectedServer(initialServer);
     }
   }, [availableServers]);
@@ -275,6 +288,7 @@ export function VideoContainer({
                 watchCategory: category,
                 serverName: server.serverName as HiAnime.AnimeServers,
               });
+              setSettings({ ...settings, defaultLanguage: category });
               setServerResources(null);
               setIsServerResourceError(false);
             }}

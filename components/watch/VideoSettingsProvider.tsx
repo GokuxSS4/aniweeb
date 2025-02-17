@@ -8,12 +8,14 @@ import React, {
   ReactNode,
 } from "react";
 
+type DefaultLanguageType = "sub" | "dub" | "raw";
+
 interface VideoSettingsContextType {
   settings: {
     autoSkip: boolean;
     autoPlay: boolean;
     autoNext: boolean;
-    defaultLanguage: string;
+    defaultLanguage: DefaultLanguageType;
   };
   setSettings: (
     settings: Partial<VideoSettingsContextType["settings"]>,
@@ -39,11 +41,14 @@ interface VideoSettingsProviderProps {
 export const VideoSettingsProvider: React.FC<VideoSettingsProviderProps> = ({
   children,
 }) => {
-  const [settings, setSettingsState] = useState({
+  const [settings, setSettingsState] = useState<
+    VideoSettingsContextType["settings"]
+  >({
     autoSkip: localStorage.getItem("autoSkip") === "true",
     autoPlay: localStorage.getItem("autoPlay") === "true",
     autoNext: localStorage.getItem("autoNext") === "true",
-    defaultLanguage: localStorage.getItem("defaultLanguage") || "sub",
+    defaultLanguage:
+      (localStorage.getItem("defaultLanguage") as DefaultLanguageType) || "sub",
   });
 
   useEffect(() => {
