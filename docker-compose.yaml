@@ -19,8 +19,6 @@ services:
     image: redis
     container_name: redis
     restart: always
-    ports:
-      - "6379:6379"
     volumes:
       - redis_data:/data
     entrypoint: ["redis-server", "--appendonly", "yes"]
@@ -36,7 +34,7 @@ services:
       dockerfile: Dockerfile.hls_proxy.dev
     container_name: hls_proxy
     ports:
-      - "8080:8080"
+      - "8008:8080"
     healthcheck:
       test: ["CMD", "hlsd","--help"]
       interval: 10s
