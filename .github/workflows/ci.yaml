@@ -44,11 +44,6 @@ jobs:
           REPO_NAME_LOWER=$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]')
           docker build -f Dockerfile.app.prod -t ghcr.io/$REPO_NAME_LOWER/app-prod:${{ needs.linting-and-formatting.outputs.short_commit_hash }} .
           docker push ghcr.io/$REPO_NAME_LOWER/app-prod:${{ needs.linting-and-formatting.outputs.short_commit_hash }}
-      - name: Build and Push hls_proxy Image
-        run: |
-          REPO_NAME_LOWER=$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]')
-          docker build -f Dockerfile.hls_proxy.prod -t ghcr.io/$REPO_NAME_LOWER/hls-proxy:${{ needs.linting-and-formatting.outputs.short_commit_hash }} .
-          docker push ghcr.io/$REPO_NAME_LOWER/hls-proxy:${{ needs.linting-and-formatting.outputs.short_commit_hash }}
 
   update-infra:
     name: Update the infra with new Docker images
@@ -72,8 +67,6 @@ jobs:
           REPO_NAME_LOWER=$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]')
           # Update app deployment
           sed -i "s|image: ghcr.io/.*/app-prod:.*|image: ghcr.io/$REPO_NAME_LOWER/app-prod:${{ needs.linting-and-formatting.outputs.short_commit_hash }}|g" k8s/app/deployment.yaml
-          # Update hls-proxy deployment
-          sed -i "s|image: ghcr.io/.*/hls-proxy:.*|image: ghcr.io/$REPO_NAME_LOWER/hls-proxy:${{ needs.linting-and-formatting.outputs.short_commit_hash }}|g" k8s/hls-proxy/deployment.yaml
       - name: Configure Git
         run: |
           cd infra-repo
@@ -82,6 +75,6 @@ jobs:
       - name: Commit and Push Changes
         run: |
           cd infra-repo
-          git add k8s/app/deployment.yaml k8s/hls-proxy/deployment.yaml
+          git add k8s/app/deployment.yaml 
           git commit -m "Update deployment images to ${{ needs.linting-and-formatting.outputs.short_commit_hash }}"
           git push
