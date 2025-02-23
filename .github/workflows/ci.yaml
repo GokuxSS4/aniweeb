@@ -61,11 +61,15 @@ jobs:
           repository: ${{ github.actor }}/aniweeb_infra
           token: ${{ secrets.INFRA_REPO_PAT }}
           path: infra-repo
-      - name: Update Deployment Manifests
+      - name: Update Docker Stack and K8s Manifests
         run: |
           cd infra-repo
           REPO_NAME_LOWER=$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]')
-          # Update app deployment
+          
+          # Update Docker Swarm manifest
+          sed -i "s|image: ghcr.io/.*/app-prod:.*|image: ghcr.io/$REPO_NAME_LOWER/app-prod:${{ needs.linting-and-formatting.outputs.short_commit_hash }}|g" docker/docker-stack.yaml 
+          
+          # Update Kubernetes manifest
           sed -i "s|image: ghcr.io/.*/app-prod:.*|image: ghcr.io/$REPO_NAME_LOWER/app-prod:${{ needs.linting-and-formatting.outputs.short_commit_hash }}|g" k8s/app/deployment.yaml
       - name: Configure Git
         run: |
@@ -75,6 +79,6 @@ jobs:
       - name: Commit and Push Changes
         run: |
           cd infra-repo
-          git add k8s/app/deployment.yaml 
-          git commit -m "Update deployment images to ${{ needs.linting-and-formatting.outputs.short_commit_hash }}"
+          git add docker/docker-stack.yaml k8s/app/deployment.yaml
+          git commit -m "Updated APP Image to ${{ needs.linting-and-formatting.outputs.short_commit_hash }}"
           git push
