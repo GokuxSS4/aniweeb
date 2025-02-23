@@ -3,7 +3,7 @@ import Image from "next/image";
 
 import { FaDiscord } from "react-icons/fa";
 import { FaReddit } from "react-icons/fa";
-import { FaXTwitter } from "react-icons/fa6";
+// import { FaXTwitter } from "react-icons/fa6";
 import { FaCopyright } from "react-icons/fa";
 
 export function Footer() {
@@ -60,9 +60,9 @@ export function Footer() {
             <button className="text-gray-400 hover:text-white transition-colors">
               <FaReddit className="w-6 h-6" />
             </button>
-            <button className="text-gray-400 hover:text-white transition-colors">
+            {/* <button className="text-gray-400 hover:text-white transition-colors">
               <FaXTwitter className="w-6 h-6" />
-            </button>
+            </button> */}
           </div>
         </div>
       </div>
