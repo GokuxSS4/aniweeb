@@ -13,11 +13,12 @@ import Image from "next/image";
 
 interface AnimeItemProps {
   anime: HiAnime.AnimeSearchSuggestion;
+  onClear: () => void;
 }
 
-function AnimeItem({ anime }: AnimeItemProps) {
+function AnimeItem({ anime, onClear }: AnimeItemProps) {
   return (
-    <Link href={`details?animeId=${anime.id}`}>
+    <Link href={`details?animeId=${anime.id}`} onClick={onClear}>
       <div className="flex items-start gap-3 p-3  hover:bg-slate-800/50 transition-colors cursor-pointer border-b border-white-20">
         <div className="flex-shrink-0 w-[50px] aspect-[2/3] ">
           <Image
@@ -109,7 +110,7 @@ export function SearchBar({ isCompitable }: { isCompitable: boolean }) {
         <div className="absolute w-full z-60">
           <div className="w-full bg-black border border-white-20">
             {suggestedAnimes.map((anime) => (
-              <AnimeItem key={anime.id} anime={anime} />
+              <AnimeItem key={anime.id} anime={anime} onClear={clearSearch} />
             ))}
           </div>
           <Link href={`/search?keyword=${searchAnime}`}>

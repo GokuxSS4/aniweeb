@@ -2,11 +2,11 @@
 import { useState, useEffect, useRef } from "react";
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
 
-export function ExpandableParagraphs({
-  paragraphs,
+export function ExpandableAnimeDescription({
+  animeDescription,
   maxHeight = 100,
 }: {
-  paragraphs: string[];
+  animeDescription: string;
   maxHeight: number;
 }) {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -42,11 +42,7 @@ export function ExpandableParagraphs({
           maxHeight: !isExpanded && showButton ? `${maxHeight}px` : "none",
         }}
       >
-        {paragraphs.map((paragraph: string, index: number) => (
-          <p key={index} className="mb-3">
-            {paragraph}
-          </p>
-        ))}
+        <p className="mb-3">{animeDescription}</p>
       </div>
 
       {showButton && (

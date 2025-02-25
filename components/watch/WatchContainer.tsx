@@ -9,7 +9,7 @@ import { VideoContainer } from "./VideoContainer";
 
 import { BsBadgeCc } from "react-icons/bs";
 import { MdMicNone } from "react-icons/md";
-import { ExpandableParagraphs } from "../common/ExpandableParagraph";
+import { ExpandableAnimeDescription } from "../common/ExpandableAnimeDescription";
 import { VideoSettingsProvider } from "./VideoSettingsProvider";
 import { getInRecentWatches, setInRecentWatches } from "@/utils/helper";
 
@@ -63,8 +63,10 @@ export function AnimeOverView({
         </div>
         <div className="flex flex-col ">
           {animeInfo.info.description && (
-            <ExpandableParagraphs
-              paragraphs={animeInfo.info.description.split("\n\n")}
+            <ExpandableAnimeDescription
+              animeDescription={animeInfo.info.description
+                .split("\n\n")
+                .join("")}
               maxHeight={70}
             />
           )}

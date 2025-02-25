@@ -6,7 +6,7 @@ import { BsBadgeCc } from "react-icons/bs";
 import { FaRegPlayCircle } from "react-icons/fa";
 import { MdMicNone } from "react-icons/md";
 
-import { ExpandableParagraphs } from "@/components/common/ExpandableParagraph";
+import { ExpandableAnimeDescription } from "@/components/common/ExpandableAnimeDescription";
 
 function formatText(text: string | string[]) {
   if (typeof text === "string") return text;
@@ -98,8 +98,10 @@ export function Overview({
         <h3 className="text-2xl font-semibold">Overview</h3>
         <div className="flex flex-col gap-8">
           {animeInfo.info.description && (
-            <ExpandableParagraphs
-              paragraphs={animeInfo.info.description.split("\n\n")}
+            <ExpandableAnimeDescription
+              animeDescription={animeInfo.info.description
+                .split("\n\n")
+                .join(" ")}
               maxHeight={70}
             />
           )}
