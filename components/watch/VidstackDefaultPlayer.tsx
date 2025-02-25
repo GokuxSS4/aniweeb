@@ -52,10 +52,9 @@ function SkipButton({
       className={`
         ${isIntroSkipped ? "block" : "hidden"}
         z-20 absolute right-[2%] bottom-[15%]
-        text-black px-4 py-2 rounded-lg
-        overflow-hidden
-        bg-white/60 hover:bg-white
-        transition-colors duration-300
+        text-white px-4 py-2 rounded-lg
+        overflow-hidden font-bold
+        bg-white/10 hover:bg-white/30 
         border-1 border-white
       `}
     >
@@ -100,6 +99,14 @@ export function VidstackDefaultPlayer({
 
   function handleTimeUpdate(detail: MediaTimeUpdateEventDetail) {
     const currentTime = detail.currentTime;
+
+    if (introTiming.start === 0 && introTiming.end === 0) {
+      return;
+    }
+
+    if (outroTiming.start === 0 && outroTiming.end === 0) {
+      return;
+    }
 
     if (currentTime >= introTiming.start && currentTime <= introTiming.end) {
       setIsSkippedButtonVisible(true);
@@ -207,9 +214,9 @@ export function VidstackDefaultPlayer({
         className={`
         ${isVideoComingToEnd ? "block" : "hidden"}
         z-20 absolute right-[2%] bottom-[15%]
-        text-black px-4 py-2 rounded-lg
-        overflow-hidden
-        bg-white/60 hover:bg-white
+       text-white px-4 py-2 rounded-lg
+        overflow-hidden font-bold
+        bg-white/10 hover:bg-white/30 
         transition-colors duration-300
         border-1 border-white
       `}

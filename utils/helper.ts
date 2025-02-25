@@ -8,3 +8,32 @@ export function getUniqueAnimes(arr: any) {
     return true;
   });
 }
+
+export function setInRecentWatches(
+  currentEpisode: string,
+  animeID: string,
+): void {
+  let recentWatchAnimes: string[] = JSON.parse(
+    localStorage.getItem("recentWatchAnimes") || "[]",
+  );
+
+  recentWatchAnimes = recentWatchAnimes.filter(
+    (anime) => !anime.startsWith(animeID),
+  );
+
+  recentWatchAnimes.push(currentEpisode);
+
+  if (recentWatchAnimes.length > 15) {
+    recentWatchAnimes.shift();
+  }
+
+  localStorage.setItem("recentWatchAnimes", JSON.stringify(recentWatchAnimes));
+}
+
+export function getInRecentWatches(animeID: string): string | null {
+  const recentWatchAnimes: string[] = JSON.parse(
+    localStorage.getItem("recentWatchAnimes") || "[]",
+  );
+
+  return recentWatchAnimes.find((id) => id.startsWith(animeID)) || null;
+}

@@ -48,7 +48,7 @@ export default async function WatchAnime({
 
   return (
     <div className="w-[90%] mx-auto text-white ">
-      <WatchContainer animeEpisodes={animeEpisodes} />
+      <WatchContainer animeEpisodes={animeEpisodes} animeId={params.animeId} />
       <AnimeOverView animeInfo={animeDetails.anime} />
 
       <LeadCharacters

@@ -42,7 +42,18 @@ export function ListOfEpisodes({
     animeEpisodes.episodes,
   );
   const episodesCategory = Object.keys(listOfEpisodes);
-  const [selectedCategory, setSelectedCategory] = useState(episodesCategory[0]);
+
+  const currentEpisodeNumber = animeEpisodes.episodes.findIndex(
+    (episode) => episode.episodeId === currentEpisode,
+  );
+  const currentCategoryIndex = parseInt(
+    (currentEpisodeNumber / 100).toString(),
+    10,
+  );
+
+  const [selectedCategory, setSelectedCategory] = useState(
+    episodesCategory[currentCategoryIndex],
+  );
 
   return (
     <div className="flex flex-col gap-3 border-2 border-white-10 p-2 rounded-lg">

@@ -11,6 +11,7 @@ import { BsBadgeCc } from "react-icons/bs";
 import { MdMicNone } from "react-icons/md";
 import { ExpandableParagraphs } from "../common/ExpandableParagraph";
 import { VideoSettingsProvider } from "./VideoSettingsProvider";
+import { getInRecentWatches, setInRecentWatches } from "@/utils/helper";
 
 export function AnimeOverView({
   animeInfo,
@@ -75,11 +76,13 @@ export function AnimeOverView({
 
 export function WatchContainer({
   animeEpisodes,
+  animeId,
 }: {
   animeEpisodes: HiAnime.ScrapedAnimeEpisodes;
+  animeId: string;
 }) {
   const [currentEpisode, setCurrentEpisode] = useState(
-    animeEpisodes.episodes[0].episodeId,
+    getInRecentWatches(animeId) || animeEpisodes.episodes[0].episodeId,
   );
   const [title, setTitle] = useState(animeEpisodes.episodes[0].title);
 
@@ -89,6 +92,7 @@ export function WatchContainer({
 
   useEffect(() => {
     router.push(currentEpisode as string);
+    setInRecentWatches(currentEpisode as string, animeId);
   }, [currentEpisode]);
 
   return (
