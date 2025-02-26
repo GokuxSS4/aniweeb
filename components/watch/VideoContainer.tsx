@@ -24,14 +24,12 @@ type ServerInfoType = {
 
 export function VideoContainer({
   currentEpisode,
-  title,
   isVideoSkeletonVisible,
   handleVideoSkeletonVisibilty,
   animeEpisodes,
   handleCurrentEpisode,
 }: {
   currentEpisode: string;
-  title: string;
   isVideoSkeletonVisible: boolean;
   handleVideoSkeletonVisibilty: (isVisible: boolean) => void;
   animeEpisodes: HiAnime.ScrapedAnimeEpisodes;
@@ -50,6 +48,10 @@ export function VideoContainer({
 
   const { settings, setSettings } = useSettings();
   const { autoPlay, autoNext, autoSkip } = settings;
+
+  const title = animeEpisodes.episodes.find(
+    (episode) => episode.episodeId === currentEpisode,
+  )?.title;
 
   const toggleAutoPlay = () =>
     setSettings({ ...settings, autoPlay: !autoPlay });
@@ -313,7 +315,7 @@ export function VideoContainer({
         ) : serverResources && !isVideoSkeletonVisible ? (
           <div className="w-full h-full">
             <VidstackDefaultPlayer
-              title={title}
+              title={title || ""}
               videoUrl={serverResources.sources[0].url}
               subtitleUrls={serverResources.tracks.filter(
                 (track: any) => track.kind === "captions",

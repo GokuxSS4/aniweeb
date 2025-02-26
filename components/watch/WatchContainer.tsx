@@ -86,7 +86,6 @@ export function WatchContainer({
   const [currentEpisode, setCurrentEpisode] = useState(
     getInRecentWatches(animeId) || animeEpisodes.episodes[0].episodeId,
   );
-  const [title, setTitle] = useState(animeEpisodes.episodes[0].title);
 
   const [isVideoSkeletonVisible, setIsVideoSkeletonVisible] = useState(true);
 
@@ -102,7 +101,6 @@ export function WatchContainer({
       <div className="flex-1 flex flex-col gap-6">
         <VideoSettingsProvider>
           <VideoContainer
-            title={title as string}
             isVideoSkeletonVisible={isVideoSkeletonVisible}
             handleVideoSkeletonVisibilty={setIsVideoSkeletonVisible}
             currentEpisode={currentEpisode as string}
@@ -117,7 +115,6 @@ export function WatchContainer({
           currentEpisode={currentEpisode as string}
           handleCurrentEpisode={setCurrentEpisode}
           handleVideoSkeletonVisibilty={setIsVideoSkeletonVisible}
-          handleTitle={setTitle}
         />
       </div>
     </div>

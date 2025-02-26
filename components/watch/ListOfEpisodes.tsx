@@ -27,13 +27,11 @@ export function ListOfEpisodes({
   animeEpisodes,
   currentEpisode,
   handleCurrentEpisode,
-  handleTitle,
   handleVideoSkeletonVisibilty,
 }: {
   animeEpisodes: HiAnime.ScrapedAnimeEpisodes;
   currentEpisode: string;
   handleCurrentEpisode: (episode: string) => void;
-  handleTitle: (title: string) => void;
   handleVideoSkeletonVisibilty: (isVisible: boolean) => void;
 }) {
   const totlaEpisodes = animeEpisodes.totalEpisodes;
@@ -80,7 +78,6 @@ export function ListOfEpisodes({
               }`}
               onClick={() => {
                 handleCurrentEpisode(episode.episodeId as string);
-                handleTitle(episode.title as string);
                 handleVideoSkeletonVisibilty(true);
               }}
             >
