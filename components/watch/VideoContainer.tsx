@@ -304,16 +304,16 @@ export function VideoContainer({
 
   return (
     <div className="w-full flex flex-col">
-      <div className="relative aspect-video w-full">
+      <div className="relative aspect-video w-full mb-2 rounded-lg">
         {isServerResourceError ? (
-          <div className="w-full h-full relative bg-gray-300">
+          <div className="w-full h-full relative bg-gray-300 rounded-lg border border-white/20">
             <p className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center text-black">
               Failed to retrieve
             </p>
             <VidStackPlayerSkeleton />
           </div>
         ) : serverResources && !isVideoSkeletonVisible ? (
-          <div className="w-full h-full">
+          <div className="w-full h-full border border-white/20 rounded-lg">
             <VidstackDefaultPlayer
               title={title || ""}
               videoUrl={serverResources.sources[0].url}
@@ -329,13 +329,13 @@ export function VideoContainer({
             />
           </div>
         ) : (
-          <div className="w-full h-full animate-pulse bg-gray-700 rounded-lg">
+          <div className="w-full h-full animate-pulse bg-gray-700 rounded-lg border border-white/20">
             <VidStackPlayerSkeleton />
           </div>
         )}
       </div>
 
-      <div className="bg-[#0f0f11] flex flex-wrap gap-2 md:gap-4 px-2 py-1 mt-1 rounded-lg text-xs">
+      <div className="bg-[#0f0f11] flex flex-wrap gap-2 md:gap-4 px-2 py-1 rounded-lg text-xs border border-white/20">
         <button
           className="flex items-center gap-1 text-white/50 hover:text-white transition-colors"
           onClick={toggleAutoPlay}
@@ -389,7 +389,7 @@ export function VideoContainer({
 
       <div className="">
         {availableServers !== null ? (
-          <div className="bg-[rgb(15,14,15)] rounded-lg mt-4 overflow-hidden border border-gray-800">
+          <div className="bg-[rgb(15,14,15)] rounded-lg mt-4 overflow-hidden border border-white/20">
             <div className="flex flex-col lg:flex-row">
               <div className="lg:w-[250px] p-6 bg-gray-900/50">
                 <div className="flex flex-col items-center text-center gap-2">

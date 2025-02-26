@@ -28,7 +28,11 @@ type IntroOutroType = {
 
 export function VidStackPlayerSkeleton() {
   return (
-    <MediaPlayer title="" src={""}>
+    <MediaPlayer
+      className="w-full h-full player relative z-10"
+      viewType="video"
+      aspectRatio="16/9"
+    >
       <MediaProvider />
     </MediaPlayer>
   );
@@ -55,7 +59,6 @@ function SkipButton({
         text-white px-4 py-2 rounded-lg
         overflow-hidden font-bold
         bg-white/10 hover:bg-white/30 
-        border-1 border-white
       `}
     >
       <span className="relative z-10 font-bold">
@@ -162,7 +165,7 @@ export function VidstackDefaultPlayer({
       ref={player}
       title={title}
       autoPlay={autoPlay}
-      className="player relative z-10 border-2 border-white-10 rounded-lg"
+      className="player w-full h-full relative z-10"
       src={videoUrl}
       viewType="video"
       crossOrigin
@@ -190,7 +193,6 @@ export function VidstackDefaultPlayer({
       <DefaultVideoLayout
         icons={defaultLayoutIcons}
         noGestures={false}
-        download={true}
         slots={{
           afterCaptionButton: (
             <SeekButton seconds={-10} className="vds-button">

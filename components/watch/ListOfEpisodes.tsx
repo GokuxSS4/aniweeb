@@ -54,12 +54,12 @@ export function ListOfEpisodes({
   );
 
   return (
-    <div className="flex flex-col gap-3 border-2 border-white-10 p-2 rounded-lg">
+    <div className="flex flex-col gap-3 border border-white/20 p-2 rounded-lg">
       <div className="relative inline-block text-left">
         <select
           value={selectedCategory}
           onChange={(e) => setSelectedCategory(e.target.value)}
-          className="block w-[50%] bg-[#0f0f11] border border-300 rounded-md shadow-sm px-1 py-1 text-base font-medium text-white focus:outline-none"
+          className="block w-[50%] bg-[#0f0f11] border border-white/20 rounded-md shadow-sm px-1 py-1 text-base font-medium text-white focus:outline-none"
         >
           {episodesCategory.map((episode, index) => (
             <option key={index} value={episode}>
