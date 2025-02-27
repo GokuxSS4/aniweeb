@@ -165,7 +165,7 @@ export function VidstackDefaultPlayer({
       ref={player}
       title={title}
       autoPlay={autoPlay}
-      className="player w-full h-full relative z-10"
+      className="player flex-grow relative z-10"
       src={videoUrl}
       viewType="video"
       crossOrigin

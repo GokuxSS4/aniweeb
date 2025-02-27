@@ -313,7 +313,7 @@ export function VideoContainer({
             <VidStackPlayerSkeleton />
           </div>
         ) : serverResources && !isVideoSkeletonVisible ? (
-          <div className="w-full h-full border border-white/20 rounded-lg">
+          <div className="w-full h-full flex border border-white/20 rounded-lg">
             <VidstackDefaultPlayer
               title={title || ""}
               videoUrl={serverResources.sources[0].url}
