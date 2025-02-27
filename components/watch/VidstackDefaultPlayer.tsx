@@ -29,7 +29,7 @@ type IntroOutroType = {
 export function VidStackPlayerSkeleton() {
   return (
     <MediaPlayer
-      className="w-full h-full player relative z-10"
+      className="w-full h-full flex-grow player relative z-10"
       viewType="video"
       aspectRatio="16/9"
     >
@@ -165,7 +165,7 @@ export function VidstackDefaultPlayer({
       ref={player}
       title={title}
       autoPlay={autoPlay}
-      className="player flex-grow relative z-10"
+      className="player flex-grow w-full h-full relative z-10"
       src={videoUrl}
       viewType="video"
       crossOrigin

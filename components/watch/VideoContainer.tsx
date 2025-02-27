@@ -329,7 +329,7 @@ export function VideoContainer({
             />
           </div>
         ) : (
-          <div className="w-full h-full animate-pulse bg-gray-700 rounded-lg border border-white/20">
+          <div className="w-full h-full  flex animate-pulse bg-gray-700 rounded-lg border border-white/20">
             <VidStackPlayerSkeleton />
           </div>
         )}
