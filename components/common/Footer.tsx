@@ -48,8 +48,7 @@ export function Footer() {
             <p>Aniweeb</p>
             <span className="mx-2">|</span>
             <p>
-              Website Made by{" "}
-              <span className="text-white font-semibold">GokuxSS4</span>
+              Made by <span className="text-white font-semibold">GokuxSS4</span>
             </p>
           </div>
 

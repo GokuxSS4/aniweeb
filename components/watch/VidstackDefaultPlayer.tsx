@@ -103,15 +103,10 @@ export function VidstackDefaultPlayer({
   function handleTimeUpdate(detail: MediaTimeUpdateEventDetail) {
     const currentTime = detail.currentTime;
 
-    if (introTiming.start === 0 && introTiming.end === 0) {
-      return;
-    }
-
-    if (outroTiming.start === 0 && outroTiming.end === 0) {
-      return;
-    }
-
     if (currentTime >= introTiming.start && currentTime <= introTiming.end) {
+      if (introTiming.start === 0 && introTiming.end === 0) {
+        return;
+      }
       setIsSkippedButtonVisible(true);
       setSkippedCategory("intro");
       if (autoSkip) {
@@ -123,6 +118,9 @@ export function VidstackDefaultPlayer({
       currentTime >= outroTiming.start &&
       currentTime <= outroTiming.end
     ) {
+      if (outroTiming.start === 0 && outroTiming.end === 0) {
+        return;
+      }
       setIsSkippedButtonVisible(true);
       setSkippedCategory("outro");
       if (autoSkip) {
