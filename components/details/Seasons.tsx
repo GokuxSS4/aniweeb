@@ -19,7 +19,7 @@ function SeasonItem({ anime }: { anime: AnimeSeasonType }) {
           alt={anime.name || ""}
           fill
           className="h-full w-full object-cover brightness-50"
-          loading="lazy"
+          // loading="lazy"
         />
 
         <div className="h-full absolute top-[5%] left-[5%] w-[90%] mx-auto flex flex-col justify-center items-start">
