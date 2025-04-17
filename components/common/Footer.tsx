@@ -4,7 +4,7 @@ import Image from "next/image";
 import { FaDiscord } from "react-icons/fa";
 import { FaReddit } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
-import { FaCopyright } from "react-icons/fa";
+import Link from "next/link";
 
 export function Footer() {
   return (
@@ -28,11 +28,14 @@ export function Footer() {
           </div>
 
           <div className="flex flex-row gap-4 md:flex-col md:gap-2 items-start justify-center">
+            <Link
+              href={"/disclaimer"}
+              className="text-gray-400 hover:text-white transition-colors"
+            >
+              Disclaimer
+            </Link>
             <button className="text-gray-400 hover:text-white transition-colors">
-              Donate &lt;3
-            </button>
-            <button className="text-gray-400 hover:text-white transition-colors">
-              DMCA
+              Contact Us
             </button>
             <button className="text-gray-400 hover:text-white transition-colors">
               Terms and Conditions
@@ -44,7 +47,6 @@ export function Footer() {
 
         <div className="flex flex-col md:flex-row justify-between items-center gap-4">
           <div className="flex items-center gap-2 text-sm text-gray-400">
-            <FaCopyright className="text-gray-400" />
             <p>Aniweeb</p>
             <span className="mx-2">|</span>
             <p>
