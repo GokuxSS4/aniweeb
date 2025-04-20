@@ -295,7 +295,7 @@ export function VideoContainer({
               setIsServerResourceError(false);
             }}
           >
-            {server.serverName}
+            {server.showServerName}
           </button>
         ))}
       </div>

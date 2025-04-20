@@ -1,5 +1,3 @@
-"use client";
-
 export default function Disclaimer() {
   return (
     <div className="flex flex-col min-h-screen">
