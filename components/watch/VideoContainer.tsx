@@ -225,11 +225,6 @@ export function VideoContainer({
         const resources = await response.json();
 
         if (!abortController.signal.aborted) {
-          // const proxy_url =
-          //   process.env.NODE_ENV === "production"
-          //     ? "https://proxy.aniweeb.com"
-          //     : "https://hls_proxy:8080";
-
           const proxy_url = "https://proxy.aniweeb.com";
 
           const file_extension = ".m3u8";

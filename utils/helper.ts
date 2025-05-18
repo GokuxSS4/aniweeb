@@ -42,22 +42,26 @@ export function getInRecentWatches(animeID: string): string | null {
 
 export function transformServerData(data: HiAnime.ScrapedEpisodeServers) {
   const updateAndSort = (arr: any[]) => {
-    return arr
+    const transformed = arr
       .map((server) => {
         if (server.serverName === "hd-2") {
           return { ...server, showServerName: "hd-1" };
         } else if (server.serverName === "hd-1") {
           return { ...server, showServerName: "hd-2" };
+        } else if (server.serverName === "hd-3") {
+          return { ...server, showServerName: "hd-3" };
         }
-        return server;
+        return undefined;
       })
-      .sort((a, b) => {
-        const order = { "hd-1": 0, "hd-2": 1 };
-        return (
-          order[a.showServerName as keyof typeof order] -
-          order[b.showServerName as keyof typeof order]
-        );
-      });
+      .filter(Boolean); // remove undefined
+
+    return transformed.sort((a, b) => {
+      const order = { "hd-1": 0, "hd-2": 1, "hd-3": 2 };
+      return (
+        order[a.showServerName as keyof typeof order] -
+        order[b.showServerName as keyof typeof order]
+      );
+    });
   };
 
   return {
